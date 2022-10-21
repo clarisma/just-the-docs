@@ -17,10 +17,10 @@ title: GeoDesk Documentation
 logo: img/logo2.png
 main_site: http://www.geodesk.com
 description: Fast and storage-efficient spatial database engine for OpenStreetMap features
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs.geodesk.com" # the base hostname & protocol for your site, e.g. http://example.com
 
-permalink: pretty
+permalink: /:title
 
 exclude:
  # from https://github.com/jekyll/jekyll/blob/master/lib/site_template/_config.yml:

@@ -1,3 +1,12 @@
+GeoDesk Documentation
+
+(C) 2022 GeoDesk
+
+Website theme based on "Just the Docs" by Patrick Marsceill.
+https://github.com/just-the-docs/just-the-docs
+
+"Just the Docs" is licensed as follows:
+
 The MIT License (MIT)
 
 Copyright (c) 2016 Patrick Marsceill

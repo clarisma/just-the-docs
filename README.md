@@ -1,84 +1,113 @@
-<p align="right">
-    <a href="https://badge.fury.io/rb/just-the-docs"><img src="https://badge.fury.io/rb/just-the-docs.svg" alt="Gem version"></a> <a href="https://github.com/just-the-docs/just-the-docs/actions/workflows/ci.yml"><img src="https://github.com/just-the-docs/just-the-docs/actions/workflows/ci.yml/badge.svg" alt="CI Build status"></a> <a href="https://app.netlify.com/sites/just-the-docs/deploys"><img src="https://api.netlify.com/api/v1/badges/9dc0386d-c2a4-4077-ad83-f02c33a6c0ca/deploy-status" alt="Netlify Status"></a>
-</p>
-<br><br>
-<p align="center">
-    <h1 align="center">Just the Docs</h1>
-    <p align="center">A modern, highly customizable, and responsive Jekyll theme for documentation with built-in search.<br>Easily hosted on GitHub Pages with few dependencies.</p>
-    <p align="center"><strong><a href="https://just-the-docs.github.io/just-the-docs/">See it in action!</a></strong></p>
-    <br><br><br>
-</p>
+<img src="https://docs.geodesk.com/logo2.png#gh-light-mode-only" width="30%">
 
-![jtd](https://user-images.githubusercontent.com/896475/47384541-89053c80-d6d5-11e8-98dc-dba16e192de9.gif)
+![GeoDesk](https://docs.geodesk.com/logo2.png#gh-light-mode-only)
 
-## Installation
+GeoDesk is a fast and storage-efficient geospatial database for OpenStreetMap data.
 
-### via GitHub Pages remote theme
+## Why GeoDesk?
 
-The quickiest way to use Just The Docs is to use GitHub pages [remote theme](https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/) feature in your `_config.yml` file:
+- **Small storage footprint** &mdash; GeoDesk's GOL files are only 20% to 50% larger than the original OSM data in PBF format &mdash; that's less than a tenth of the storage consumed by a traditional SQL-based database.
 
-```yaml
-remote_theme: just-the-docs/just-the-docs
-```
-### via RubyGems:
+- **Fast queries** &mdash; typically 50 times faster than SQL. 
 
-Alternatively you can install it as a Ruby Gem.
+- **Fast to get started** &mdash; Converting `.osm.pbf` data to a GOL is 20 times faster than an import into an SQL database. Alternatively, download pre-made data tiles for just the regions you need and automatically assemble them into a GOL.
 
-Add this line to your Jekyll site's Gemfile:
+- **Intuitive API** &mdash; No need for object-relational mapping; GeoDesk queries return `Node`, `Way` and `Relation` objects. Quickly discover tags, way-nodes and relation members. Get a feature's `Geometry`, measure its length/area. 
+ 
+- **Proper handling of relations** &mdash; (Traditional geospatial databases deal with geometric shapes and require workarounds to support this unique and powerful aspect of OSM data.)
 
-```ruby
-gem "just-the-docs"
-```
+- **Seamless integration with the Java Topology Suite (JTS)** for advanced geometric operations, such as buffer, union, simplify, convex and concave hulls, Voronoi diagrams, and much more.
 
-And add this line to your Jekyll site's `_config.yml`:
+- **Modest hardware requirements** &mdash; If it can run a 64-bit JVM, it'll run GeoDesk.
+ 
+## Get started
 
-```yaml
-theme: just-the-docs
+### Maven
+
+Include this dependency in your project's `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.geodesk</groupId>
+    <artifactId>geodesk</artifactId>
+    <version>0.1.0</version>
+</dependency>
 ```
 
-And then execute:
+### Example Application
 
-    $ bundle
+```java
+import com.geodesk.feature.*;
+import com.geodesk.util.*;
 
-Or install it yourself as:
+public class PubsExample
+{
+    public static void main(String[] args)
+    {
+        FeatureLibrary library = new FeatureLibrary(     // 1    
+            "example.gol",                               // 2
+            "https://data.geodesk.com/switzerland");     // 3
+        
+        for(Feature pub: library                         // 4
+            .select("na[amenity=pub]")                   // 5
+            .in(Box.ofWSEN(8.53,47.36,8.55,47.38)))      // 6
+        {
+            System.out.println(pub.stringValue("name")); // 7
+        }
+        
+        library.close();                                 // 8
+    }
+}
+```
 
-    $ gem install just-the-docs
+What's going on here?
 
-Alternatively, you can run it inside Docker while developing your site
+1. We're opening a feature library ...
 
-    $ docker-compose up
+2. ... with the file name `example.gol` (If it doesn't exist, a blank one is created)
 
-## Usage
+3. ... and a URL from which [data tiles](https://docs.geodesk.com/libraries) will be downloaded.
 
-[View the documentation](https://just-the-docs.github.io/just-the-docs/) for usage information.
+4. We iterate through all the features ...
 
-## Contributing
+5. ... that are pubs ([GeoDesk query language](https://docs.geodesk.com/goql) &mdash; *similar to MapCSS*)
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/just-the-docs/just-the-docs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+6. ... in downtown Zurich (*bounding box with West/South/East/North coordinates*).
 
-### Submitting code changes:
+7. We print the name of each pub.
 
-- Open a [Pull Request](https://github.com/just-the-docs/just-the-docs/pulls)
-- Ensure all CI tests pass
-- Await code review
+8. We close the library.
 
-### Design and development principles of this theme:
+That's it, you've created your first GeoDesk application! 
 
-1. As few dependencies as possible
-2. No build script needed
-3. First class mobile experience
-4. Make the content shine
+### More Examples
 
-## Development
+Find all movie theaters within 500 meters from a given point:
 
-To set up your environment to develop this theme, run `bundle install`.
+```java
+Features<?> movieTheaters = library
+    .select("na[amenity=cinema]")
+    .select(Filters.maxMetersFromLonLat(500, myLon, myLat));
+```
 
-A modern [devcontainer configuration](https://code.visualstudio.com/docs/remote/containers) for VSCode is included.
+*Remember, OSM uses British English for its terminology.*
 
-Your theme is set up just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
+Discover the bus routes that traverse a given street:
 
-When the theme is released, only the files in `_layouts`, `_includes`, and `_sass` tracked with Git will be released.
+```java
+for(Relation route: street.parentRelations("[route=bus]"))
+{
+    System.out.format("- %s from %s to %s",
+        route.stringValue("ref"),
+        route.stringValue("from"),
+        route.stringValue("To"));
+}
+```
 
-## License
+Count the number of entrances of a building:
 
-The theme is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+```java
+int numberOfEntrances = building.nodes("[entrance]").size();
+```
+
+

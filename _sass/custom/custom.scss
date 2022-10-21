@@ -2,3 +2,77 @@ $pink-000: #f77ef1;
 $pink-100: #f967f1;
 $pink-200: #e94ee1;
 $pink-300: #dd2cd4;
+
+// TODO: duplicated in custom.scss
+$light-beige: #F8F5EF;
+$dark-beige: #ECE4D8;
+$darker-beige: darken($dark-beige, 10%);
+$feedback-color: $darker-beige;
+$code-background-color: $white;
+
+
+
+nav a, .nav-list .nav-list-item a.nav-list-expander
+{
+    color: #000;
+}
+
+.main-content h1
+{
+    margin-bottom: 0.75em;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+}
+
+.main-content h2
+{
+    margin-bottom: 0.5em;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+}
+
+.main-content h3
+{
+    margin-top: 1.25em;
+    margin-bottom: 0.5em;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+}
+
+.main-content ul
+{
+    margin-left: 1em;
+    padding-left: 0em;
+    /*
+    margin-block-start: 0.5em;
+    padding-inline-start: 0;
+    */
+    margin-inline-start: 2.5em;
+    padding-inline-start: 0em;
+    // list-style-type: disc;
+}
+
+
+code
+{
+    background-color: $dark-beige;
+    border-radius: 6px;
+    padding: 0.2em 0.4em 0.2em 0.4em;
+}
+
+pre code
+{
+    background-color: inherit;
+}
+
+
+
+
+/*
+.nav-list .nav-list-item .nav-list-link.active
+{
+    background-image: linear-gradient(-90deg, $darker-beige 0%,
+        change-color($darker-beige, $alpha: 0.8) 80%,
+        $darker-beige 100%);
+}
+*/

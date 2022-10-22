@@ -60,15 +60,15 @@ world.close();
 ```
 
 <a name="caution-closed">
-<div class="box caution" markdown="1">
+<blockquote class="warning" markdown="1">
 
-# The "GOL-den" Rule
+### The "GOL-den" Rule
 
 Do not call the methods of any objects (collections, `Feature`, `Tags`) you've retrieved from a `FeatureLibrary` after having closed it. These lightweight objects are little more than pointers into a memory-mapped file --- and closing it renders that memory area invalid. 
 
 **If you violate this rule, you may get undefined results, or even trigger a segmentation fault.**
 
-</div>
+</blockquote>
 
 ## Troubleshooting
 
@@ -83,8 +83,7 @@ consistent state the next time it is opened after a crash.
 
 This binary file has the same name as its corresponding library, with `.journal` added to its name.
 
-<a name="caution-closed">
-<div class="box caution" markdown="1">
+<blockquote class="warning" markdown="1">
 
 You're unlikely to encounter a journal file during normal operation. However, if you come across it, **do not** delete the journal, and **do not** separate the journal and its corresponding library (by moving/renaming one but not the other). Doing so risks leaving the
 library in an inconsistent state.
@@ -92,4 +91,4 @@ library in an inconsistent state.
 When in doubt, run [`gol check`](gol/check).
 
 
-</div>
+</blockquote>

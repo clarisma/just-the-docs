@@ -173,13 +173,12 @@ For `--format=map`, the attribution text to display at the bottom of the map.
 
 For `--format=map`, the URL to use for the base map.
 
-<div class="note box" markdown="1">
+<blockquote class="important" markdown="1">
     
-# Important
-
 If you are using map tiles provided by a third party, be sure to follow their 
 tile usage policy and provide proper attribution (using `--map-attribution`)
-</div>
+
+</blockquote>
 
 ### `-t`, <code>--tags=<em>&lt;LIST&gt;</em></code>
 

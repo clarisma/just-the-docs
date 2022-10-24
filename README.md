@@ -1,6 +1,4 @@
-<img src="https://docs.geodesk.com/logo2.png#gh-light-mode-only" width="30%">
-
-![GeoDesk](https://docs.geodesk.com/logo2.png#gh-light-mode-only)
+<img src="https://docs.geodesk.com/img/logo2.png" width="30%">
 
 GeoDesk is a fast and storage-efficient geospatial database for OpenStreetMap data.
 

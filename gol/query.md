@@ -21,7 +21,7 @@ For example:
 
     gol query geodata/france 
       na[amenity=fire_station], n[emergency=fire_hydrant]
-      -b=2.2,48.8,2.5,18.9 -f:geojson 
+      -b=2.2,48.8,2.5,18.9 -f=geojson 
       -u=www.mywebsite.com/myfeatures/france -n
 
 retrieves all fire stations (which can be nodes or areas) and hydrants

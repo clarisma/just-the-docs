@@ -267,7 +267,7 @@ output stream), so if your query contains these characters, you will need to enc
 
 This won't work:
 
-    gol query germany w[highway][maxspeed>100]
+    gol query germany w[highway][maxspeed>100]  
 
 Instead, write:
 

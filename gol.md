@@ -41,7 +41,7 @@ Verifies the library's integrity.
 
 <tr>
 <td markdown="1">
-[`copy`](/gol/copy)
+[`copy`](/gol/copy) ~~0.2~~
 </td>
 <td markdown="1">
 Copies tiles between libraries.
@@ -86,7 +86,7 @@ Extracts features.
 
 <tr>
 <td markdown="1">
-[`remove`](/gol/remove)
+[`remove`](/gol/remove) ~~0.2~~
 </td>
 <td markdown="1">
 Removes tiles in a specific area.
@@ -95,7 +95,7 @@ Removes tiles in a specific area.
 
 <tr>
 <td markdown="1">
-[`retain`](/gol/retain)
+[`retain`](/gol/retain) ~~0.2~~
 </td>
 <td markdown="1">
 Removes tiles *outside* a specific area.
@@ -113,7 +113,7 @@ Exports tiles.
 
 <tr>
 <td markdown="1">
-[`vacuum`](/gol/vacuum)
+[`vacuum`](/gol/vacuum) ~~0.2~~
 </td>
 <td markdown="1">
 Compacts the library.

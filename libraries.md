@@ -22,7 +22,7 @@ that contain the features within specific square bounding boxes.
   that are touched by the bounding boxes of queries. If you neither `build` nor `load`
   your library, you can instruct it to programmatically import tiles as needed (*see below*).
 
-- Using the [`gol` tool](gol), you can also [`remove`](gol/remove) tiles you no longer need (or [`retain`](gol/retain) only those you do), and compact a library using the [`vacuum`](gol/vacuum) command.  
+- Using the [`gol` tool](gol), you can also [`remove`](gol/remove) tiles you no longer need (or [`retain`](gol/retain) only those you do), and compact a library using the [`vacuum`](gol/vacuum) command. ~~0.2~~ 
 
 ## Opening a library
 
@@ -74,7 +74,7 @@ Do not call the methods of any objects (collections, `Feature`, `Tags`) you've r
 
 ### Fragmentation
 
-After a long period of loading and updating tiles, or when deleting a large set of tiles, a feature library may be taking up more space than necessary (This also happens to other databases, such as Sqlite). Use [`gol vacuum`](gol/vacuum) to compact it. 
+After a long period of loading and updating tiles, or when deleting a large set of tiles, a feature library may be taking up more space than necessary (This also happens to other databases, such as Sqlite). Use [`gol vacuum`](gol/vacuum) to compact it. ~~0.2~~ 
 
 ### The Rollback Journal
 

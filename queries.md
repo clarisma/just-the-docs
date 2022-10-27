@@ -109,25 +109,19 @@ library.ways().select(intersect(someFeature)) // = Filters.intersect(...)
 
 Selects all features that have at least one node (vertex) in common with *A*.
 
-### <code>contain(<i>A</i>)</code> ~~0.2~~
+### <code>contains(<i>A</i>)</code> ~~0.2~~
 
 Selects features that **contain** *A*:
 
 - Every point of *A* is a point of the candidate feature, and the interiors of the two geometries have at least one point in common.
 
-### <code>containedBy(<i>A</i>)</code> ~~0.2~~
-
-Selects features that are **contained by** *A*:
-
-- Every point of the candidate feature is a point of *A*, and the interiors of the two geometries have at least one point in common.
-
-### <code>cross(<i>A</i>)</code>
+### <code>crosses(<i>A</i>)</code>
 
 Selects features that **cross** *A*:
 
 - The geometries of *A* and the candidate feature have some (but not all) interior points in common
 
-### <code>intersect(<i>A</i>)</code>
+### <code>intersects(<i>A</i>)</code>
 
 Selects features that **intersect** *A*:
 
@@ -152,7 +146,7 @@ Selects features whose area is no more than *m* square meters.
 
 Selects features whose distance to *A* is less or equal to *m* meters (measured between the closest points of the candidate feature and *A*).
 
-### <code>touch(<i>A</i>)</code> ~~0.2~~
+### <code>touches(<i>A</i>)</code> ~~0.2~~
 
 Selects features that **touch** *A*:
 
@@ -164,13 +158,4 @@ Selects features that **touch** *A*:
 Selects features that lie entirely **within** *A*:
 
 - Every point of the candidate feature is a point in *A*, and their interiors have at least one point in common.
-
-
-
-
-
-
-
-
-
 

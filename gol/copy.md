@@ -5,7 +5,7 @@ parent: GOL Utility
 nav-order: 2
 ---
 
-# `copy`
+# `copy` ~~0.2~~
 
 Copies tiles from one library to another.
 
@@ -21,9 +21,9 @@ Usage:
 
 ## Options
 
+{% include gol/option-area.md %}
 {% include gol/option-bbox.md %}
 {% include gol/option-new.md %}
-{% include gol/option-polygon.md %}
 {% include gol/option-quiet.md %}
 {% include gol/option-silent.md %}
 {% include gol/option-url.md %}

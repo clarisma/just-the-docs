@@ -219,3 +219,24 @@ p
     padding-left: 24px;
 }
 */
+
+del
+{
+    font-family: system-ui, arial;
+    font-size: 0.7rem;
+    // font-style: italic;
+    font-weight: 600;
+    color: #333333;
+    background-color: #F7E333;
+    padding: 2px 4px 3px 4px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline;
+    text-transform: uppercase;
+    margin-left: 1em;
+}
+
+h1 del
+{
+    font-size: 0.9rem;
+}

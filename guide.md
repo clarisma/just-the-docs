@@ -9,11 +9,13 @@ nav_order: -1
 
 Impatient? Read the [Five-minute tutorial](tutorial).
 
-<div class="box todo" markdown="1">
-GeoDesk is **Pre-Release**. Some capabilities may be unavailable in Version {{ site.geodesk_version}}.<br>API and implementation subject to change.
-</div>
+<blockquote class="note" markdown="1">
+GeoDesk is in **Early Access**. Some capabilities may be unavailable in Version {{ site.geodesk_version}}.
 
+API and implementation subject to change.
 
+~~This~~ marks the targeted version for specific features.
+</blockquote>
 
 
 

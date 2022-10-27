@@ -5,7 +5,7 @@ parent: GOL Utility
 nav-order: 10
 ---
 
-# `vacuum`
+# `vacuum` ~~0.2~~
 
 Compacts a feature library by removing empty pages.
 

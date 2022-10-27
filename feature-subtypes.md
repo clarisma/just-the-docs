@@ -81,7 +81,7 @@ A feature represented by a single coordinate pair. A [`Node`]({{site.javadoc}}fe
 node.parentWays("w[waterway=river,stream]")  // only returns rivers and streams 
 ```
 
-Sometimes it is more convenient to inverse a query using [`with()`]({{site.javadoc}}feature/Features.html#with(com.geodesk.feature.Feature)):
+Sometimes it is more convenient to inverse a query using [`with()`]({{site.javadoc}}feature/Features.html#with(com.geodesk.feature.Feature)): ~~0.2~~
 
 ```java
 library.ways("w[waterway=river,stream]").with(node)  // same as above  
@@ -102,7 +102,7 @@ A linear or simple polygonal geometry, represented by two or more nodes. Linear 
 way.nodes("[traffic_calming]")  // only speed bumps etc.
 ```
 
-Sometimes it is more convenient to inverse a query using [`of()`]({{site.javadoc}}feature/Features.html#of(com.geodesk.feature.Feature)):
+Sometimes it is more convenient to inverse a query using [`of()`]({{site.javadoc}}feature/Features.html#of(com.geodesk.feature.Feature)): ~~0.2~~
 
 ```java
 library.nodes("[traffic_calming]").of(way)  // same as above  
@@ -137,14 +137,14 @@ rel.members("a[leisure=park]")  // only park areas
 
 Note that there is no "memberAreas" method, since areas can be `Way` or `Relation` objects. If you want only polygonal ways or area relations, use `memberWays("a")` / `memberRelations("a")`.
 
-Member queries can also be phrased using [`of()`]({{site.javadoc}}feature/Features.html#of(com.geodesk.feature.Feature)):
+Member queries can also be phrased using [`of()`]({{site.javadoc}}feature/Features.html#of(com.geodesk.feature.Feature)): ~~0.2~~
 
 ```java
 library.ways().of(rel)  // ways that are members of the given relation   
 ```
 
 
-To restrict members to specific roles, use `role` in the query as if it were a tag:
+To restrict members to specific roles, use `role` in the query as if it were a tag: ~~0.2~~
 
 ```java
 rel.memberWays("w[waterway=canal][role='*_stream']")  

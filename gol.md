@@ -122,17 +122,17 @@ Compacts the library.
 
 </table>
 
-<div class="box todo" markdown="1">
-GeoDesk is **Pre-Release**. Some commands and options are not yet available in Version {{ site.geodesk_version }}.    
-</div>
+<blockquote class="note" markdown="1">
+GeoDesk is in **Early Access**. Some commands and options are not yet available in Version {{ site.geodesk_version }}. ~~This~~ marks the targeted version.
+</blockquote>
 
 
 ## Common Options
 
+{% include gol/option-area.md %}
 {% include gol/option-bbox.md %}
 {% include gol/option-new.md %}
 {% include gol/option-output.md %}
-{% include gol/option-polygon.md %}
 {% include gol/option-quiet.md %}
 {% include gol/option-url.md %}
 {% include gol/option-silent.md %}

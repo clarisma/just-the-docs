@@ -247,7 +247,7 @@ Discover a member's **role**:
 member.role()   // "stop", "main_stream", etc.
 ```
 
-Find members with a **specific role**:
+Find members with a **specific role**: ~~0.2~~
 
 ```java
 Node capital = rel.memberNodes("[role=admin_centre]").first();

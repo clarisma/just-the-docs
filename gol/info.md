@@ -16,16 +16,18 @@ Usage:
 
 ## Options
 
+{% include gol/option-area.md %}
 {% include gol/option-bbox.md %}
 
 <a name="option-index">
-### `-i`, `--index`
+### `-i`, `--index` ~~0.2~~
 
 Provides additional information about the library's indexes.
 
+{% include gol/option-area.md %}
+{% include gol/option-bbox.md %}
 {% include gol/option-new.md %}
 {% include gol/option-output.md %}
-{% include gol/option-polygon.md %}
 {% include gol/option-quiet.md %}
 {% include gol/option-silent.md %}
 {% include gol/option-url.md %}

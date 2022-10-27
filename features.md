@@ -110,7 +110,7 @@ Any feature may belong to one or more relations.
 feature.parentRelations("r[route=bicycle]")  // only returns cycling routes 
 ```
 
-Sometimes it is more convenient to inverse a query using [`with()`]({{site.javadoc}}feature/Features.html#with(com.geodesk.feature.Feature)):
+Sometimes it is more convenient to inverse a query using [`with()`]({{site.javadoc}}feature/Features.html#with(com.geodesk.feature.Feature)): ~~0.2~~
 
 ```java
 library.relations("r[route=bicycle]").with(feature)  // same as above  

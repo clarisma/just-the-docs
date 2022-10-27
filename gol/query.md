@@ -37,6 +37,7 @@ exist, it is created (option `-n`, or `--new`).
 
 ## Options
 
+{% include gol/option-area.md %}
 {% include gol/option-bbox.md %}
 
 ### `-f`, <code>--format=<em>&lt;TYPE&gt;</em></code>
@@ -127,7 +128,7 @@ Outputs features in [OSM-XML](https://wiki.openstreetmap.org/wiki/OSM_XML) forma
 </tr>
 </table>
 
-### `--center=bbox|centroid|inside`
+### `--center=bbox|centroid|inside` ~~0.2~~
 
 Defines what is considered the "center" of a feature:
 
@@ -244,19 +245,17 @@ The geometry of the feature (as <a href="https://en.wikipedia.org/wiki/Well-know
   `--tags` is ignored if the requested output format is `count` or `list`.
 
 
-The following options only apply to `--format=xml`:
+The following options only apply to `--format=xml`: ~~0.2~~
 
-- `--node-coords=ATTR`: Specifies which coordinates should be added to the `<nd>` element
-  of ways. `lon,lat` adds longitude and latitude (in degrees) as attributes
+- `--node-coords=ATTR`: Specifies which coordinates should be added to the `<nd>` element of ways. `lon,lat` adds longitude and latitude (in degrees) as attributes
   `lon` and `lat`. `x,y` adds the projected Mercator coordinates as attributes
   `x` and `y`.
 
-- `--node-ids`: This option causes unique IDs to be generated for non-feature nodes. TODO
+- `--node-ids`: This option causes unique IDs to be generated for non-feature nodes.
 
 
 {% include gol/option-new.md %}
 {% include gol/option-output.md %}
-{% include gol/option-polygon.md %}
 {% include gol/option-url.md %}
 {% include gol/option-wait.md %}
 

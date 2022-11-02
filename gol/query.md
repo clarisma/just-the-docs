@@ -256,9 +256,15 @@ The following options only apply to `--format=xml`: ~~0.2~~
 
 {% include gol/option-new.md %}
 {% include gol/option-output.md %}
-{% include gol/option-url.md %}
-{% include gol/option-wait.md %}
 
+### <code>--precision=<em>0-15</em></code>
+
+The coordinate precision (digits after the decimal point) to use.
+
+Applies only to `csv`, `geojson`/`geojsonl`, `poly` and `xml`.
+
+
+{% include gol/option-url.md %}
 
 ## Tips
 

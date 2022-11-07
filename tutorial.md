@@ -13,7 +13,7 @@ This tutorial assumes that you are already familiar with OpenStreetMap and its d
 
 ## Create a Feature Library
 
-- [Download and install](download) the GOL command-line utility
+- [Download and install](https://www.geodesk.com/download) the GOL command-line utility
 
 - Download some OSM data (in PBF format). We suggest starting with a subset for a single
   country (or smaller part). For example, Germany (file size: 3.5 GB) can be downloaded from
@@ -86,18 +86,20 @@ Box bbox = Box.ofWSEN(8.42, 53.75, 9.07, 53.98);
     // longitude/latitude West, South, East, North
 for(Feature f: lighthouses.in(bbox)) ...
 ```
+{% comment %}
 - Instead of a `Box`, `in()` also takes a `Geometry`, `PreparedGeometry` or `Feature`.
+{% endcomment %}
 
 Other **filters** include:
 
 - Filter by **type**: `.nodes()`, `.ways()`, `.relations()`
  
-- **Spatial predicates**: `.select(...)`: `intersect(...)`, `contain(...)`, `overlap(...)`
+- **Spatial predicates**: `.select(...)`: `intersects(...)`, `contains(...)`, `overlaps(...)`
 
 Filters can be combined:
 
 ```java
-roads.ways("[bridge]").in(bbox).select(cross(rhineRiver))
+roads.ways("[bridge]").in(bbox).select(crosses(rhineRiver))
 ```
 
 

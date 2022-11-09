@@ -117,10 +117,10 @@ Outputs features in polygon-file format. Non-polygonal features are omitted.
   </td>
 </tr>
 <tr>
-  <td><code>xml</code></td>
+  <td><code>xml</code> <del>0.2</del> </td>
   <td markdown="span">
 
-Outputs features in [OSM-XML](https://wiki.openstreetmap.org/wiki/OSM_XML) format.
+Outputs features in [OSM-XML](https://wiki.openstreetmap.org/wiki/OSM_XML) format. 
     
 `lon` and `lat` attributes are added to the `nd` elements of ways.
 

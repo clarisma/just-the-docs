@@ -13,7 +13,7 @@ Usage:
 
     gol query [<options>] <gol-file> <query>
 
-The query must be written in [GOQL](../goql), the Geometric Object Query Language. GOQL is very
+The query must be written in [GOQL](../goql), the Geo-Object Query Language. GOQL is very
 similar to [MapCSS](https://wiki.openstreetmap.org/wiki/MapCSS/0.2), which is used 
 by Mapnik and Overpass to select OSM objects.
 
@@ -117,12 +117,19 @@ Outputs features in polygon-file format. Non-polygonal features are omitted.
   </td>
 </tr>
 <tr>
-  <td><code>xml</code> <del>0.2</del> </td>
+  <td><code>xml</code> </td>
   <td markdown="span">
 
 Outputs features in [OSM-XML](https://wiki.openstreetmap.org/wiki/OSM_XML) format. 
-    
-`lon` and `lat` attributes are added to the `nd` elements of ways.
+
+<br>
+
+**Note:** Output is not suitable for editing, since the IDs for untagged nodes won't
+match the original OSM data (*You can open these XML files in JOSM, but please don't upload them*).
+
+{% comment %}    
+`lon` and `lat` attributes are optionally added to the `nd` elements of ways. ~~0.2~~
+{% endcomment %}
 
   </td>
 </tr>

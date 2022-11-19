@@ -111,21 +111,28 @@ Selects all features that have at least one node (vertex) in common with *A*.
 
 ### <code>contains(<i>A</i>)</code> ~~0.2~~
 
-Selects features that **contain** *A*:
+Selects features whose geometry **contains** *A*:
 
 - Every point of *A* is a point of the candidate feature, and the interiors of the two geometries have at least one point in common.
 
 ### <code>crosses(<i>A</i>)</code>
 
-Selects features that **cross** *A*:
+Selects features whose geometry **crosses** *A*:
 
 - The geometries of *A* and the candidate feature have some (but not all) interior points in common
+- The dimension of the intersection must be less than the maximum dimension of the candidate and *A*.
+
+### <code>disjoint(<i>A</i>)</code> ~~0.2~~
+
+Selects features whose geometry is **disjoint** from *A*:
+
+- The geometries of the candidate feature and *A* have no common points at all.
 
 ### <code>intersects(<i>A</i>)</code>
 
-Selects features that **intersect** *A*:
+Selects features whose geometry **intersects** *A*:
 
-- The geometries of *A* and the candidate feature have at least one point in common
+- The geometries of *A* and the candidate feature have at least one point in common.
 
 ### <code>minArea(<i>m</i>)</code> ~~0.2~~
 
@@ -145,6 +152,16 @@ Selects features whose area is no more than *m* square meters.
 ### <code>maxMetersFrom(<i>m</i>, <i>A</i>)</code>
 
 Selects features whose distance to *A* is less or equal to *m* meters (measured between the closest points of the candidate feature and *A*).
+
+### <code>overlaps(<i>A</i>)</code>
+
+Selects features whose geometry **overlaps** *A*:
+
+- The geometries of *A* and the candidate feature have the same dimension.
+ 
+- *A* and candidate feature each have at least one point not shared by the other.
+ 
+- The intersection of their interiors has the same dimension.
 
 ### <code>touches(<i>A</i>)</code> ~~0.2~~
 

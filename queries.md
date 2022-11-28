@@ -115,6 +115,12 @@ Selects features whose geometry **contains** *A*:
 
 - Every point of *A* is a point of the candidate feature, and the interiors of the two geometries have at least one point in common.
 
+### <code>coveredBy(<i>A</i>)</code> ~~0.2~~
+
+Selects features whose geometry is **covered by** *A*:
+
+- No point of the candidate feature's geometry lies outside of *A*.
+
 ### <code>crosses(<i>A</i>)</code>
 
 Selects features whose geometry **crosses** *A*:

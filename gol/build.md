@@ -3,6 +3,7 @@ id: build
 layout: default
 title: build
 parent: GOL Utility
+has_children: true
 nav-order: 0
 ---
 

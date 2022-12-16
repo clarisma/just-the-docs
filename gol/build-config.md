@@ -9,15 +9,17 @@ nav-order: 0
 
 # Settings for the `build` Command
 
-## `area-tags`
+## `area-tags`  ~~0.2~~ {#area-tags}
 
 The tags that determine whether a closed OSM way is treated as an area or a linear ring. Rules can be specified for one or more keys. A closed way is treated as an area if it fulfills at least one of these rules (or is explicitly tagged `area=yes`), and is *not* tagged `area=no`.
 
 Key rules have the following format:
 
-<p>
-<code><i>key</i> [ <b>(</b> <b>only</b>|<b>except</b> <i>value</i>+ <b>)</b> ]</code>
-</p>
+<div class="language-plaintext highlighter-rouge">
+<pre class="highlight"><code><i>key</i> [ <b>(</b> <b>only</b>|<b>except</b> <i>value</i>+ <b>)</b> ]
+</code></pre>
+</div>
+
 
 Multiple key rules and values must be separated by whitespace and/or commas.
 
@@ -31,7 +33,7 @@ area-tags:
                                       // or "man_made=no")     
 ```
 
-## <a id="id-indexing"/> `id-indexing` ~~0.3~~
+## `id-indexing` ~~0.3~~ {#id-indexing}
 
 Value: `yes` / `no` (defaults to value of [`updatable`](#updatable))
 
@@ -171,7 +173,7 @@ The zoom levels at which tile-tree nodes should be created. Together with [`max-
 - Fewer zoom levels result in a flatter tree that may yield better query performance, but cause a higher variance in tile sizes.
 - Setting the top zoom level too low may cause the maximum tile size (1 GB uncompressed) to be exceeded. (Very large tiles may also cause the build process to run out of memory.)
 
-## <a id="updatable"/> `updatable` ~~0.3~~ 
+## `updatable` ~~0.3~~ {#updatable}
 
 Value: `yes` / `no` (default)
 

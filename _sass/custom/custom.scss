@@ -5,7 +5,7 @@ $pink-300: #dd2cd4;
 
 // TODO: duplicated in custom.scss
 $light-beige: #F8F5EF;
-$dark-beige: #ECE4D8;
+$dark-beige: lighten(#ECE4D8, 2%);
 $darker-beige: darken($dark-beige, 10%);
 $feedback-color: $darker-beige;
 $code-background-color: $white;
@@ -41,10 +41,15 @@ nav a, .nav-list .nav-list-item a.nav-list-expander
 
 .main-content h3
 {
-    margin-top: 1.25em;
-    margin-bottom: 0.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
     font-family: "Roboto Slab";
     font-weight: 400;
+}
+
+.main-content h3 code
+{
+    font-size: 0.9em;
 }
 
 
@@ -53,6 +58,7 @@ code
     background-color: $dark-beige;
     border-radius: 6px;
     padding: 0.2em 0.4em 0.2em 0.4em;
+    white-space: nowrap;
 }
 
 pre
@@ -67,6 +73,7 @@ pre code
     line-height: 1.3;
     // text-size-adjust: 100%;
     font-family: monospace;
+    white-space: inherit;
 }
 
 

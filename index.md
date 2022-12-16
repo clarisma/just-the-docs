@@ -12,4 +12,6 @@ Impatient? Read our [Five-Minute Tutorial](tutorial).
 
 [GOL command-line utility](gol)
 
-[API Reference](api)
+{% comment %}
+[API Reference](api.md)
+{% endcomment %}

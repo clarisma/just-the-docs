@@ -1,3 +1,4 @@
+{% comment %}
 ---
 layout: default
 title:  API Reference
@@ -6,3 +7,4 @@ has_children: true
 ---
 
 # API Reference
+{% endcomment %}

@@ -19,14 +19,26 @@ Usage:
 {% include gol/option-area.md %}
 {% include gol/option-bbox.md %}
 
-### `-i`, `--index` ~~0.2~~ {#option-index}
+### `-f`, `--free` {#option-free}
 
-Provides additional information about the library's indexes.
+Displays statistics about the number and sizes of free pages.
+
+### `-i`, `--index` {#option-index}
+
+Provides a detailed analysis of the library's indexes.
+
+*For a large (planet-size) library, this option may require several minutes to execute.* 
 
 {% include gol/option-new.md %}
 {% include gol/option-output.md %}
 {% include gol/option-quiet.md %}
 {% include gol/option-silent.md %}
+
+### `-t`, `--tiles` {#option-tiles}
+
+Displays statistics about the tiles.
+
+
 {% include gol/option-url.md %}
 {% include gol/option-verbose.md %}
 {% include gol/option-wait.md %}

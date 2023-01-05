@@ -2,7 +2,7 @@
 layout: default
 title: vacuum
 parent: GOL Utility
-nav-order: 10
+nav-order: 11
 ---
 
 # `vacuum` ~~0.2~~

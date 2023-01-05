@@ -113,6 +113,15 @@ Exports tiles.
 
 <tr>
 <td markdown="1">
+[`update`](/gol/update) ~~0.3~~
+</td>
+<td markdown="1">
+Updates the library.
+</td>
+</tr>
+
+<tr>
+<td markdown="1">
 [`vacuum`](/gol/vacuum) ~~0.2~~
 </td>
 <td markdown="1">

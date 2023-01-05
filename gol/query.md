@@ -440,8 +440,10 @@ What [`-f=stats`](#format-stats) should calculate:
 
 `area` | the total area of all features in each group
 `count` | the number of features in each group (*default*)
+`keys` | the keys used by the selected features, as well as their most common values 
 `length` | the total length of all features in each group
 `roles` | the roles of the relations in each group (total number of members for each role, and count of relations in which the role is used)
+`tags` | the tags used by the selected features
 
 ### <code>-f:unit=<em>&lt;OPTION&gt;</em></code> {#option-f-unit}
 

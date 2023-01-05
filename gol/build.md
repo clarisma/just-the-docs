@@ -107,18 +107,30 @@ In case this option is disabled, the [`update`](/gol/update) command can also re
 
 To enhance query performance, GOLs organize features into separate indexes based on their tags. The `index-keys` section specifies which keys should be considered for indexing. The ideal keys for indexing are those that create categories of features (similar to *layers* in a traditional GIS database), such as `highway`, `landuse` or `shop`. As the number of indexes is limited (see [`max-key-indexes`](#max-key-indexes)), multiple keys may be consolidated into one index (This is done automatically on a per-type, per-tile basis). Features whose tags have multiple indexed keys (e.g. `tourism` and `amenity` for a hotel that is also a restaurant) are consolidated with features with the same key, or placed into a separate mixed-key index.
 
-Keys that should always be placed into the same index can be specified as *key-pairs* by placing forward slahes between these keys (useful for rare-but-similar categories like `telecom`/`communication`).
+Keys that should always be placed into the same index can be specified as *key-pairs* by placing forward slashes between these keys (useful for rare-but-similar categories like `telecom`/`communication`).
+
+Place an exclamation mark (`!`) after a key or key-pair to indicate keys that should be considered more important (i.e. more likely to be queried) than others. Likewise, mark entries with a question mark (`?`) to lower their importance. ~~0.2~~
 
 Example:
 
 ```
 indexed-keys:
   amenity
-  building
+  building?
   highway
   natural/geological
   shop
 ```
+
+## `keep-empty-relations`
+
+Value: `yes` (default) / `no` 
+
+[Empty relations](https://wiki.openstreetmap.org/wiki/Empty_relations) are relations that have no members.  
+
+## `keep-missing-members`
+
+Value: `yes` (default) / `no`
 
 
 ## `key-index-min-features`
@@ -154,7 +166,7 @@ The actual number of strings will be less if fewer strings meet the minimum usag
 
 Value: 1 &ndash; 8,000,000 (default: 65,535)
 
-The maximum number of tiles into which the features of the GOL are organized. The actual number of tiles may be significantly less, based on the [`min-tile-density`](#min-tile-density). A lower tile count results in a more compact GOL, while a higher tile count improves the performance of certain large-area spatial queries.
+The maximum number of tiles into which the features of the GOL are organized. The actual number of tiles may be significantly less, based on [`min-tile-density`](#min-tile-density). A lower tile count results in a more compact GOL, while a higher tile count improves the performance of certain large-area spatial queries.
 
 A higher setting is also preferred if you intend to host a tile repository, as a more granular tileset reduces the amount of data users will have to download for their regions of interest.
 
@@ -179,7 +191,7 @@ If there are fewer nodes in a tile area than this number, the tile will be omitt
 
 ## `properties`
 
-A section with of key-value pairs that are stored as GOL metadata, which are displayed by [`gol info`](/gol/info) and can be read by other applications.
+A section with key-value pairs that are stored as GOL metadata, which are displayed by [`gol info`](/gol/info) and can be read by other applications.
 
 Common properties include:
 
@@ -200,7 +212,7 @@ Creative Commons License) -- but in general, you should not override the default
 
 </blockquote>
 
-To set properties from the command line, use <code>--properties:<i>property</i>=<i>value</i></code> or <code>-p:<i>property</i>=<i>value</i></code>.
+To set properties from the command line, use <code>--property:<i>property</i>=<i>value</i></code> or <code>-p:<i>property</i>=<i>value</i></code>.
 
 ## `rtree-bucket-size`
 

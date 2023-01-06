@@ -49,7 +49,7 @@ The [output format](#output-formats) of the results:
 
 `count` | Prints only the *number* of features. 
 `csv` | Comma-separated values
-`geojson` / `geojsonl` | [GeoJSON](https://geojson.org) (traditional / [one feature per line](https://stevage.github.io/ndgeojson/))
+`geojson` / `geojsonl` | GeoJSON ([traditional](https://geojson.org) / [one feature per line](https://stevage.github.io/ndgeojson/))
 `list` | Simple list of IDs (*default*)
 [`map`](/gol/query/map) | [Leaflet-based map](/gol/query/map)
 `poly` | [Polygon file](https://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format) (areas only)
@@ -266,7 +266,7 @@ The resulting file can be used for the `--area` option in subsequent queries.
 Be aware that `>` and `|` have special meanings for the shell (re-directing/piping of the
 output stream), so if your query contains these characters, you will need to enclose it in  quotes.
 
-This won't work:
+**This won't work:**
 
     gol query germany w[highway][maxspeed>100]  
 
@@ -277,4 +277,20 @@ Instead, write:
 To write the output of your query to a file:
 
     gol query germany "w[highway][maxspeed>100]" -f:csv > fast-roads.csv
+
+Also, be aware that the shell doesn't play nicely with quotation marks (which are required if literal values in the query contain spaces or punctuation).
+
+**This won't work:**
+
+    gol query uk na[amenity=pub][name="The Howling Hound"]
+
+The shell "eats" the double quotes instead of passing it to the GOL utility, which then reports an error. To avoid this problem, **use single quotes**:
+
+    gol query uk na[amenity=pub][name='The Howling Hound']
+
+If the query string itself contains quotation characters, prefix them with a backslash (`\`):
+
+    gol query uk na[amenity=pub][name='King\'s Crossing']
+
+    gol query uk na[amenity=pub][name='The \"Happy\" Place']
 

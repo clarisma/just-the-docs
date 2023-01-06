@@ -26,10 +26,65 @@ Formatting options:
 
 ## Examples
 
+### Common Tags and Values
+
+Find the most frequently-used tags (and values) for power lines in France (default `-f:tally=keys`):
+
+```
+gol query france -f=stats w[power=line] 
+
+29,098 features                      /key  /count
+=================================================
+power                      29,098          100.0%
+  = line                   29,098  100.0%  100.0%
+voltage                    25,500           87.6%
+  = 63000                   8,141   31.9%   28.0%
+  = 225000                  7,410   29.1%   25.5%
+  = 400000                  5,878   23.1%   20.2%
+  = 90000                   3,038   11.9%   10.4%
+  = 20000                     294    1.2%    1.0%
+operator                   24,089           82.8%
+  = RTE                    22,852   94.9%   78.5%
+  = Enedis                    355    1.5%    1.2%
+cables                     16,572           57.0%
+  = 3                      13,707   82.7%   47.1%
+  = 6                       2,167   13.1%    7.4%
+  = 1                         542    3.3%    1.9%
+...
+-------------------------------------------------
+76 keys with 5,602 values
+```
+
+Same as above, but instead organized by most common tags:
+
+```
+gol query france -f=stats w[power=line] -f:tally=tags
+
+Key          Value             29,098  /count
+=============================================
+power      = *                 29,098  100.0%
+power      = line              29,098  100.0%
+voltage    = *                 25,500   87.6%
+operator   = *                 24,089   82.8%
+operator   = RTE               22,852   78.5%
+cables     = *                 16,572   57.0%
+cables     = 3                 13,707   47.1%
+line       = *                 13,060   44.9%
+line       = bay                8,912   30.6%
+...
+---------------------------------------------
+76 keys      5,602 pairs      133,424   4.6/1
+```
+
+(`4.6/1` on the total line means that, on average, there are 4.6 tags per feature)
+
+### Permutations of Tag Values
+
 Discover the most common types of restaurants in Berlin:
 
 ```
-gol query germany -a=berlin.poly na[amenity=restaurant] -f=stats -t=cuisine 
+gol query germany -a=berlin.poly na[amenity=restaurant] 
+  -f=stats -f:tally=count -t=cuisine 
 
 cuisine
 ===========================
@@ -41,6 +96,29 @@ vietnamese      258    6.0%
 ---------------------------
 Total         4,269  100.0%
 ```
+
+Count the various forms of `opening_hours` for restaurants, cafes and shops, sorted by tag values. Only include opening hours that are used at least 10 times.
+
+```
+gol query germany na[amenity=cafe,restaurant],na[shop]  
+  -f=stats -f:tally=count -f:min-tally=10 -f:sort=tags
+  -t=amenity,shop,opening_hours  
+
+amenity           shop          opening_hours
+==================================================================
+cafe        -                   -                   15,960    2.9%
+restaurant  -                   -                   57,931   10.7%
+-                 bakery        -                   19,059    3.5%
+-                 butcher       -                    7,332    1.4%
+...
+-                 supermarket   Mo-Sa 07:00-20:00    2,843    0.5%
+-                 supermarket   Mo-Sa 08:00-20:00    2,804    0.5%
+...
+------------------------------------------------------------------
+Total                                              541,833  100.0%
+```
+
+### Length and Area
 
 Calculate the total length (in kilometers) of all road-like features in France, broken out by `highway` type:
 
@@ -58,23 +136,6 @@ residential      239,686 km   10.8%
 Total          2,221,737 km  100.0%
 ```
 
-Count the various forms of `opening_hours` for restaurants, cafes and shops, sorted by tag values:
-
-```
-gol query germany na[amenity=cafe,restaurant],na[shop] -f=stats 
-  -t=amenity,shop,opening_hours -f:sort=tags
-
-shop              amenity     opening_hours
-============================================================
--                 cafe        -               15,960    2.9%
--                 restaurant  -               57,931   10.7%
-bakery            -           -               19,059    3.5%
-butcher           -           -                7,332    1.4%
-...
-------------------------------------------------------------
-Total                                        541,833  100.0%
-```
-
 Measure the areas of different types of land use (excluding forests and farmland):
 
 ```
@@ -87,17 +148,23 @@ commercial     80,900,121 m2
 ...
 ```
 
+### Roles
+
 Analyze how often certain roles appear in route relations:
 
 ```
 gol query world r[route] -f=stats -t=route -f:tally=roles 
 
-route    role
------------------------------------
-train    (empty)     10,745 in  216  
-train    stop         8,219 in  211
-bicycle  (empty)      4,213 in   68
+route           Role         Members in Relations
+=========================================================
+bus             (empty)    5,052,780 in    36,352   44.8%
+hiking          (empty)    1,450,043 in    33,066   12.9%
+bicycle         (empty)    1,166,304 in    19,062   10.3%
+bus             stop         585,931 in    33,370    5.2%
+bus             platform     574,225 in    31,602    5.1%
 ...
+---------------------------------------------------------
+Total                     11,274,462 in   122,155  100.0%
 ```
 
 ## Formatting Options

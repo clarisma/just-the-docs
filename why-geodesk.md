@@ -28,3 +28,4 @@ So we went back to the drawing board and reimagined data storage. Instead of usi
  
 - **Modest hardware requirements**: GeoDesk performs well on just about any system that can run a 64-bit JVM.
 
+The [GeoDesk database engine](https://www.github.com/clarisma/geodesk) and the [GOL command-line utility](https://www.github.com/clarisma/gol-tool) are free & open-source.

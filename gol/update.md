@@ -24,6 +24,18 @@ Usage:
 {% include gol/option-bbox.md %}
 {% endcomment %}
 
+### `-F`, `--force` {#option-force}
+
+Ignores replication warnings.
+
+By default, `gol update` will only apply changes from an `.osc` file if all of the following are true:
+
+- `create`: Feature must not exist.
+- `modify`: Feature must exist.
+- `delete`: Feature must exist.
+
+If you specify this option, `create` will overwrite an existing feature, `modify` will create a feature if it doesn't exist, and `delete` will do nothing if the feature does not exist. 
+
 ### `-i`, `--index` {#option-index}
 
 Re-creates the [ID indexes](build#id-indexing) to speed up processing.

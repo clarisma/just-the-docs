@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Why Geodesk?
+title: Why GeoDesk?
 next: core-concepts.md
 parent: Developer's Guide
 nav_order: 2

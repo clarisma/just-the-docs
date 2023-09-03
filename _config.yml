@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: GeoDesk Documentation
 logo: img/logo2.png
-main_site: http://www.geodesk.com
+main_site: https://www.geodesk.com
 description: Fast and storage-efficient spatial database engine for OpenStreetMap features
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs.geodesk.com" # the base hostname & protocol for your site, e.g. http://example.com
@@ -171,6 +171,6 @@ compress_html:
   # ignore:
   #   envs: all
 
-geodesk_version: 0.1.8
+geodesk_version: 0.1.9-SNAPSHOT
 javadoc: https://apidocs.geodesk.com/0.1/com/geodesk/
 javadoc_jts: https://locationtech.github.io/jts/javadoc/org/locationtech/jts/

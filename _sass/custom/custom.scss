@@ -9,7 +9,7 @@ $dark-beige: lighten(#ECE4D8, 2%);
 $darker-beige: darken($dark-beige, 10%);
 $feedback-color: $darker-beige;
 $code-background-color: $white;
-$python-code-background-color: #211C1A; // #313440; // 
+$python-code-background-color: #272822; // #211C1A; // #313440; // 
 
 body
 {
@@ -48,10 +48,12 @@ nav a, .nav-list .nav-list-item a.nav-list-expander
     font-weight: 400;
 }
 
+/*
 .main-content h3 code
 {
     font-size: 0.9em;
 }
+    */
 
 
 code
@@ -249,7 +251,7 @@ h1 del
     font-size: 0.9rem;
 }
 
-.api 
+.main-content .api 
 {
     font-family: monospace;
 }
@@ -264,7 +266,7 @@ h1 code, h2 code, h3 code, h4 code
 
 .api code:first-of-type 
 {
-    font-size: 12px;
+    font-size: 0.7em;
 }
 
 .api code:nth-of-type(2)

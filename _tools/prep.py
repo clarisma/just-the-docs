@@ -18,9 +18,11 @@ def transform(srcdir, destdir):
         # Ensure the destination directory exists
         dest_file.parent.mkdir(parents=True, exist_ok=True)
 
-        with open(src_file, 'r') as fin, open(dest_file, 'w') as fout:
+        with open(src_file, 'r', encoding='utf-8') as fin, open(dest_file, 'w', encoding='utf-8') as fout:
             inside_code_block = False
+            inside_front_matter = False
             code_block = ""
+            front_matter = ""
 
             for line in fin:
                 if line.startswith("```"):  # detect start or end of code block
@@ -31,7 +33,13 @@ def transform(srcdir, destdir):
                         if lang == "" or lang == "python":
                             # Pass code block through pygments and write to fout
                             highlighted_code = highlight(code_block, lexer, formatter)
-                            fout.write(highlighted_code)
+                            highlighted_code = highlighted_code.replace(
+                                '<pre><span></span>', '<pre class="highlight"><code>')
+                            highlighted_code = highlighted_code.replace(
+                                '</pre></div>', '</code></pre></div>')
+                            fout.write(
+                                '<div class="language-python highlighter-rouge">'
+                                f'{highlighted_code}</div>')
                             code_block = ""
                         else:
                             fout.write(f"```{lang}\n{code_block}```\n")
@@ -41,26 +49,30 @@ def transform(srcdir, destdir):
                 if line.startswith("---"):
                     inside_front_matter = not inside_front_matter
                     if not inside_front_matter:
-                        fout.write(f"---\n{inside_front_matter}---\n")
+                        fout.write(f"---\n{front_matter}---\n")
                         front_matter = ""
                         fout.write(f"""
-                            {{% comment %}}
-                            ==========================================
+    {{% comment %}}
+
+    ==========================================
                            
-                               AUTO-GENERATED CONTENT, DON NOT EDIT 
+        AUTO-GENERATED CONTENT, DO NOT EDIT 
 
-                                   Any changes will be lost 
-                                   the next time the
-                                   pre-processor runs!
+            Any changes will be lost 
+            the next time the
+            pre-processor runs!
 
-                            ==========================================
+    ==========================================
 
-                            {{% endcomment %}}
-                            """)
+    {{% endcomment %}}
+
+""")
+                    continue
+
                 if inside_code_block:
                     code_block += line
                 elif inside_front_matter:
-                    inside_front_matter += line
+                    front_matter += line
                 else:
                     fout.write(line)
 

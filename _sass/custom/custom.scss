@@ -247,3 +247,30 @@ h1 del
 {
     font-size: 0.9rem;
 }
+
+.api 
+{
+    font-family: monospace;
+}
+
+.api code 
+{
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.api code:first-of-type 
+{
+    font-size: 12px;
+}
+
+.api code:nth-of-type(2)
+{
+    font-weight: bold;
+}
+
+.api + p, .api + pre
+{
+    margin-left: 20px;
+}

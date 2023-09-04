@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Feature Libraries
-next: queries.md
+next: feature-sets.md
 parent: Developer's Guide
 nav_order: 4
 ---

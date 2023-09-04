@@ -21,7 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs.geodesk.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 permalink: /:title
-
+markdown: kramdown
 exclude:
  # from https://github.com/jekyll/jekyll/blob/master/lib/site_template/_config.yml:
    - .sass-cache/

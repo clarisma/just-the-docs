@@ -16,6 +16,21 @@ A **feature** represents a geographic element. This can be a point of interest l
 
 - **Relations** represent more complex objects, such as polygons with holes, a route or a river system. They may contain nodes, ways or other relations as members. 
 
+```python
+>>> city.osm_type
+'node'
+>>> city.id
+1601837931
+>>> city.name
+'Praha'
+>>> city['name:en']
+'Prague'
+>>> city.population
+1275406
+>>> city.str('population')
+'1275406'
+```
+
 ## OSM-specific properties
 
 ### `Feature.``osm_type` {#Feature_osm_type}
@@ -148,3 +163,16 @@ The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-k
 {:.api}
 
 A [`Map`](maps) displaying this feature. 
+
+## Tag methods
+
+### `Feature.``str`(*key*) {#Feature_str}
+{:.api}
+
+Returns the value of the given tag key as a string, or an empty string if the feature doesn't have the requested tag.
+
+### `Feature.``num`(*key*) {#Feature_num}
+{:.api}
+
+Returns the value of the given tag as an `int` or `float`, or `0` if the feature doesn't have the requested tag.
+

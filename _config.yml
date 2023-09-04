@@ -160,6 +160,8 @@ kramdown:
   syntax_highlighter_opts:
     block:
       line_numbers: false
+    span:
+      disable: true     # don't highlight inline <code> e.g. `True`
 
 compress_html:
   clippings: all

@@ -12,6 +12,10 @@ A **feature set** represents those `Feature` objects that meet certain critera.
 
 ### By bounding box
 
+`Features.``[`
+{:.api}
+
+
 ### By type and tags
 
 ### By geometry
@@ -33,32 +37,38 @@ features("w[highway]").members_of(route66)
 
 ## Properties
 
-### <code><span style="font-size: 12px">Features</span>.<b>count</b></code>
+### `Features.``count` {#Features_count}
+{:.api}
 
 The total number of features in this set.
 
-### <code><span style="font-size: 12px">Features</span>.<b>area</b></code>
+### `Features.``area` {#Features_area}
+{:.api}
 
 The total area (in square meters) of all areas in this set.
 
-### <code><span style="font-size: 12px">Features</span>.<b>length</b></code>
+### `Features.``length` {#Features_length}
+{:.api}
 
 The total length (in meters) of all features in this set. For areas, their circumference
 is used.
 
 ## Subsets
 
-### `nodes`
+### `Features.``nodes` {#Features_nodes}
+{:.api}
 
 Only features that are nodes.
 
-### `ways`
+### `Feature.``ways` {#Feature_ways}
+{:.api}
 
 Only features that are ways (including areas that are represented using a closed way).
 
 If you want to restrict the subset to linear ways, use <code><i>features</i>('w')</code>.
 
-### `relations`
+### `Feature.``relations` {#Feature_relations}
+{:.api}
 
 Only features that are relations (including relations that represent areas).
 
@@ -66,11 +76,13 @@ If you want to restrict the subset to non-area relations, use <code><i>features<
 
 ## Formatting
 
-### `geojson`
+### `Feature.``geojson` {#Feature_geojson}
+{:.api}
 
 The set's features represented as GeoJSON.
 
-### `map`
+### `Feature.``map` {#Feature_map}
+{:.api}
 
 A [`Map`](maps) that displays the features in this set. Use `show()` to open it in a browser window, or `save()` to write its HTML file. 
 
@@ -87,7 +99,8 @@ TODO: link to detailed description
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometrical object (`Feature`, `Geometry`, `Box` or `Coordinate`). 
 
-### <code><span style="font-size: 12px">Features</span>.<b>around</b>(<i>geom</i>, <i>units</i>=<i>distance</i>)</code>
+### `Feature.``around`(geom, units=distance) {#Feature_around}
+{:.api}
 
 Features that lie within the given distance from the centroid of *geom*. 
 In lieu of a geometrical object, you can also specify coordinates using 
@@ -101,13 +114,15 @@ bus_stops.around(restaurant, meters=500)
 features.around(miles=3, lat=40.12, lon=-76.41) 
 ```
 
-### contains(*geom*)
+### `Feature.``contains`(geom) {#Feature_contains}
+{:.api}
 
 Features whose geometry *contains* the given geometrical object.
 
 **Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
 
-### intersects(*geom*)
+### `Feature.``intersects`(geom) {#Feature_intersects}
+{:.api}
 
 Features whose geometry *intersects* the given shape-like object.
 
@@ -116,19 +131,24 @@ Features whose geometry *intersects* the given shape-like object.
 
 These methods return a subset of those features that have a specific topological relationship with another `Feature`.
 
-### members_of(*relation*|*way*)
+### `Feature.``members_of`(relation|way) {#Feature_members_of}
+{:.api}
 
 Features that are members of the given relation, or nodes of the given way.
 
-### parents_of(*feature*)
+### `Feature.``parents_of`(feature) {#Feature_parents_of}
+{:.api}
 
 Relations that have the given feature as a member, as well as ways to which the given node belongs.
 
-### descendants_of(*relation*)
+### `Feature.``descendants_of`(relation) {#Feature_descendants_of}
+{:.api}
 
-### ancestors_of(*feature*)
+### `Feature.``ancestors_of`(feature) {#Feature_ancestors_of}
+{:.api}
 
-### connected_to(*feature*)
+### `Feature.``connected_to`(feature) {#Feature_connected_to}
+{:.api}
 
 
 

@@ -18,11 +18,13 @@ A **feature** represents a geographic element. This can be a point of interest l
 
 ## OSM-specific properties
 
-### <code><span style="font-size: 12px">Feature</span>.<b>osm_type</b></code>
+### `Feature.``osm_type` {#Feature_osm_type}
+{:.api}
 
 `"node"`, `"way"` or `"relation"`
 
-### <code><span style="font-size: 12px">Feature</span>.<b>id</b></code>
+### `Feature.``id` {#Feature_id}
+{:.api}
 
 The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an anonymous node, otherwise non-zero.
 
@@ -40,57 +42,75 @@ The feature's `Tags` (key/value pair that describe its properties).
 
 `True` if this feature is a way (linear or area), otherwise `False`.
 
-### is_relation
+### `Feature.``is_way` {#Feature_is_way} 
+{:.api}
+
+`True` if this feature is a way (linear or area), otherwise `False`.
+
+### `Feature.``is_relation` {#Feature_is_relation}
+{:.api}
 
 `True` if this feature is a relation (area or non-area), otherwise `False`.
 
-### is_area
+### `Feature.``is_area` {#Feature_is_area}
+{:.api}
 
 `True` if this feature is a way or relation that represents an area, otherwise `False`.
 
-### nodes
+### `Feature.``nodes` {#Feature_nodes}
+{:.api}
 
 The nodes of a way, or an empty set if this feature is a node or relation.
 
-### members
+### `Feature.``members` {#Feature_members}
+{:.api}
 
 The members of a relation, or an empty set if this feature is a node or way.
 
-### parents
+### `Feature.``parents` {#Feature_parents}
+{:.api}
 
 The relations that have this feature as a member, as well as the ways to which a node feature belongs (Use <code><i>node</i>.parents.relations</code> to obtain just the relations to which a node belongs).
 
-### role
+### `Feature.``role` {#Feature_role}
+{:.api}
 
 The role of this feature if it was returned via a member set (an empty string if this feature has no explicit role within its parent relation), or `None` for a `Feature` that was not returned via a member set.   
 
 ## Geometric properties
 
-### bounds
+### `Feature.``bounds` {#Feature_bounds}
+{:.api}
 
 The bounding `Box` of this feature.
 
-### x
+### `Feature.``x` {#Feature_x}
+{:.api}
 
 The x-coordinate of a node, or the horizontal midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
 
-### y
+### `Feature.``y` {#Feature_y}
+{:.api}
 
 The y-coordinate of a node, or the vertical midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
 
-### lon
+### `Feature.``lon` {#Feature_lon}
+{:.api}
 
 `x` in degrees longitude (WGS-84)
 
-### lat
+### `Feature.``lat` {#Feature_lat}
+{:.api}
 
 `y` in degrees latitude (WGS-84)
 
-### centroid
+### `Feature.``centroid` {#Feature_centroid}
+{:.api}
 
 The feature's calculated centroid (`Coordinate`)
 
-### shape
+### `Feature.``shape` {#Feature_shape}
+{:.api}
 
 The Shapely geometry for this feature: 
 
@@ -98,11 +118,13 @@ The Shapely geometry for this feature:
 - `LineString` or `Polygon` for a way
 - `Polygon`, `GeometryCollection`, `MultiPoint`, `MultiLineString` or `MultiPolygon` for a relation 
 
-### area
+### `Feature.``area` {#Feature_area}
+{:.api}
 
 The calculated area (in square meters) if this feature is polygonal, otherwise `0`.
 
-### length
+### `Feature.``length` {#Feature_length}
+{:.api}
 
 The calculated length (in meters) if this feature is lineal, or its circumference if it is polygonal, otherwise `0`.
 
@@ -112,16 +134,17 @@ TODO: GeometryCollection?
 
 To aid import into GIS applications, features can be converted into different representations. You can also visualize a feature on a map. See [Formats](formats) and [Maps](maps) to learn how output can be customized. 
 
-### geojson
+### `Feature.``geojson` {#Feature_geojson}
+{:.api}
 
 The [GeoJSON](https://geojson.org/) representation of this feature.
 
-### wkt
+### `Feature.``wkt` {#Feature_wkt}
+{:.api}
 
 The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry).
 
-### map
+### `Feature.``map` {#Feature_map}
+{:.api}
 
 A [`Map`](maps) displaying this feature. 
-
-

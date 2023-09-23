@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Tutorial
-nav_order: -2
+parent: GeoDesk for Java
+nav_order: 1
 ---
 # Five-Minute Tutorial
 
 <div class="box note" markdown="1">
 
-This tutorial assumes that you are already familiar with OpenStreetMap and its data model. If not, read our [Introduction to OSM](intro-to-osm) or visit [the official OSM website](https://wiki.openstreetmap.org/wiki/Develop).
+This tutorial assumes that you are already familiar with OpenStreetMap and its data model. If not, read our [Introduction to OSM](/intro-to-osm) or visit [the official OSM website](https://wiki.openstreetmap.org/wiki/Develop).
 
 </div>
 
@@ -275,8 +276,8 @@ GeoDesk enables you to:
 
 # Learn more
 
-- [Full documentation](guide)
-- [GOL utility](gol) --- customize and maintain feature libraries 
+- [Full documentation](libraries)
+- [GOL utility](/gol) --- customize and maintain feature libraries 
 - JavaDocs
 - Example code
 

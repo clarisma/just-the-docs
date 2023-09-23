@@ -2,8 +2,8 @@
 layout: default
 title:  Query Language
 next:   features.md
-parent: Developer's Guide
-nav_order: 6
+parent: GeoDesk for Java
+nav_order: 4
 ---
 
 # Geo-Object Query Language (GOQL)

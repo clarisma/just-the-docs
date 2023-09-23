@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Developer's Guide
+title: GeoDesk for Java
 next: intro-to-osm.md
 has_children: true
-nav_order: -1
+nav_order: 4
 ---
-# GeoDesk Developer's Guide
+# GeoDesk for Java
 
 Impatient? Read the [Five-minute tutorial](tutorial).
 

@@ -1,8 +1,6 @@
 ---
 layout: default
 title: Core Concepts
-next: libraries.md
-parent: Developer's Guide
 nav_order: 3
 ---
 

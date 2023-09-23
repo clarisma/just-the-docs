@@ -1,20 +1,22 @@
 ---
 layout: default
-title:  Features
+title:  Feature Objects
 parent: GeoDesk for Python
 nav_order: 3
 ---
 
-# Features
+# Feature Objects
 
-A **feature** represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or a more abstract concept like a bus route.
+A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or an abstract concept like a bus route.
 
-- **Nodes** represent a simple point feature
+OpenStreetMap uses three types of features:
 
-- **Ways** are an ordered sequence of nodes, used to represent line strings and
+- *Node* -- a simple point feature
+
+- *Way* -- an ordered sequence of nodes, used to represent line strings and
   simple polygons
 
-- **Relations** represent more complex objects, such as polygons with holes, a route or a river system. They may contain nodes, ways or other relations as members. 
+- *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members. 
 
 ```python
 >>> city.osm_type
@@ -80,7 +82,7 @@ The nodes of a way, or an empty set if this feature is a node or relation.
 ### `Feature.``members` {#Feature_members}
 {:.api}
 
-The members of a relation, or an empty set if this feature is a node or way.
+The members of a relation, or an empty set if this feature is a node or way. Features returned from this set (or a subset) have a `role` property with a value other than `None`.
 
 ### `Feature.``parents` {#Feature_parents}
 {:.api}
@@ -169,10 +171,10 @@ A [`Map`](maps) displaying this feature.
 ### `Feature.``str`(*key*) {#Feature_str}
 {:.api}
 
-Returns the value of the given tag key as a string, or an empty string if the feature doesn't have the requested tag.
+Returns the value of the given tag key as a string, or an empty string if this feature doesn't have the requested tag.
 
 ### `Feature.``num`(*key*) {#Feature_num}
 {:.api}
 
-Returns the value of the given tag as an `int` or `float`, or `0` if the feature doesn't have the requested tag.
+Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
 

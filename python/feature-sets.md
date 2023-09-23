@@ -32,25 +32,31 @@ features("w[highway]").members_of(route66)
 
 ## Obtaining `Feature` objects
 
-Iterate through the feature set, or turn it into a `list`:
+Iterate through the feature set: 
 
 ```python
 >>> for hotel in hotels:
 ...     print(hotel.name)
-...
 Hôtel du Louvre
 Ambassadeur
 Brit Hotel
-...
->>> list(hotels)
-[way/112112065, relation/1575507, ... , node/3558592188]
 ```
 
-To check if the set is non-empty:
+Turn it into a `list`:
+
+```python
+>>> list(hotels)
+[way/112112065, relation/1575507, node/3558592188]
+```
+
+Check if the set is empty:
 
 ```python
 if pubs(within_dublin):
-    print('Great, we can grab a beer in this town!')
+    print("Great, we can grab a beer in this town!")
+    
+if not street.nodes("[traffic_calming=bump]"):
+    print("No speed bumps on this street.")
 ```
 
 ## Properties
@@ -115,15 +121,15 @@ TODO: link to detailed description
 
 ## Spatial filters
 
-These methods return a subset of only those features that fulfill a specific spatial relationship with another geometrical object (`Feature`, `Geometry`, `Box` or `Coordinate`). 
+These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object (`Feature`, `Geometry`, `Box` or `Coordinate`). 
 
 ### `Features.``around`(*geom*, *units*=*distance*) {#Features_around}
 {:.api}
 
 Features that lie within the given distance from the centroid of *geom*. 
-In lieu of a geometrical object, you can also specify coordinates using 
+In lieu of a geometric object, you can also specify coordinates using 
 `x` and `y` (for Mercator-projected coordinates) or `lon` and `lat` (in degrees).
-Use `meters`, `feet`, `yards`, `km`, `miles`, `mercator_units` to specify the maximum distance.
+Use `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units` to specify the maximum distance.
 
 Example:
 
@@ -135,34 +141,48 @@ features.around(miles=3, lat=40.12, lon=-76.41)
 ### `Features.``contains`(*geom*) {#Features_contains}
 {:.api}
 
-Features whose geometry *contains* the given geometrical object.
+Features whose geometry *contains* the given geometric object.
 
 **Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
 
 ### `Features.``crosses`(*geom*) {#Features_crosses}
 {:.api}
 
-Features whose geometry *crosses* the given geometrical object.
+Features whose geometry *crosses* the given geometric object.
 
 ### `Features.``disjoint`(*geom*) {#Features_crosses}
 {:.api}
 
-Features whose geometry is *disjoint* from the given geometrical object.
+Features whose geometry is *disjoint* from the given geometric object.
 
 ### `Features.``intersects`(*geom*) {#Features_intersects}
 {:.api}
 
-Features whose geometry *intersects* the given geometrical object.
+Features whose geometry *intersects* the given geometric object.
 
 ### `Features.``overlaps`(*geom*) {#Features_overlaps}
 {:.api}
 
-Features whose geometry *overlaps* the given geometrical object.
+Features whose geometry *overlaps* the given geometric object.
 
 ### `Features.``touches`(*geom*) {#Features_touches}
 {:.api}
 
-Features whose geometry *touches* the given geometrical object.
+Features whose geometry *touches* the given geometric object.
+
+
+### `Features.``nearest_to`(*geom*, *units*=*distance*) {#Features_nearest_to}
+{:.api}
+
+Features in ascending order of distance to the given geometric object.
+
+- To limit the search radius, specify a maximum distance in the units of your choice: `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`   
+
+Example:
+
+```python
+features("na[amenity=hospital]").nearest_to(my_location, miles=5)
+```
 
 
 ## Topological filters
@@ -172,7 +192,7 @@ These methods return a subset of those features that have a specific topological
 ### `Features.``members_of`(*feature*) {#Features_members_of}
 {:.api}
 
-Features that are members of the given relation, or nodes of the given way.
+Features that are members of the given relation, or nodes of the given way. Returns an empty set if *feature* is a node.
 
 ### `Features.``parents_of`(*feature*) {#Features_parents_of}
 {:.api}
@@ -187,6 +207,8 @@ Relations that have the given feature as a member, as well as ways to which the 
 
 ### `Features.``connected_to`(*feature*) {#Features_connected_to}
 {:.api}
+
+All features that share a common node with *feature*. 
 
 
 ## Metadata

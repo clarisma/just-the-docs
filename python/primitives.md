@@ -17,6 +17,21 @@ nav_order: 1
 ### `geodesk.``Box`(*coords*) {#Box}
 {:.api}
 
+### Operators
+
+### `+` <span style="color:#e0e0e0">&nbsp;&ndash;</span> Expansion
+
+### `+` (Expansion)
+
+### `+` &nbsp;&ndash;&nbsp; Expansion
+
+### `+` &nbsp;&nbsp;&nbsp; Expansion
+
+
+### `+` : Expansion
+
+### `&` &nbsp;&ndash; Intersection
+
 ### `Box.``buffer`(*units*=*distance*) {#Box_buffer}
 {:.api}
 

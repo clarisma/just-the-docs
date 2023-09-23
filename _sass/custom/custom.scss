@@ -9,11 +9,15 @@ $dark-beige: lighten(#ECE4D8, 2%);
 $darker-beige: darken($dark-beige, 10%);
 $feedback-color: $darker-beige;
 $code-background-color: $white;
-$python-code-background-color: #272822; // #211C1A; // #313440; // 
+$python-code-background-color: #272822; // #211C1A; // #313440; //
+$dark-red: darken(#760D0D,5%);
+// #840B0B;
+$dark-blue:#213682 ; 
 
 body
 {
     color: #333333;
+    font-family: Roboto, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", "Helvetica Neue", arial, sans-serif;
 }
 
 nav a, .nav-list .nav-list-item a.nav-list-expander
@@ -29,23 +33,27 @@ nav a, .nav-list .nav-list-item a.nav-list-expander
 .main-content h1
 {
     margin-bottom: 0.75em;
-    font-family: "Roboto Slab";
-    font-weight: 300;
+    font-family: "Segoe UI", "Open Sans", Roboto, "Roboto Slab";
+    font-weight: 600;
+    color: $dark-red;
 }
 
-.main-content h2
+
+.main-content h2 
 {
     margin-bottom: 0.5em;
-    font-family: "Roboto Slab";
-    font-weight: 400;
+    font-family: "Segoe UI", "Open Sans", Roboto, "Roboto Slab";
+    font-weight: 550;
+    color: $dark-red;
 }
 
-.main-content h3
+.main-content h3 
 {
     margin-top: 1.5em;
     margin-bottom: 0.75em;
-    font-family: "Roboto Slab";
-    font-weight: 400;
+    font-family: "Segoe UI", "Open Sans",  Roboto, "Roboto Slab";
+    font-weight: 550;
+    color: $dark-red;
 }
 
 /*
@@ -254,6 +262,7 @@ h1 del
 .main-content .api 
 {
     font-family: monospace;
+    color: $dark-blue;
 }
 
 h1 code, h2 code, h3 code, h4 code

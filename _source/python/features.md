@@ -85,7 +85,7 @@ The role of this feature if it was returned via a member set (an empty string if
 
 > .property bounds
 
-The bounding `Box` of this feature.
+The bounding [`Box`](#Box) of this feature.
 
 > .property x
 

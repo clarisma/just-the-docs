@@ -7,7 +7,6 @@ nav_order: 4
 
 
 
-</div>
 # Feature Objects
 
 A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or an abstract concept like a bus route.
@@ -87,7 +86,7 @@ The role of this feature if it was returned via a member set (an empty string if
 
 <h3 id="Feature_bounds" class="api"><span class="prefix">Feature.</span><span class="name">bounds</span></h3><div class="api" markdown="1">
 
-The bounding `Box` of this feature.
+The bounding [`Box`](#Box) of this feature.
 
 </div><h3 id="Feature_x" class="api"><span class="prefix">Feature.</span><span class="name">x</span></h3><div class="api" markdown="1">
 

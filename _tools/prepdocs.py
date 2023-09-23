@@ -155,6 +155,12 @@ class ApiDocProcessor:
 			page.save()
 	
 	def process_page_commands(self, page):
+		self.current_module = None
+		self.current_class = None
+		self.current_method = None
+		self.current_param = None
+		self.current_property = None
+		
 		new_lines = []
 		for line in page.lines:
 			if line.startswith('>'):

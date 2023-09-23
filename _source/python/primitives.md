@@ -13,8 +13,7 @@ nav_order: 2
 
 ## `Coordinate` objects
 
-### `geodesk.``Coordinate`(*coords*) {#Coordinate}
-{:.api}
+> .method Coordinate(*coords*)
 
 > .property x
  
@@ -28,8 +27,7 @@ nav_order: 2
 
 ## `Box` objects
 
-### `geodesk.``Box`(*coords*) {#Box}
-{:.api}
+> .method Box(*coords*)
 
 ### Operators
 
@@ -46,9 +44,7 @@ nav_order: 2
 
 ### `&` &nbsp;&ndash; Intersection
 
-### `Box.``buffer`(*units*=*distance*) {#Box_buffer}
-{:.api}
+> .method buffer(*units*=*distance*)
 
-### `Box.``buffered`(*units*=*distance*) {#Box_buffered}
-{:.api}
+> .method buffered(*units*=*distance*)
 

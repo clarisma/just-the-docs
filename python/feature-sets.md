@@ -19,9 +19,41 @@ Creates a feature set based on a Geographic Object Library.
 </div>
 ## Filtering features
 
+To select a subset of features, add the constraint in parentheses, or apply a filter method. This always creates a new feature set, leaving the original set unmodified.
+
 ### By bounding box
 
+Select the features whose bounding boxes intersects the given [`Box`](#Box):
+
+<img class="float" src="/img/bboxes.png" width=260>
+
+```python
+paris_bounds = Box(
+    west=2.2, south=48.8,
+    east=2.5, north=48.9)
+features_in_paris = features(paris_bounds)
+```
+
 ### By type and tags
+
+Apply a query written in GOQL (the Geographic Object Query Language) to select features based on their type and tags:
+
+<img class="float" src="/img/query-type-tags.png" width=260>
+
+```python
+restaurants = features(
+    "na[amenity=restaurant]")
+    # nodes and areas
+
+fire_hydrants = features(
+    "n[emergency=fire_hydrant]")
+    # only nodes
+
+safe_for_cycling = features(
+   "w[highway=cycleway,path,living_street],"
+   "w[highway][maxspeed < 30]")
+   # linear ways
+```
 
 ### By geometry
 

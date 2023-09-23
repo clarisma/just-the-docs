@@ -259,10 +259,10 @@ h1 del
     font-size: 0.9rem;
 }
 
-.main-content h3.api 
-{
+.main-content h3.api {
     font-family: monospace;
-    color: $dark-blue;
+    color: #000000; // $dark-red;
+    font-weight: 400;
 }
 
 h1 code, h2 code, h3 code, h4 code
@@ -277,6 +277,18 @@ h3.api .prefix
 {
     font-size: 0.7em;
     font-weight: 400;
+    color: #000000;
+}
+
+h3.api .name
+{
+    font-weight: 600;
+    color: $dark-red;
+}
+
+h3.api .paren 
+{
+    color: #909090;
 }
 
 div.api

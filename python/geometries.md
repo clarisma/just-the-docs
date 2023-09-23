@@ -5,5 +5,4 @@ parent: GeoDesk for Python
 nav_order: 3
 ---
 
-</div>
 # Geometry Objects

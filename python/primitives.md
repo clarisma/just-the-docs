@@ -7,17 +7,15 @@ nav_order: 2
 
 
 
-</div>
 # Geometric Primitives
 
 
 
 ## `Coordinate` objects
 
-### `geodesk.``Coordinate`(*coords*) {#Coordinate}
-{:.api}
+<h3 id="Coordinate_Coordinate" class="api"><span class="prefix">geodesk.</span><span class="name">Coordinate</span><span class="paren">(</span><i>coords</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
-<h3 id="Coordinate_x" class="api"><span class="prefix">Coordinate.</span><span class="name">x</span></h3><div class="api" markdown="1">
+</div><h3 id="Coordinate_x" class="api"><span class="prefix">Coordinate.</span><span class="name">x</span></h3><div class="api" markdown="1">
 
 </div><h3 id="Coordinate_y" class="api"><span class="prefix">Coordinate.</span><span class="name">y</span></h3><div class="api" markdown="1">
 
@@ -30,9 +28,9 @@ nav_order: 2
 </div>
 ## `Box` objects
 
-### `geodesk.``Box`(*coords*) {#Box}
-{:.api}
+<h3 id="Box_Box" class="api"><span class="prefix">geodesk.</span><span class="name">Box</span><span class="paren">(</span><i>coords</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
+</div>
 ### Operators
 
 ### `+` <span style="color:#e0e0e0">&nbsp;&ndash;</span> Expansion
@@ -48,9 +46,7 @@ nav_order: 2
 
 ### `&` &nbsp;&ndash; Intersection
 
-### `Box.``buffer`(*units*=*distance*) {#Box_buffer}
-{:.api}
+<h3 id="Box_buffer" class="api"><span class="prefix">Box.</span><span class="name">buffer</span><span class="paren">(</span><i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
-### `Box.``buffered`(*units*=*distance*) {#Box_buffered}
-{:.api}
+</div><h3 id="Box_buffered" class="api"><span class="prefix">Box.</span><span class="name">buffered</span><span class="paren">(</span><i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 

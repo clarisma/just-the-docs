@@ -2,7 +2,7 @@
 layout: default
 title:  Geometric Primitives
 parent: GeoDesk for Python
-nav_order: 1
+nav_order: 2
 ---
 
 # Geometric Primitives

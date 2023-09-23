@@ -45,10 +45,3 @@ In general, you should be aware of the limitations of using planar geometry for 
 
 Bottom line: As for all software solutions, it pays to know when a fast and simple method is sufficient, and which situations require a more sophisticated approach.
 
-## Java API
-
-The GeoDesk API consists of seven fundamental classes:
-
-<img class="figure" src="/img/classes.png" width=320>
-
-In the following chapters, we'll explore these classes, working top to bottom.

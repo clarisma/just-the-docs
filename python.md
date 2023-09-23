@@ -8,3 +8,13 @@ permalink: /python
 ---
 
 # GeoDesk for Python
+
+Impatient? Read the [Five-minute tutorial](tutorial).
+
+<blockquote class="note" markdown="1">
+GeoDesk for Python is in **Early Access**. Some capabilities may be unavailable in Version {{ site.geodesk_python_version}}.
+
+API and implementation subject to change.
+
+~~This~~ marks the targeted version for specific features.
+</blockquote>

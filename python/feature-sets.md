@@ -1,8 +1,8 @@
 ---
 layout: default
-title:  Feature Sets
+title:  Sets of Features
 parent: GeoDesk for Python
-nav_order: 4
+nav_order: 5
 ---
 # Feature Sets
 

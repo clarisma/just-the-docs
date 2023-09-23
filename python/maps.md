@@ -2,7 +2,7 @@
 layout: default
 title:  Creating Maps
 parent: GeoDesk for Python
-nav_order: 5
+nav_order: 7
 ---
 # Creating Maps
 

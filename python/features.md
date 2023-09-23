@@ -5,6 +5,9 @@ parent: GeoDesk for Python
 nav_order: 4
 ---
 
+
+
+</div>
 # Feature Objects
 
 A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or an abstract concept like a bus route.
@@ -16,7 +19,7 @@ OpenStreetMap uses three types of features:
 - *Way* -- an ordered sequence of nodes, used to represent line strings and
   simple polygons
 
-- *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members. 
+- *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members.
 
 ```python
 >>> city.osm_type
@@ -35,146 +38,120 @@ OpenStreetMap uses three types of features:
 
 ## OSM-specific properties
 
-### `Feature.``osm_type` {#Feature_osm_type}
-{:.api}
+<h3 id="Feature_osm_type" class="api"><span class="prefix">Feature.</span><span class="name">osm_type</span></h3><div class="api" markdown="1">
 
 `"node"`, `"way"` or `"relation"`
 
-### `Feature.``id` {#Feature_id}
-{:.api}
+</div><h3 id="Feature_id" class="api"><span class="prefix">Feature.</span><span class="name">id</span></h3><div class="api" markdown="1">
 
 The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an anonymous node, otherwise non-zero.
 
-### <code><span style="font-size: 12px">Feature</span>.<b>tags</b></code>
+</div><h3 id="Feature_tags" class="api"><span class="prefix">Feature.</span><span class="name">tags</span></h3><div class="api" markdown="1">
 
-The feature's `Tags` (key/value pair that describe its properties). 
+The feature's `Tags` (key/value pair that describe its properties).
 
-### `Feature.``is_node` {#Feature_is_node} 
-{:.api}
+</div><h3 id="Feature_is_node" class="api"><span class="prefix">Feature.</span><span class="name">is_node</span></h3><div class="api" markdown="1">
 
 `True` if this feature is a node, otherwise `False`.
 
-### `Feature.``is_way` {#Feature_is_way} 
-{:.api}
+</div><h3 id="Feature_is_way" class="api"><span class="prefix">Feature.</span><span class="name">is_way</span></h3><div class="api" markdown="1">
 
 `True` if this feature is a way (linear or area), otherwise `False`.
 
-### `Feature.``is_way` {#Feature_is_way} 
-{:.api}
-
-`True` if this feature is a way (linear or area), otherwise `False`.
-
-### `Feature.``is_relation` {#Feature_is_relation}
-{:.api}
+</div><h3 id="Feature_is_relation" class="api"><span class="prefix">Feature.</span><span class="name">is_relation</span></h3><div class="api" markdown="1">
 
 `True` if this feature is a relation (area or non-area), otherwise `False`.
 
-### `Feature.``is_area` {#Feature_is_area}
-{:.api}
+</div><h3 id="Feature_is_area" class="api"><span class="prefix">Feature.</span><span class="name">is_area</span></h3><div class="api" markdown="1">
 
 `True` if this feature is a way or relation that represents an area, otherwise `False`.
 
-### `Feature.``nodes` {#Feature_nodes}
-{:.api}
+</div><h3 id="Feature_nodes" class="api"><span class="prefix">Feature.</span><span class="name">nodes</span></h3><div class="api" markdown="1">
 
 The nodes of a way, or an empty set if this feature is a node or relation.
 
-### `Feature.``members` {#Feature_members}
-{:.api}
+</div><h3 id="Feature_members" class="api"><span class="prefix">Feature.</span><span class="name">members</span></h3><div class="api" markdown="1">
 
 The members of a relation, or an empty set if this feature is a node or way. Features returned from this set (or a subset) have a `role` property with a value other than `None`.
 
-### `Feature.``parents` {#Feature_parents}
-{:.api}
+</div><h3 id="Feature_parents" class="api"><span class="prefix">Feature.</span><span class="name">parents</span></h3><div class="api" markdown="1">
 
 The relations that have this feature as a member, as well as the ways to which a node feature belongs (Use <code><i>node</i>.parents.relations</code> to obtain just the relations to which a node belongs).
 
-### `Feature.``role` {#Feature_role}
-{:.api}
+</div><h3 id="Feature_role" class="api"><span class="prefix">Feature.</span><span class="name">role</span></h3><div class="api" markdown="1">
 
-The role of this feature if it was returned via a member set (an empty string if this feature has no explicit role within its parent relation), or `None` for a `Feature` that was not returned via a member set.   
+The role of this feature if it was returned via a member set (an empty string if this feature has no explicit role within its parent relation), or `None` for a `Feature` that was not returned via a member set.
 
+</div>
 ## Geometric properties
 
-### `Feature.``bounds` {#Feature_bounds}
-{:.api}
+<h3 id="Feature_bounds" class="api"><span class="prefix">Feature.</span><span class="name">bounds</span></h3><div class="api" markdown="1">
 
 The bounding `Box` of this feature.
 
-### `Feature.``x` {#Feature_x}
-{:.api}
+</div><h3 id="Feature_x" class="api"><span class="prefix">Feature.</span><span class="name">x</span></h3><div class="api" markdown="1">
 
 The x-coordinate of a node, or the horizontal midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
 
-### `Feature.``y` {#Feature_y}
-{:.api}
+</div><h3 id="Feature_y" class="api"><span class="prefix">Feature.</span><span class="name">y</span></h3><div class="api" markdown="1">
 
 The y-coordinate of a node, or the vertical midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
 
-### `Feature.``lon` {#Feature_lon}
-{:.api}
+</div><h3 id="Feature_lon" class="api"><span class="prefix">Feature.</span><span class="name">lon</span></h3><div class="api" markdown="1">
 
 `x` in degrees longitude (WGS-84)
 
-### `Feature.``lat` {#Feature_lat}
-{:.api}
+</div><h3 id="Feature_lat" class="api"><span class="prefix">Feature.</span><span class="name">lat</span></h3><div class="api" markdown="1">
 
 `y` in degrees latitude (WGS-84)
 
-### `Feature.``centroid` {#Feature_centroid}
-{:.api}
+</div><h3 id="Feature_centroid" class="api"><span class="prefix">Feature.</span><span class="name">centroid</span></h3><div class="api" markdown="1">
 
-The feature's calculated centroid (`Coordinate`)
+The feature's calculated centroid ([`Coordinate`](#Coordinate))
 
-### `Feature.``shape` {#Feature_shape}
-{:.api}
+</div><h3 id="Feature_shape" class="api"><span class="prefix">Feature.</span><span class="name">shape</span></h3><div class="api" markdown="1">
 
-The Shapely geometry for this feature: 
+The Shapely geometry for this feature:
 
 - `Point` for a node
 - `LineString` or `Polygon` for a way
-- `Polygon`, `GeometryCollection`, `MultiPoint`, `MultiLineString` or `MultiPolygon` for a relation 
+- `Polygon`, `GeometryCollection`, `MultiPoint`, `MultiLineString` or `MultiPolygon` for a relation
 
-### `Feature.``area` {#Feature_area}
-{:.api}
+</div><h3 id="Feature_area" class="api"><span class="prefix">Feature.</span><span class="name">area</span></h3><div class="api" markdown="1">
 
 The calculated area (in square meters) if this feature is polygonal, otherwise `0`.
 
-### `Feature.``length` {#Feature_length}
-{:.api}
+</div><h3 id="Feature_length" class="api"><span class="prefix">Feature.</span><span class="name">length</span></h3><div class="api" markdown="1">
 
 The calculated length (in meters) if this feature is lineal, or its circumference if it is polygonal, otherwise `0`.
 
 TODO: GeometryCollection?
 
+</div>
 ## Formatting
 
-To aid import into GIS applications, features can be converted into different representations. You can also visualize a feature on a map. See [Formats](formats) and [Maps](maps) to learn how output can be customized. 
+To aid import into GIS applications, features can be converted into different representations. You can also visualize a feature on a map. See [Formats](formats) and [Maps](maps) to learn how output can be customized.
 
-### `Feature.``geojson` {#Feature_geojson}
-{:.api}
+<h3 id="Feature_geojson" class="api"><span class="prefix">Feature.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
 
 The [GeoJSON](https://geojson.org/) representation of this feature.
 
-### `Feature.``wkt` {#Feature_wkt}
-{:.api}
+</div><h3 id="Feature_wkt" class="api"><span class="prefix">Feature.</span><span class="name">wkt</span></h3><div class="api" markdown="1">
 
 The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry).
 
-### `Feature.``map` {#Feature_map}
-{:.api}
+</div><h3 id="Feature_map" class="api"><span class="prefix">Feature.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
-A [`Map`](maps) displaying this feature. 
+A [`Map`](#Map) displaying this feature.
 
+</div>
 ## Tag methods
 
-### `Feature.``str`(*key*) {#Feature_str}
-{:.api}
+<h3 id="Feature_str" class="api"><span class="prefix">Feature.</span><span class="name">str</span><span class="paren">(</span><i>key</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Returns the value of the given tag key as a string, or an empty string if this feature doesn't have the requested tag.
 
-### `Feature.``num`(*key*) {#Feature_num}
-{:.api}
+</div><h3 id="Feature_num" class="api"><span class="prefix">Feature.</span><span class="name">num</span><span class="paren">(</span><i>key</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
 

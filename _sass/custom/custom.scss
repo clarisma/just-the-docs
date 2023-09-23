@@ -259,7 +259,7 @@ h1 del
     font-size: 0.9rem;
 }
 
-.main-content .api 
+.main-content h3.api 
 {
     font-family: monospace;
     color: $dark-blue;
@@ -273,17 +273,13 @@ h1 code, h2 code, h3 code, h4 code
     font-size: 1em;
 }
 
-.api code:first-of-type 
+h3.api .prefix
 {
     font-size: 0.7em;
+    font-weight: 400;
 }
 
-.api code:nth-of-type(2)
-{
-    font-weight: bold;
-}
-
-.api + p, .api ~ p + p, .api ~ p + div, .api ~ div + p 
+div.api
 {
     margin-left: 20px;
 }

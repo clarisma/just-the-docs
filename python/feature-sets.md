@@ -4,15 +4,19 @@ title:  Sets of Features
 parent: GeoDesk for Python
 nav_order: 5
 ---
+
+
+
+
 # Feature Sets
 
-A **feature set** represents those [`Feature`](features) objects that meet certain criteria.
+A **feature set** represents those [`Feature`](#Feature) objects that meet certain criteria.
 
-### `geodesk.``Features`(*gol*, *url*=None) {#Features}
-{:.api}
+<h3 id="Features_Features" class="api"><span class="prefix">geodesk.</span><span class="name">Features</span><span class="paren">(</span><i>gol</i>, <i>url</i>=<span class="default">None</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Creates a feature set based on a Geographic Object Library.
 
+</div>
 ## Filtering features
 
 ### By bounding box
@@ -32,7 +36,7 @@ features("w[highway]").members_of(route66)
 
 ## Obtaining `Feature` objects
 
-Iterate through the feature set: 
+Iterate through the feature set:
 
 ```python
 >>> for hotel in hotels:
@@ -54,61 +58,55 @@ Check if the set is empty:
 ```python
 if pubs(within_dublin):
     print("Great, we can grab a beer in this town!")
-    
+
 if not street.nodes("[traffic_calming=bump]"):
     print("No speed bumps on this street.")
 ```
 
 ## Properties
 
-### `Features.``count` {#Features_count}
-{:.api}
+<h3 id="Features_count" class="api"><span class="prefix">Features.</span><span class="name">count</span></h3><div class="api" markdown="1">
 
 The total number of features in this set.
 
-### `Features.``area` {#Features_area}
-{:.api}
+</div><h3 id="Features_area" class="api"><span class="prefix">Features.</span><span class="name">area</span></h3><div class="api" markdown="1">
 
 The total area (in square meters) of all areas in this set.
 
-### `Features.``length` {#Features_length}
-{:.api}
+</div><h3 id="Features_length" class="api"><span class="prefix">Features.</span><span class="name">length</span></h3><div class="api" markdown="1">
 
 The total length (in meters) of all features in this set. For areas, their circumference
 is used.
 
+</div>
 ## Subsets
 
-### `Features.``nodes` {#Features_nodes}
-{:.api}
+<h3 id="Features_nodes" class="api"><span class="prefix">Features.</span><span class="name">nodes</span></h3><div class="api" markdown="1">
 
 Only features that are nodes.
 
-### `Features.``ways` {#Features_ways}
-{:.api}
+</div><h3 id="Features_ways" class="api"><span class="prefix">Features.</span><span class="name">ways</span></h3><div class="api" markdown="1">
 
 Only features that are ways (including areas that are represented using a closed way).
 
 If you want to restrict the subset to linear ways, use <code><i>features</i>('w')</code>.
 
-### `Features.``relations` {#Features_relations}
-{:.api}
+</div><h3 id="Features_relations" class="api"><span class="prefix">Features.</span><span class="name">relations</span></h3><div class="api" markdown="1">
 
 Only features that are relations (including relations that represent areas).
 
 If you want to restrict the subset to non-area relations, use <code><i>features</i>('r')</code>.
 
+</div>
 ## Formatting
 
-### `Features.``geojson` {#Features_geojson}
-{:.api}
+<h3 id="Features_geojson" class="api"><span class="prefix">Features.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
 
 The set's features represented as GeoJSON.
 
-### `Features.``map` {#Features_map}
-{:.api}
+</div><h3 id="Features_map" class="api"><span class="prefix">Features.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
-A [`Map`](maps) that displays the features in this set. Use `show()` to open it in a browser window, or `save()` to write its HTML file. 
+A [`Map`](#Map) that displays the features in this set. Use [`show()`](#Map.show) to open it in a browser window, or [`save()`](#Map.save) to write its HTML file.
 
 ```python
 restaurants.map.show()
@@ -119,64 +117,56 @@ hydrants.map(color='red')    # map with fire hydrants marked in red
 TODO: link to detailed description
 
 
+</div>
 ## Spatial filters
 
-These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object (`Feature`, `Geometry`, `Box` or `Coordinate`). 
+These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)).
 
-### `Features.``around`(*geom*, *units*=*distance*) {#Features_around}
-{:.api}
+<h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
-Features that lie within the given distance from the centroid of *geom*. 
-In lieu of a geometric object, you can also specify coordinates using 
+Features that lie within the given distance from the centroid of *geom*.
+In lieu of a geometric object, you can also specify coordinates using
 `x` and `y` (for Mercator-projected coordinates) or `lon` and `lat` (in degrees).
 Use `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units` to specify the maximum distance.
 
 Example:
 
 ```python
-bus_stops.around(restaurant, meters=500) 
-features.around(miles=3, lat=40.12, lon=-76.41) 
+bus_stops.around(restaurant, meters=500)
+features.around(miles=3, lat=40.12, lon=-76.41)
 ```
 
-### `Features.``contains`(*geom*) {#Features_contains}
-{:.api}
+</div><h3 id="Features_contains" class="api"><span class="prefix">Features.</span><span class="name">contains</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *contains* the given geometric object.
 
 **Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
 
-### `Features.``crosses`(*geom*) {#Features_crosses}
-{:.api}
+</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *crosses* the given geometric object.
 
-### `Features.``disjoint`(*geom*) {#Features_crosses}
-{:.api}
+</div><h3 id="Features_disjoint" class="api"><span class="prefix">Features.</span><span class="name">disjoint</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry is *disjoint* from the given geometric object.
 
-### `Features.``intersects`(*geom*) {#Features_intersects}
-{:.api}
+</div><h3 id="Features_intersects" class="api"><span class="prefix">Features.</span><span class="name">intersects</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *intersects* the given geometric object.
 
-### `Features.``overlaps`(*geom*) {#Features_overlaps}
-{:.api}
+</div><h3 id="Features_overlaps" class="api"><span class="prefix">Features.</span><span class="name">overlaps</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *overlaps* the given geometric object.
 
-### `Features.``touches`(*geom*) {#Features_touches}
-{:.api}
+</div><h3 id="Features_touches" class="api"><span class="prefix">Features.</span><span class="name">touches</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *touches* the given geometric object.
 
-
-### `Features.``nearest_to`(*geom*, *units*=*distance*) {#Features_nearest_to}
-{:.api}
+</div><h3 id="Features_nearest_to" class="api"><span class="prefix">Features.</span><span class="name">nearest_to</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features in ascending order of distance to the given geometric object.
 
-- To limit the search radius, specify a maximum distance in the units of your choice: `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`   
+- To limit the search radius, specify a maximum distance in the units of your choice: `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`
 
 Example:
 
@@ -185,53 +175,44 @@ features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
 
 
+</div>
 ## Topological filters
 
 These methods return a subset of those features that have a specific topological relationship with another `Feature`.
 
-### `Features.``members_of`(*feature*) {#Features_members_of}
-{:.api}
+<h3 id="Features_members_of" class="api"><span class="prefix">Features.</span><span class="name">members_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features that are members of the given relation, or nodes of the given way. Returns an empty set if *feature* is a node.
 
-### `Features.``parents_of`(*feature*) {#Features_parents_of}
-{:.api}
+</div><h3 id="Features_parents_of" class="api"><span class="prefix">Features.</span><span class="name">parents_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Relations that have the given feature as a member, as well as ways to which the given node belongs.
 
-### `Features.``descendants_of`(*feature*) {#Features_descendants_of}
-{:.api}
+</div><h3 id="Features_descendants_of" class="api"><span class="prefix">Features.</span><span class="name">descendants_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
-### `Features.``ancestors_of`(*feature*) {#Features_ancestors_of}
-{:.api}
+</div><h3 id="Features_ancestors_of" class="api"><span class="prefix">Features.</span><span class="name">ancestors_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
-### `Features.``connected_to`(*feature*) {#Features_connected_to}
-{:.api}
+</div><h3 id="Features_connected_to" class="api"><span class="prefix">Features.</span><span class="name">connected_to</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
-All features that share a common node with *feature*. 
+All features that share a common node with *feature*.
 
 
+</div>
 ## Metadata
 
-### `Features.``properties` {#Features_properties}
-{:.api}
+<h3 id="Features_properties" class="api"><span class="prefix">Features.</span><span class="name">properties</span></h3><div class="api" markdown="1">
 
-### `Features.``copyright` {#Features_copyright}
-{:.api}
+</div><h3 id="Features_copyright" class="api"><span class="prefix">Features.</span><span class="name">copyright</span></h3><div class="api" markdown="1">
 
-### `Features.``license` {#Features_license}
-{:.api}
+</div><h3 id="Features_license" class="api"><span class="prefix">Features.</span><span class="name">license</span></h3><div class="api" markdown="1">
 
-The license under which this dataset is made available. 
+The license under which this dataset is made available.
 
-### `Features.``license_url` {#Features_license_url}
-{:.api}
+</div><h3 id="Features_license_url" class="api"><span class="prefix">Features.</span><span class="name">license_url</span></h3><div class="api" markdown="1">
 
 The URL where the text of the license can be found.
 
-### `Features.``indexed_keys` {#Features_indexed_keys}
-{:.api}
+</div><h3 id="Features_indexed_keys" class="api"><span class="prefix">Features.</span><span class="name">indexed_keys</span></h3><div class="api" markdown="1">
 
-### `Features.``tiles` {#Features_tiles}
-{:.api}
+</div><h3 id="Features_tiles" class="api"><span class="prefix">Features.</span><span class="name">tiles</span></h3><div class="api" markdown="1">
 

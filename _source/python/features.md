@@ -43,11 +43,11 @@ OpenStreetMap uses three types of features:
 
 > .property id
 
-The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an anonymous node, otherwise non-zero.
+The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an [anonymous node](#anonymous-nodes), otherwise non-zero.
 
 > .property tags
 
-The feature's `Tags` (key/value pair that describe its properties). 
+The feature's [`Tags`](#Tags) (key/value pairs that describe its properties). 
 
 > .property is_node
 
@@ -151,3 +151,25 @@ Returns the value of the given tag key as a string, or an empty string if this f
  
 Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
 
+> .class Tags
+
+## `Tags` objects
+
+Iterating a `Tags` object yields key/value tuples:
+
+```python
+>>> for key, value in street.tags:
+...     print f'{key}={value}'  
+('highway', 'residential')
+('name', 'Rue de la Eglise')
+('maxspeed', 30)
+```
+
+
+## Anonymous nodes
+
+An **anonymous node** has no tags and does not belong to any relations --- it merely serves to define the geometry of a way. By default, feature libraries omit the IDs of such nodes to save space, in which case [`id`](#Feature.id) is `0`.
+
+Anonymous nodes can only be obtained by [`nodes`](#Feature.nodes); they are not part of any other feature sets. The [`parents`](#Feature.parents) property of an anonymous node contains the ways to which this node belongs (always at least one).  
+
+Every anonymous node in a GOL has a unique location. If two or more nodes share the exact latitude and longitude, the untagged ones are tagged `geodesk:duplicate=yes` and retain their ID.

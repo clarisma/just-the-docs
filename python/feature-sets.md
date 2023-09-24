@@ -6,11 +6,11 @@ nav_order: 5
 ---
 
 
-
+<a id="Features"></a>
 
 # Feature Sets
 
-A **feature set** represents those [`Feature`](#Feature) objects that meet certain criteria.
+A **feature set** represents those [`Feature`](/python\features#Feature) objects that meet certain criteria.
 
 <h3 id="Features_Features" class="api"><span class="prefix">geodesk.</span><span class="name">Features</span><span class="paren">(</span><i>gol</i>, <i>url</i>=<span class="default">None</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
@@ -23,7 +23,7 @@ To select a subset of features, add the constraint in parentheses, or apply a fi
 
 ### By bounding box
 
-Select the features whose bounding boxes intersects the given [`Box`](#Box):
+Select the features whose bounding boxes intersects the given [`Box`](/python\primitives#Box):
 
 <img class="float" src="/img/bboxes.png" width=260>
 
@@ -59,7 +59,7 @@ safe_for_cycling = features(
 
 ### Using filter methods
 
-Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters):
+Apply a [spatial filter](spatial-filters) or [topological filter](topological-filters):
 
 ```python
 states.within(usa)
@@ -138,7 +138,7 @@ The set's features represented as GeoJSON.
 
 </div><h3 id="Features_map" class="api"><span class="prefix">Features.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
-A [`Map`](#Map) that displays the features in this set. Use [`show()`](#Map.show) to open it in a browser window, or [`save()`](#Map.save) to write its HTML file.
+A [`Map`](/python\maps#Map) that displays the features in this set. Use [`show()`](/python\maps#Map_show) to open it in a browser window, or [`save()`](/python\maps#Map_save) to write its HTML file.
 
 ```python
 restaurants.map.show()
@@ -152,7 +152,7 @@ TODO: link to detailed description
 </div>
 ## Spatial filters
 
-These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)).
+These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\features#Feature), [`Geometry`](Geometry), [`Box`](/python\primitives#Box) or [`Coordinate`](/python\primitives#Coordinate)).
 
 <h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 

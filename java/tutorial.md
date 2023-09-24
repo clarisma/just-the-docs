@@ -19,7 +19,7 @@ This tutorial assumes that you are already familiar with OpenStreetMap and its d
 - Download some OSM data (in PBF format). We suggest starting with a subset for a single
   country (or smaller part). For example, Germany (file size: 3.5 GB) can be downloaded from
   [GeoFabrik](https://download.geofabrik.de/europe/germany.html) or
-  [BBBike](https://download.bbbike.org/osm/planet/sub-planet/). 
+  [BBBike](https://download.bbbike.org/osm/planet/sub-planet-daily/). 
  
 - Turn the PBF file into a Geographic Object Library:   
 

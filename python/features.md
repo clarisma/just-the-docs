@@ -5,7 +5,7 @@ parent: GeoDesk for Python
 nav_order: 4
 ---
 
-
+<a id="Feature"></a>
 
 # Feature Objects
 
@@ -43,11 +43,11 @@ OpenStreetMap uses three types of features:
 
 </div><h3 id="Feature_id" class="api"><span class="prefix">Feature.</span><span class="name">id</span></h3><div class="api" markdown="1">
 
-The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an anonymous node, otherwise non-zero.
+The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an [anonymous node](anonymous-nodes), otherwise non-zero.
 
 </div><h3 id="Feature_tags" class="api"><span class="prefix">Feature.</span><span class="name">tags</span></h3><div class="api" markdown="1">
 
-The feature's `Tags` (key/value pair that describe its properties).
+The feature's [`Tags`](/python\features#Tags) (key/value pairs that describe its properties).
 
 </div><h3 id="Feature_is_node" class="api"><span class="prefix">Feature.</span><span class="name">is_node</span></h3><div class="api" markdown="1">
 
@@ -86,7 +86,7 @@ The role of this feature if it was returned via a member set (an empty string if
 
 <h3 id="Feature_bounds" class="api"><span class="prefix">Feature.</span><span class="name">bounds</span></h3><div class="api" markdown="1">
 
-The bounding [`Box`](#Box) of this feature.
+The bounding [`Box`](/python\primitives#Box) of this feature.
 
 </div><h3 id="Feature_x" class="api"><span class="prefix">Feature.</span><span class="name">x</span></h3><div class="api" markdown="1">
 
@@ -106,7 +106,7 @@ The y-coordinate of a node, or the vertical midpoint of the `bounds` of a way or
 
 </div><h3 id="Feature_centroid" class="api"><span class="prefix">Feature.</span><span class="name">centroid</span></h3><div class="api" markdown="1">
 
-The feature's calculated centroid ([`Coordinate`](#Coordinate))
+The feature's calculated centroid ([`Coordinate`](/python\primitives#Coordinate))
 
 </div><h3 id="Feature_shape" class="api"><span class="prefix">Feature.</span><span class="name">shape</span></h3><div class="api" markdown="1">
 
@@ -141,7 +141,7 @@ The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-k
 
 </div><h3 id="Feature_map" class="api"><span class="prefix">Feature.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
-A [`Map`](#Map) displaying this feature.
+A [`Map`](/python\maps#Map) displaying this feature.
 
 </div>
 ## Tag methods
@@ -154,3 +154,26 @@ Returns the value of the given tag key as a string, or an empty string if this f
 
 Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
 
+<a id="Tags"></a>
+
+</div>
+## `Tags` objects
+
+Iterating a `Tags` object yields key/value tuples:
+
+```python
+>>> for key, value in street.tags:
+...     print f'{key}={value}'
+('highway', 'residential')
+('name', 'Rue de la Eglise')
+('maxspeed', 30)
+```
+
+
+## Anonymous nodes
+
+An **anonymous node** has no tags and does not belong to any relations --- it merely serves to define the geometry of a way. By default, feature libraries omit the IDs of such nodes to save space, in which case [`id`](/python\features#Feature_id) is `0`.
+
+Anonymous nodes can only be obtained by [`nodes`](/python\features#Feature_nodes); they are not part of any other feature sets. The [`parents`](/python\features#Feature_parents) property of an anonymous node contains the ways to which this node belongs (always at least one).
+
+Every anonymous node in a GOL has a unique location. If two or more nodes share the exact latitude and longitude, the untagged ones are tagged `geodesk:duplicate=yes` and retain their ID.

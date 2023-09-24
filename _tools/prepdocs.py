@@ -208,7 +208,8 @@ class ApiDocProcessor:
 			self.classes[class_name] = c
 			self.current_module.add_class(c)
 		self.current_class = c
-		return ""
+		# TODO: would be better to set ID of next heading
+		return f'<a id="{class_name}"></a>'
 	
 	def process_method_command(self, page, cmd):
 		n = cmd.find('(')
@@ -291,7 +292,7 @@ class ApiDocProcessor:
 			close_tag = "</div>"
 		return close_tag
 
-	def replace_markdown_links(self, line, replace_link):
+	def replace_markdown_links(self, line):
 		# Regular expression to match Markdown links
 		pattern = r'\[([^\]]+)\]\(([^\)]+)\)'
 
@@ -299,7 +300,7 @@ class ApiDocProcessor:
 		def replace_callback(match):
 			link_text = match.group(1)
 			old_link = match.group(2)
-			new_link = replace_link(self, old_link)
+			new_link = self.resolve_api_link(old_link)
 			return f"[{link_text}]({new_link})"
 
 		return re.sub(pattern, replace_callback, line)
@@ -311,19 +312,19 @@ class ApiDocProcessor:
 		n = link.find('.')
 		if n < 0:
 			# potential link to class
-			c = self.classes[link]
+			c = self.classes.get(link)
 			if c:
 				link = c.page.name + '#' + c.name	 
 		else:
 			class_name = link[0:n]
 			member_name = link[n+1:]
-			c = self.classes[class_name]
+			c = self.classes.get(class_name)
 			if c:
-				method = c.methods[member_name]
+				method = c.methods.get(member_name)
 				if method:
 					link = c.page.name + '#' + class_name + '_' + method.name
 				else:
-					prop = c.properties[member_name]
+					prop = c.properties.get(member_name)
 					if prop:
 						link = c.page.name + '#' + class_name + '_' + prop.name
 		return link				
@@ -331,7 +332,7 @@ class ApiDocProcessor:
 	def resolve_api_links(self, page):
 		new_lines = []
 		for line in page.lines:
-			new_lines.append(self.replace_markdown_links(line, self.resolve_api_link))
+			new_lines.append(self.replace_markdown_links(line))
 		page.lines = new_lines
 			
 if __name__ == '__main__':

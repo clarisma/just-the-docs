@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 class Page:
 	def __init__(self, name, filename, lines):	
@@ -150,7 +151,8 @@ class ApiDocProcessor:
 
 		for page in self.pages:
 			self.process_page_commands(page)
-			
+		for page in self.pages:
+			self.resolve_api_links(page)
 		for page in self.pages:
 			page.save()
 	
@@ -288,7 +290,50 @@ class ApiDocProcessor:
 			self.current_property = None
 			close_tag = "</div>"
 		return close_tag
-		
+
+	def replace_markdown_links(self, line, replace_link):
+		# Regular expression to match Markdown links
+		pattern = r'\[([^\]]+)\]\(([^\)]+)\)'
+
+		# Callback function for re.sub to replace the matched link
+		def replace_callback(match):
+			link_text = match.group(1)
+			old_link = match.group(2)
+			new_link = replace_link(self, old_link)
+			return f"[{link_text}]({new_link})"
+
+		return re.sub(pattern, replace_callback, line)
+
+	def resolve_api_link(self, link):
+		if not link.startswith('#'):
+			return link
+		link = link[1:]
+		n = link.find('.')
+		if n < 0:
+			# potential link to class
+			c = self.classes[link]
+			if c:
+				link = c.page.name + '#' + c.name	 
+		else:
+			class_name = link[0:n]
+			member_name = link[n+1:]
+			c = self.classes[class_name]
+			if c:
+				method = c.methods[member_name]
+				if method:
+					link = c.page.name + '#' + class_name + '_' + method.name
+				else:
+					prop = c.properties[member_name]
+					if prop:
+						link = c.page.name + '#' + class_name + '_' + prop.name
+		return link				
+
+	def resolve_api_links(self, page):
+		new_lines = []
+		for line in page.lines:
+			new_lines.append(self.replace_markdown_links(line, self.resolve_api_link))
+		page.lines = new_lines
+			
 if __name__ == '__main__':
 	processor = ApiDocProcessor()
 	processor.process_files("_source")

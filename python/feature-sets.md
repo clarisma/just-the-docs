@@ -64,6 +64,22 @@ states.within(usa)
 features("w[highway]").members_of(route66)
 ```
 
+### Using set intersection
+
+Select only features that are in *both* sets:
+
+```python
+museums  = features("na[tourism=museum]")
+in_paris = features.within(paris))
+paris_museums = museums(in_paris)
+```
+
+Alternatively, you can use the `&` operator:
+
+```python
+paris_museums = museums & in_paris
+```
+
 ## Obtaining `Feature` objects
 
 Iterate through the feature set:
@@ -92,6 +108,25 @@ if pubs(within_dublin):
 if not street.nodes("[traffic_calming=bump]"):
     print("No speed bumps on this street.")
 ```
+
+<h3 id="Features_first" class="api"><span class="prefix">Features.</span><span class="name">first</span></h3><div class="api" markdown="1">
+
+The first feature of the set (or any arbitrary feature if the set is unordered), or `None` if the set is empty.
+
+</div><h3 id="Features_one" class="api"><span class="prefix">Features.</span><span class="name">one</span></h3><div class="api" markdown="1">
+
+The one and only feature of the set. A `QueryError` is raised if the set is empty or contains more than one feature.
+
+</div>
+### Obtaining a single feature
+
+There are three ways you can obtain a single feature from a set.
+
+- `.first` retrieves the first feature of the set (or any arbitrary feature if the set is unordered), or `None` if the set is empty.
+
+- `.one` is useful if you expect exactly one feature in the set. A `QueryError` is raised if the set is empty or contains more than one feature.
+
+- `[0]` works like `.first`, but instead of returning `None`, raises a `QueryError` if the set is empty.
 
 ## Properties
 

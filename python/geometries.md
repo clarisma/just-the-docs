@@ -9,7 +9,7 @@ nav_order: 3
 
 GeoDesk uses [Shapely](https://shapely.readthedocs.io/) for a wide variety of geometry operations. Shapely provides a Python interface to the widely-deployed GEOS library.
 
-Shapely/GEOS is a library for *planar geometry* --- it operates on flat 2-D space. The Earth isn't flat, of course, but for most real-life cartographic needs, we can pretend that it is and use simplified geometric techniques.
+Shapely/GEOS is a library for *planar geometry* --- it operates on flat 2-D space. The Earth isn't flat, of course, but for many real-life cartographic needs, we can pretend that it is and use simplified geometric techniques.
 
 [`Geometry`](https://shapely.readthedocs.io/en/stable/geometry.htm) is the base class of all geometric shapes. It has eight subtypes:
 
@@ -22,7 +22,7 @@ Shapely/GEOS is a library for *planar geometry* --- it operates on flat 2-D spac
 [`MultiPolygon`](https://shapely.readthedocs.io/en/stable/reference/shapely.MultiPolygon.html)| A collection of one or more Polygons.
 [`GeometryCollection`](https://shapely.readthedocs.io/en/stable/reference/shapely.GeometryCollection.html)| A collection of one or more geometries that may contain more than one type of geometry.
 
-Shapely is projection-agnostic --- it uses a unit-less plane. However, to work seamlessly with GeoDesk, all geometries must be represented using Mercator coordinates.
+Shapely is projection-agnostic --- it uses a unit-less plane. However, to work seamlessly with GeoDesk, all geometries must be represented using [Mercator coordinates](/core-concepts#coordinate-system).
 
 ## Creating geometries
 

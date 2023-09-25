@@ -36,7 +36,8 @@ To automatically download missing tiles as they are needed, specify the URL of t
 feature repository as the second constructor argument:
 
 ```java
-FeatureLibrary world = new FeatureLibrary("world.gol", "https://data.geodesk.com/world");
+FeatureLibrary world = new FeatureLibrary(
+    "world.gol", "https://data.geodesk.com/world");
 ```
 
 - If the library file does not exist, but you've specified a repository URL, the `.gol`

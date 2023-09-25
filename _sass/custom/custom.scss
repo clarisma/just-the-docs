@@ -8,8 +8,8 @@ $light-beige: #F8F5EF;
 $dark-beige: lighten(#ECE4D8, 2%);
 $darker-beige: darken($dark-beige, 10%);
 $feedback-color: $darker-beige;
-$code-background-color: $white;
-$python-code-background-color: #272822; // #211C1A; // #313440; //
+$code-background-color: #272822; // $white;
+// $python-code-background-color: #272822; // #211C1A; // #313440; //
 $dark-red: darken(#760D0D,5%);
 // #840B0B;
 $dark-blue:#213682 ; 
@@ -297,8 +297,13 @@ div.api
 }
 
 
-div.language-python 
+div.highlighter-rouge
 {
-    background-color: $python-code-background-color;
-    border-color: $python-code-background-color;
+    background-color: $code-background-color;
+    border-color: $code-background-color;
+}
+
+div.highlight code
+{
+    color: #f8f8f2;
 }

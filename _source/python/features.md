@@ -187,7 +187,7 @@ Iterating a `Tags` object yields key-value tuples:
 
 ```python
 >>> for key, value in street.tags:
-...     print f'{key}={value}'  
+...     print (f'{key}={value}')  
 ('highway', 'residential')
 ('name', 'Rue des Poulets')
 ('maxspeed', 30)

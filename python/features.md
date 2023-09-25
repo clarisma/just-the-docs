@@ -20,19 +20,36 @@ OpenStreetMap uses three types of features:
 
 - *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members.
 
+Each feature has a geometric **shape** (`Point`, `LineString`, `Polygon` or a collection type), as well as one or more **tags** (key-value pairs) that describe its details. To access a feature's tags, use <code><i>feature</i>["<i>key</i>"]</code>. If the tag key is a valid attribute name (letters and digits only, must start with a letter) and doesn't collide with a property, you can simply use <code><i>feature</i>.<i>key</i></code>.
+
+
 ```python
->>> city.osm_type
-'node'
->>> city.id
-1601837931
+>>> city["name"]
+'Praha'
 >>> city.name
 'Praha'
->>> city['name:en']
+>>> city["name:en"]     # must use [] because key contains :
 'Prague'
+```
+
+Tag values can be strings or numbers, or `None` if the feature doesn't have a tag with the given key. To coerce the value to string or numeric, use [`str()`](#feature.str) (returns an empty string if tag doesn't exist) or [`num()`](/python\features#Feature_num) (returns `0` if tag doesn't exist or is non-numeric).
+
+```python
 >>> city.population
 1275406
->>> city.str('population')
+>>> city.str("population")
 '1275406'
+>>> city.num("no_such_tag")
+0
+```
+
+Use [`tags`](/python\features#Feature_tags) to get all tags. A [`Tags`](/python\features#Tags) object offers additional options to convert and filter tags.
+
+```python
+>>> street.tags
+'{"highway": "residential", "name": "Rue des Poulets", "maxspeed": 30}'
+>>> street.tags.html
+'highway=residential<br>name=Rue des Poulets<br>maxpeed=30'
 ```
 
 ## OSM-specific properties
@@ -43,7 +60,7 @@ OpenStreetMap uses three types of features:
 
 </div><h3 id="Feature_id" class="api"><span class="prefix">Feature.</span><span class="name">id</span></h3><div class="api" markdown="1">
 
-The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an [anonymous node](anonymous-nodes), otherwise non-zero.
+The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an [anonymous node](#anonymous-nodes), otherwise non-zero.
 
 </div><h3 id="Feature_tags" class="api"><span class="prefix">Feature.</span><span class="name">tags</span></h3><div class="api" markdown="1">
 
@@ -110,11 +127,13 @@ The feature's calculated centroid ([`Coordinate`](/python\primitives#Coordinate)
 
 </div><h3 id="Feature_shape" class="api"><span class="prefix">Feature.</span><span class="name">shape</span></h3><div class="api" markdown="1">
 
-The Shapely geometry for this feature:
+The Shapely geometry of this feature:
 
 - `Point` for a node
 - `LineString` or `Polygon` for a way
 - `Polygon`, `GeometryCollection`, `MultiPoint`, `MultiLineString` or `MultiPolygon` for a relation
+
+Coordinates are in Mercator projection.
 
 </div><h3 id="Feature_area" class="api"><span class="prefix">Feature.</span><span class="name">area</span></h3><div class="api" markdown="1">
 
@@ -143,6 +162,15 @@ The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-k
 
 A [`Map`](/python\maps#Map) displaying this feature.
 
+You can [`add()`](/python\maps#Map_add) more features, [`save()`](/python\maps#Map_save) it or [`show()`](/python\maps#Map_show) it in a browser.
+
+```python
+# Mark a route on a map, highlight bike paths in green
+route_map = route.map
+route_map.add(route.members("w[highway=cycleway]", color="green")
+route_map.show()
+```
+
 </div>
 ## Tag methods
 
@@ -159,13 +187,13 @@ Returns the value of the given tag as an `int` or `float`, or `0` if this featur
 </div>
 ## `Tags` objects
 
-Iterating a `Tags` object yields key/value tuples:
+Iterating a `Tags` object yields key-value tuples:
 
 ```python
 >>> for key, value in street.tags:
 ...     print f'{key}={value}'
 ('highway', 'residential')
-('name', 'Rue de la Eglise')
+('name', 'Rue des Poulets')
 ('maxspeed', 30)
 ```
 

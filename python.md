@@ -9,7 +9,9 @@ permalink: /python
 
 # GeoDesk for Python
 
-Impatient? Read the [Five-minute tutorial](quickstart).
+**GeoDesk for Python** allows you to query, analyze, display and transform OpenStreetMap features using the world's most popular scripting language.
+
+
 
 <blockquote class="note" markdown="1">
 GeoDesk for Python is in **Early Access**. Some capabilities may be unavailable in Version {{ site.geodesk_python_version}}.

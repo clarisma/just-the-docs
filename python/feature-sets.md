@@ -55,11 +55,9 @@ safe_for_cycling = features(
    # linear ways
 ```
 
-### By geometry
-
 ### Using filter methods
 
-Apply a [spatial filter](spatial-filters) or [topological filter](topological-filters):
+Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters):
 
 ```python
 states.within(usa)
@@ -146,13 +144,10 @@ hotels.map.save("hotel-map") # .html by default
 hydrants.map(color='red')    # map with fire hydrants marked in red
 ```
 
-TODO: link to detailed description
-
-
 </div>
 ## Spatial filters
 
-These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\features#Feature), [`Geometry`](Geometry), [`Box`](/python\primitives#Box) or [`Coordinate`](/python\primitives#Coordinate)).
+These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\features#Feature), [`Geometry`](#Geometry), [`Box`](/python\primitives#Box) or [`Coordinate`](/python\primitives#Coordinate)).
 
 <h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 

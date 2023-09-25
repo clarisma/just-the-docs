@@ -162,14 +162,18 @@ class ApiDocProcessor:
 		self.current_method = None
 		self.current_param = None
 		self.current_property = None
-		
+
+		in_code = False		
+
 		new_lines = []
 		for line in page.lines:
 			if line.startswith('>'):
 				cmdline = line[1:].strip()
 				if cmdline.startswith('.'):
 					line = self.process_command(page, cmdline)
-			elif line.startswith('#'):
+			elif line.startswith('```'):
+				in_code = not in_code
+			elif line.startswith('#') and not in_code:
 				# End the current API section whenever we encounter a heading
 				if self.current_property or self.current_method:
 					self.current_property = None
@@ -308,16 +312,16 @@ class ApiDocProcessor:
 	def resolve_api_link(self, link):
 		if not link.startswith('#'):
 			return link
-		link = link[1:]
-		n = link.find('.')
+		name = link[1:]
+		n = name.find('.')
 		if n < 0:
 			# potential link to class
-			c = self.classes.get(link)
+			c = self.classes.get(name)
 			if c:
 				link = c.page.name + '#' + c.name	 
 		else:
-			class_name = link[0:n]
-			member_name = link[n+1:]
+			class_name = name[0:n]
+			member_name = name[n+1:]
 			c = self.classes.get(class_name)
 			if c:
 				method = c.methods.get(member_name)

@@ -54,8 +54,6 @@ safe_for_cycling = features(
    # linear ways
 ```
 
-### By geometry
-
 ### Using filter methods
 
 Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters):
@@ -142,9 +140,6 @@ restaurants.map.show()
 hotels.map.save("hotel-map") # .html by default
 hydrants.map(color='red')    # map with fire hydrants marked in red
 ```
-
-TODO: link to detailed description
-
 
 ## Spatial filters
 

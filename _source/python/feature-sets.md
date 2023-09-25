@@ -110,21 +110,15 @@ if not street.nodes("[traffic_calming=bump]"):
 
 > .property first
 
-The first feature of the set (or any arbitrary feature if the set is unordered), or `None` if the set is empty.
+The first feature of the set (or any arbitrary feature if the set is unordered).
+
+`None` if the set is empty.
 
 > .property one
 
-The one and only feature of the set. A `QueryError` is raised if the set is empty or contains more than one feature.
+The one and only feature of the set. 
 
-### Obtaining a single feature
-
-There are three ways you can obtain a single feature from a set.
-
-- `.first` retrieves the first feature of the set (or any arbitrary feature if the set is unordered), or `None` if the set is empty.
-
-- `.one` is useful if you expect exactly one feature in the set. A `QueryError` is raised if the set is empty or contains more than one feature.
-
-- `[0]` works like `.first`, but instead of returning `None`, raises a `QueryError` if the set is empty.
+A `QueryError` is raised if the set is empty or contains more than one feature.
 
 ## Properties
 
@@ -189,7 +183,10 @@ Use `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units` to specify the 
 Example:
 
 ```python
-bus_stops.around(restaurant, meters=500) 
+# All bus stops within 500 meters of the given restaurant
+features("n[highway=bus_stop]").around(restaurant, meters=500)
+ 
+# All features within 3 miles of the given point 
 features.around(miles=3, lat=40.12, lon=-76.41) 
 ```
 
@@ -199,9 +196,24 @@ Features whose geometry *contains* the given geometric object.
 
 **Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
 
+```python
+# In which park (if any) is this statue of Claude Monet?
+features("a[leisure=park]").contains(statue_of_monet).first
+ 
+# The county, state and country for this point -- should return 
+# San Diego County, California, USA (in no particular order)  
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99) 
+```
+
 > .method crosses(*geom*)
 
 Features whose geometry *crosses* the given geometric object.
+
+```python
+# All railway bridges across the Mississippi River
+features("w[railway][bridge]").crosses(mississippi)
+```
 
 > .method disjoint(*geom*)
 
@@ -235,6 +247,10 @@ features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ## Topological filters
 
 These methods return a subset of those features that have a specific topological relationship with another `Feature`.
+
+> .method nodes_of(*feature*)
+
+The nodes of the given way. Returns an empty set if *feature* is a node or relation.
 
 > .method members_of(*feature*)
 

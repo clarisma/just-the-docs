@@ -62,20 +62,23 @@ A `Box` represents an axis-aligned bounding box.
 <h3 id="Box_Box" class="api"><span class="prefix">geodesk.</span><span class="name">Box</span><span class="paren">(</span><i>coords</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 </div>
+### Properties
+
 ### Operators
 
-### `+` <span style="color:#e0e0e0">&nbsp;&ndash;</span> Expansion
+#### Containment test (`in`)
 
-### `+` (Expansion)
+.operator in (Containment test): *coord_or_box* in *box*
 
-### `+` &nbsp;&ndash;&nbsp; Expansion
+*coord_or_box* `in` *box*
 
-### `+` &nbsp;&nbsp;&nbsp; Expansion
+Returns true
 
+#### Expansion (`+` or `|`)
 
-### `+` : Expansion
+#### Intersection (`&`)
 
-### `&` &nbsp;&ndash; Intersection
+### Methods
 
 <h3 id="Box_buffer" class="api"><span class="prefix">Box.</span><span class="name">buffer</span><span class="paren">(</span><i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 

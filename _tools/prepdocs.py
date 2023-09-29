@@ -1,6 +1,13 @@
 from pathlib import Path
 import re
 
+operators = [
+    ('+', '__add__'),
+    ('-', '__sub__'),
+    ('&', '__and__'),
+    ('|', '__or__'),
+]
+
 class Page:
 	def __init__(self, name, filename, lines):	
 		self.name = name

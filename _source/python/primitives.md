@@ -60,20 +60,23 @@ A `Box` represents an axis-aligned bounding box.
 
 > .method Box(*coords*)
 
+### Properties
+
 ### Operators
 
-### `+` <span style="color:#e0e0e0">&nbsp;&ndash;</span> Expansion
+#### Containment test (`in`)
 
-### `+` (Expansion)
+.operator in (Containment test): *coord_or_box* in *box* 
 
-### `+` &nbsp;&ndash;&nbsp; Expansion
+*coord_or_box* `in` *box*
 
-### `+` &nbsp;&nbsp;&nbsp; Expansion
+Returns true  
 
+#### Expansion (`+` or `|`)
 
-### `+` : Expansion
+#### Intersection (`&`)
 
-### `&` &nbsp;&ndash; Intersection
+### Methods
 
 > .method buffer(*units*=*distance*)
 

@@ -32,27 +32,51 @@ my_map.show()
 
 ## Map Attributes
 
-`basemap` | Tile server URL for the base map (default: OpenStreetMap Carto)
-`attribution` | The attribution text to display at the bottom of the map (This is          required if you publicly display your map, and defaults to "&copy; OpenStreetMap")
-`leaflet_version` | The version of the [Leaflet](https://www.leafletjs.com) to use
-`leaflet_url` | The URL from which
+`basemap` | Tile server URL for the base map (Default: OpenStreetMap Carto)
+`attribution` | Attribution text to display at the bottom of the map (This is          required if you publicly display your map, and defaults to "&copy; OpenStreetMap")
+`leaflet_version` | Version of the [Leaflet](https://www.leafletjs.com) to use
+`leaflet_url` | URL from which Leaflet is loaded (By default, Leaflet is loaded from [UNPKG](https://www.unpkg.com/))
+`leaflet_stylesheet_url` | URL for a custom CSS file (to customize the appearance of the Leaflet map controls)
+`min_zoom` | Minimum zoom level. Default: 0
+`max_zoom` | Maximum zoom level: Default: 19
 
 ## Element Attributes
 
-`stroke` | Whether to draw the element's stoke. Default: `true`. Use `false` if you don't want borders around polygons or circles.
+`tooltip` | Text (HTML) to display when the user places the mouse cursor over an element. Default: `None`
+`link` | URL to navigate when the user clicks on an element. Default: `None`
+`stroke` | Whether to draw the element's stoke. Default: `True`. Use `False` if you don't want borders around polygons or circles.
 `color` | The stroke color. Default: `"blue"`
 `weight` | Stroke width in pixels. Default: 3
 `opacity` | Stroke opacity. Default: 1.0
 `lineCap` | A string that defines <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linecap">shape to be used at the end</a> of the stroke. Default: `"round"`
 `lineJoin` | A string that defines <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linejoin">shape to be used at the corners</a> of the stroke. Default: `"round"`
-`dashOffset` | A string that defines the stroke <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dasharray">dash pattern</a>. Default: `None` (solid line)
-`fill` | Whether to fill the element with color. Default: `true`. Use `false` to disable filling polygons or circles
+`dashArray` | A string that defines the stroke <a href="https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dasharray">dash pattern</a>. Default: `None` (solid line)
+`dashOffset` | A string that defines the [distance into the dash pattern](https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-dashoffset) to start the dash. Default: `None`
+`fill` | Whether to fill the element with color. Default: `True`. Use `False` to disable filling polygons or circles
 `fillColor` | Fill color. Defaults to the value of `color`
 `fillOpacity` | Fill opacity. Default: 0.2
 
+(Adapted from [Leaflet API Documentation](https://leafletjs.com/reference.html#path) --- &copy; 2010 -- 2013 Volodymyr Agafonkin. Licensed under [BSD-2-Clause](https://github.com/Leaflet/Leaflet/blob/main/LICENSE))
+{:.text-small}
 
-Adapted from [Leaflet API Documentation](https://leafletjs.com/reference.html#path) --- &copy; 2010 -- 2013 Volodymyr Agafonkin. Licensed under [BSD-2-Clause](https://github.com/Leaflet/Leaflet/blob/main/LICENSE)
 
+To open the feature's website (if it has one):
+
+```python
+link="{website}"
+```
+
+To display the feature on the official OpenStreetMap website (where you can see more information, such as its revision history):
+
+```python
+link="https://www.openstreetmap.org/{osm_type}/{id}"
+```
+
+To edit the feature in iD (the default OpenStreetMap editor):
+
+```python
+link="https://www.openstreetmap.org/edit?{osm_type}={id}"
+```
 
 ## Properties
 
@@ -75,7 +99,13 @@ All are mutable.
 </div>
 ## Methods
 
-<h3 id="Map_add" class="api"><span class="prefix">Map.</span><span class="name">add</span><span class="paren">(</span><i>item</i><span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="Map_add" class="api"><span class="prefix">Map.</span><span class="name">add</span><span class="paren">(</span><i>item</i>, <i>attributes</i>=<span class="default">None</span><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Creates a map marker for the given *item*:
+
+- a geometric object (`Coordinate`, `Box`, `Feature` or `Geometry`)
+- any object that has an `add_to_map(Map)` method
+- an iterable that contains any of the above (e.g. a feature set)
 
 </div><h3 id="Map_save" class="api"><span class="prefix">Map.</span><span class="name">save</span><span class="paren">(</span><i>filename</i><span class="paren">)</span></h3><div class="api" markdown="1">
 

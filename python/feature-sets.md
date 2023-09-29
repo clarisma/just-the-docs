@@ -124,6 +124,8 @@ A `QueryError` is raised if the set is empty or contains more than one feature.
 </div>
 ## Properties
 
+These are read-only, and are calculated on each access.
+
 <h3 id="Features_count" class="api"><span class="prefix">Features.</span><span class="name">count</span></h3><div class="api" markdown="1">
 
 The total number of features in this set.
@@ -136,6 +138,10 @@ The total area (in square meters) of all areas in this set.
 
 The total length (in meters) of all features in this set. For areas, their circumference
 is used.
+
+</div><h3 id="Features_shape" class="api"><span class="prefix">Features.</span><span class="name">shape</span></h3><div class="api" markdown="1">
+
+A `GeometryCollection` that contains the shapes of all features in this set.
 
 </div>
 ## Subsets
@@ -203,12 +209,12 @@ Features whose geometry *contains* the given geometric object.
 
 ```python
 # In which park (if any) is this statue of Claude Monet?
-features("a[leisure=park]").contains(statue_of_monet)
+features("a[leisure=park]").contains(statue_of_monet).first
 
 # The county, state and country for this point -- should return
 # San Diego County, California, USA (in no particular order)
 features("a[boundary=administrative]"
-    "[admin_level<=6]").contains(lon=-117.25, lat=32.99)
+    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99)
 ```
 
 </div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">

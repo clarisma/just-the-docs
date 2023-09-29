@@ -122,6 +122,8 @@ A `QueryError` is raised if the set is empty or contains more than one feature.
 
 ## Properties
 
+These are read-only, and are calculated on each access.
+
 > .property count
 
 The total number of features in this set.
@@ -134,6 +136,10 @@ The total area (in square meters) of all areas in this set.
 
 The total length (in meters) of all features in this set. For areas, their circumference
 is used.
+
+> .property shape
+
+A `GeometryCollection` that contains the shapes of all features in this set.
 
 ## Subsets
 

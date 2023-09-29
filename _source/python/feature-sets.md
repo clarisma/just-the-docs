@@ -16,6 +16,10 @@ A **feature set** represents those [`Feature`](#Feature) objects that meet certa
 
 Creates a feature set based on a Geographic Object Library.
 
+```python
+france = Features("france")   # All features in france.gol
+```
+
 ## Filtering features
 
 To select a subset of features, add the constraint in parentheses, or apply a filter method. This always creates a new feature set, leaving the original set unmodified.
@@ -30,7 +34,7 @@ Select the features whose bounding boxes intersects the given [`Box`](#Box):
 paris_bounds = Box(
     west=2.2, south=48.8, 
     east=2.5, north=48.9)
-features_in_paris = features(paris_bounds)
+features_in_paris = france(paris_bounds)
 ```
 
 ### By type and tags

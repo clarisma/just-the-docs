@@ -1,18 +1,26 @@
 ---
 layout: default
-title:  Transforming Coordinates
+title:  Mercator Projection
 parent: GeoDesk for Python
 nav_order: 8
 ---
 > .module geodesk
 
-# Transforming Coordinates
+# Mercator Projection
+
+For most geometric operations, GeoDesk expects coordinates in [Mercator Pprojection](/core-concepts#coordinate-system). OpenStreetMap and many other geospatial datasets use WGS-84, with coordinates expressed as degrees longitude and latitude. GeoDesk's `Coordinate`, `Box` and `Feature` objects allow you to use both coordinate systems interchangeably, but if you work with Shapely geometries (which are unitless and hence projection-agnostic), you may need to explicitly convert between them.
+
+If you are reading a shapefile with the outlines of census districts, and you want to find all streets within each district using GeoDesk, you will first need to convert them [`to_mercator()`](#geodesk.to_mercator).    
+
+Likewise, if you obtained the outline of a lake from a GOL, then applied a buffer using Shapely, and now need to export the resulting geometry to another GIS tool (which expects WGS-84), you'll need to convert its coordinates with [`from_mercator()`](#geodesk.from_mercator).   
+
+## Converting from WGS-84 to Mercator
 
 > .method to_mercator(*geom_or_units*, lat=None, y=None)
 
 <h3>Geometry</h3>
 
-For a `Geometry` object, returns a new `Geometry` with Mercator-projected coordinates:
+For a `Geometry` object in WGS-84 (degrees longitude and latitude), returns a new `Geometry` with Mercator-projected coordinates:
 
 ```python
 >>> to_mercator(LineString([(-110,37),(-109,38)]))
@@ -56,6 +64,8 @@ The following are valid length units:
 >>> to_mercator(feet=300, lat=65)  # at 65 degrees latitude
 23189
 ``` 
+
+## Converting from Mercator to WGS-84 
 
 > .method from_mercator(*geom*)
  

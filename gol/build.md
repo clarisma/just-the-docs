@@ -82,8 +82,10 @@ The tags that determine whether a closed OSM way is treated as an area or a line
 Key rules have the following format:
 
 <div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <pre class="highlight"><code><i>key</i> [ <b>(</b> <b>only</b>|<b>except</b> <i>value</i>+ <b>)</b> ]
 </code></pre>
+</div>
 </div>
 
 

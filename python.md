@@ -7,7 +7,7 @@ nav_order: 5
 permalink: /python
 ---
 
-# GeoDesk for Python
+# GeoDesk <span class="smaller">for Python&trade;</span>
 
 **GeoDesk for Python** allows you to query, analyze, display and transform OpenStreetMap features using the world's most popular scripting language.
 

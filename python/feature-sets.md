@@ -188,7 +188,7 @@ hydrants.map(color='red')    # map with fire hydrants marked in red
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\features#Feature), [`Geometry`](#Geometry), [`Box`](/python\primitives#Box) or [`Coordinate`](/python\primitives#Coordinate)).
 
-<h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features that lie within the given distance from the centroid of *geom*.
 In lieu of a geometric object, you can also specify coordinates using
@@ -218,10 +218,22 @@ features("a[leisure=park]").contains(statue_of_monet).first
 # The county, state and country for this point -- should return
 # San Diego County, California, USA (in no particular order)
 features("a[boundary=administrative]"
-    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99)
+    "[admin_level <= 6]").contains(Coordinate(lon=-117.25, lat=32.99))
 ```
 
-</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+{% comment %}
+```
+# The county, state and country for this point -- should return
+# San Diego County, California, USA (in no particular order)
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99)
+```
+{% endcomment %}
+
+*As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
+objects are supported.*
+
+</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry *crosses* the given geometric object.
 
@@ -230,7 +242,7 @@ Features whose geometry *crosses* the given geometric object.
 features("w[railway][bridge]").crosses(mississippi)
 ```
 
-</div><h3 id="Features_disjoint" class="api"><span class="prefix">Features.</span><span class="name">disjoint</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+</div><h3 id="Features_disjoint" class="api"><span class="prefix">Features.</span><span class="name">disjoint</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry is *disjoint* from the given geometric object.
 
@@ -238,11 +250,11 @@ Features whose geometry is *disjoint* from the given geometric object.
 
 Features whose geometry *intersects* the given geometric object.
 
-</div><h3 id="Features_overlaps" class="api"><span class="prefix">Features.</span><span class="name">overlaps</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+</div><h3 id="Features_overlaps" class="api"><span class="prefix">Features.</span><span class="name">overlaps</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry *overlaps* the given geometric object.
 
-</div><h3 id="Features_touches" class="api"><span class="prefix">Features.</span><span class="name">touches</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+</div><h3 id="Features_touches" class="api"><span class="prefix">Features.</span><span class="name">touches</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry *touches* the given geometric object.
 

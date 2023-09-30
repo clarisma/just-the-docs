@@ -183,7 +183,13 @@ hydrants.map(color='red')    # map with fire hydrants marked in red
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)). 
 
-> .method around(*geom*, *units*=*distance*)
+> .method within(*geom*)
+
+Features that lie entirely inside *geom*.
+
+
+
+> .method around(*geom*, *units*=*distance*) 0.2
 
 Features that lie within the given distance from the centroid of *geom*. 
 In lieu of a geometric object, you can also specify coordinates using 
@@ -209,14 +215,26 @@ Features whose geometry *contains* the given geometric object.
 ```python
 # In which park (if any) is this statue of Claude Monet?
 features("a[leisure=park]").contains(statue_of_monet).first
- 
+
+# The county, state and country for this point -- should return 
+# San Diego County, California, USA (in no particular order)  
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(Coordinate(lon=-117.25, lat=32.99)) 
+```
+
+{% comment %}
+```
 # The county, state and country for this point -- should return 
 # San Diego County, California, USA (in no particular order)  
 features("a[boundary=administrative]"
     "[admin_level <= 6]").contains(lon=-117.25, lat=32.99) 
 ```
+{% endcomment %}
 
-> .method crosses(*geom*)
+*As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
+objects are supported.*
+
+> .method crosses(*geom*) 0.2
 
 Features whose geometry *crosses* the given geometric object.
 
@@ -225,7 +243,7 @@ Features whose geometry *crosses* the given geometric object.
 features("w[railway][bridge]").crosses(mississippi)
 ```
 
-> .method disjoint(*geom*)
+> .method disjoint(*geom*) 0.2
 
 Features whose geometry is *disjoint* from the given geometric object.
 
@@ -233,11 +251,11 @@ Features whose geometry is *disjoint* from the given geometric object.
 
 Features whose geometry *intersects* the given geometric object.
 
-> .method overlaps(*geom*)
+> .method overlaps(*geom*) 0.2
 
 Features whose geometry *overlaps* the given geometric object.
 
-> .method touches(*geom*)
+> .method touches(*geom*) 0.2
 
 Features whose geometry *touches* the given geometric object.
 
@@ -252,6 +270,7 @@ Example:
 ```python
 features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
+
 
 
 ## Topological filters

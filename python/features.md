@@ -1,211 +1,341 @@
 ---
 layout: default
-title:  Feature Objects
+title:  Sets of Features
 parent: GeoDesk for Python
-nav_order: 4
+nav_order: 6
 ---
 
-<a id="Feature"></a>
 
-# Feature Objects
+<a id="Features"></a>
 
-A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or an abstract concept like a bus route.
+# Feature Sets
 
-OpenStreetMap uses three types of features:
+A **feature set** represents those [`Feature`](/python\Feature#Feature) objects that meet certain criteria.
 
-- *Node* -- a simple point feature
+<h3 id="Features_Features" class="api"><span class="prefix">geodesk.</span><span class="name">Features</span><span class="paren">(</span><i>gol</i>, <i>url</i>=<span class="default">None</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
-- *Way* -- an ordered sequence of nodes, used to represent line strings and
-  simple polygons
-
-- *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members.
-
-Each feature has a geometric **shape** (`Point`, `LineString`, `Polygon` or a collection type), as well as one or more **tags** (key-value pairs) that describe its details. To access a feature's tags, use <code><i>feature</i>["<i>key</i>"]</code>. If the tag key is a valid attribute name (letters and digits only, must start with a letter) and doesn't collide with a property, you can simply use <code><i>feature</i>.<i>key</i></code>.
-
+Creates a feature set based on a Geographic Object Library.
 
 ```python
->>> city["name"]
-'Praha'
->>> city.name
-'Praha'
->>> city["name:en"]     # must use [] because key contains :
-'Prague'
+france = Features("france")   # All features in france.gol
 ```
-
-Tag values can be strings or numbers, or `None` if the feature doesn't have a tag with the given key. To coerce the value to string or numeric, use [`str()`](#feature.str) (returns an empty string if tag doesn't exist) or [`num()`](/python\features#Feature_num) (returns `0` if tag doesn't exist or is non-numeric).
-
-```python
->>> city.population
-1275406
->>> city.str("population")
-'1275406'
->>> city.num("no_such_tag")
-0
-```
-
-Use [`tags`](/python\features#Feature_tags) to get all tags. A [`Tags`](/python\features#Tags) object offers additional options to convert and filter tags.
-
-```python
->>> street.tags
-'{"highway": "residential", "name": "Rue des Poulets", "maxspeed": 30}'
->>> street.tags.html
-'highway=residential<br>name=Rue des Poulets<br>maxpeed=30'
-```
-
-## OSM-specific properties
-
-<h3 id="Feature_osm_type" class="api"><span class="prefix">Feature.</span><span class="name">osm_type</span></h3><div class="api" markdown="1">
-
-`"node"`, `"way"` or `"relation"`
-
-</div><h3 id="Feature_id" class="api"><span class="prefix">Feature.</span><span class="name">id</span></h3><div class="api" markdown="1">
-
-The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an [anonymous node](#anonymous-nodes), otherwise non-zero.
-
-</div><h3 id="Feature_tags" class="api"><span class="prefix">Feature.</span><span class="name">tags</span></h3><div class="api" markdown="1">
-
-The feature's [`Tags`](/python\features#Tags) (key/value pairs that describe its properties).
-
-</div><h3 id="Feature_is_node" class="api"><span class="prefix">Feature.</span><span class="name">is_node</span></h3><div class="api" markdown="1">
-
-`True` if this feature is a node, otherwise `False`.
-
-</div><h3 id="Feature_is_way" class="api"><span class="prefix">Feature.</span><span class="name">is_way</span></h3><div class="api" markdown="1">
-
-`True` if this feature is a way (linear or area), otherwise `False`.
-
-</div><h3 id="Feature_is_relation" class="api"><span class="prefix">Feature.</span><span class="name">is_relation</span></h3><div class="api" markdown="1">
-
-`True` if this feature is a relation (area or non-area), otherwise `False`.
-
-</div><h3 id="Feature_is_area" class="api"><span class="prefix">Feature.</span><span class="name">is_area</span></h3><div class="api" markdown="1">
-
-`True` if this feature is a way or relation that represents an area, otherwise `False`.
-
-</div><h3 id="Feature_nodes" class="api"><span class="prefix">Feature.</span><span class="name">nodes</span></h3><div class="api" markdown="1">
-
-The nodes of a way, or an empty set if this feature is a node or relation.
-
-</div><h3 id="Feature_members" class="api"><span class="prefix">Feature.</span><span class="name">members</span></h3><div class="api" markdown="1">
-
-The members of a relation, or an empty set if this feature is a node or way. Features returned from this set (or a subset) have a `role` property with a value other than `None`.
-
-</div><h3 id="Feature_parents" class="api"><span class="prefix">Feature.</span><span class="name">parents</span></h3><div class="api" markdown="1">
-
-The relations that have this feature as a member, as well as the ways to which a node feature belongs (Use <code><i>node</i>.parents.relations</code> to obtain just the relations to which a node belongs).
-
-</div><h3 id="Feature_role" class="api"><span class="prefix">Feature.</span><span class="name">role</span></h3><div class="api" markdown="1">
-
-The role of this feature if it was returned via a member set (an empty string if this feature has no explicit role within its parent relation), or `None` for a `Feature` that was not returned via a member set.
 
 </div>
-## Geometric properties
+## Filtering features
 
-<h3 id="Feature_bounds" class="api"><span class="prefix">Feature.</span><span class="name">bounds</span></h3><div class="api" markdown="1">
+To select a subset of features, add the constraint in parentheses, or apply a filter method. This always creates a new feature set, leaving the original set unmodified.
 
-The bounding [`Box`](/python\primitives#Box) of this feature.
+### By bounding box
 
-</div><h3 id="Feature_x" class="api"><span class="prefix">Feature.</span><span class="name">x</span></h3><div class="api" markdown="1">
+Select the features whose bounding boxes intersects the given [`Box`](/python\Box#Box):
 
-The x-coordinate of a node, or the horizontal midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
+<img class="float" src="/img/bboxes.png" width=260>
 
-</div><h3 id="Feature_y" class="api"><span class="prefix">Feature.</span><span class="name">y</span></h3><div class="api" markdown="1">
+```python
+paris_bounds = Box(
+    west=2.2, south=48.8,
+    east=2.5, north=48.9)
+features_in_paris = france(paris_bounds)
+```
 
-The y-coordinate of a node, or the vertical midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
+### By type and tags
 
-</div><h3 id="Feature_lon" class="api"><span class="prefix">Feature.</span><span class="name">lon</span></h3><div class="api" markdown="1">
+Apply a query written in GOQL (the Geographic Object Query Language) to select features based on their type and tags:
 
-`x` in degrees longitude (WGS-84)
+<img class="float" src="/img/query-type-tags.png" width=260>
 
-</div><h3 id="Feature_lat" class="api"><span class="prefix">Feature.</span><span class="name">lat</span></h3><div class="api" markdown="1">
+```python
+restaurants = features(
+    "na[amenity=restaurant]")
+    # nodes and areas
 
-`y` in degrees latitude (WGS-84)
+fire_hydrants = features(
+    "n[emergency=fire_hydrant]")
+    # only nodes
 
-</div><h3 id="Feature_centroid" class="api"><span class="prefix">Feature.</span><span class="name">centroid</span></h3><div class="api" markdown="1">
+safe_for_cycling = features(
+   "w[highway=cycleway,path,living_street],"
+   "w[highway][maxspeed < 30]")
+   # linear ways
+```
 
-The feature's calculated centroid ([`Coordinate`](/python\primitives#Coordinate))
+### Using filter methods
 
-</div><h3 id="Feature_shape" class="api"><span class="prefix">Feature.</span><span class="name">shape</span></h3><div class="api" markdown="1">
+Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters):
 
-The Shapely geometry of this feature:
+```python
+states.within(usa)
+features("w[highway]").members_of(route66)
+```
 
-- `Point` for a node
-- `LineString` or `Polygon` for a way
-- `Polygon`, `GeometryCollection`, `MultiPoint`, `MultiLineString` or `MultiPolygon` for a relation
+### Using set intersection
 
-Coordinates are in Mercator projection.
+Select only features that are in *both* sets:
 
-</div><h3 id="Feature_area" class="api"><span class="prefix">Feature.</span><span class="name">area</span></h3><div class="api" markdown="1">
+```python
+museums  = features("na[tourism=museum]")
+in_paris = features.within(paris))
+paris_museums = museums(in_paris)
+```
 
-The calculated area (in square meters) if this feature is polygonal, otherwise `0`.
+Alternatively, you can use the `&` operator:
 
-</div><h3 id="Feature_length" class="api"><span class="prefix">Feature.</span><span class="name">length</span></h3><div class="api" markdown="1">
+```python
+paris_museums = museums & in_paris
+```
 
-The calculated length (in meters) if this feature is lineal, or its circumference if it is polygonal, otherwise `0`.
+## Obtaining `Feature` objects
 
-TODO: GeometryCollection?
+Iterate through the feature set:
+
+```python
+>>> for hotel in hotels:
+...     print(hotel.name)
+Hôtel du Louvre
+Ambassadeur
+Brit Hotel
+```
+
+Turn it into a `list`:
+
+```python
+>>> list(hotels)
+[way/112112065, relation/1575507, node/3558592188]
+```
+
+Check if the set is empty:
+
+```python
+if pubs(within_dublin):
+    print("Great, we can grab a beer in this town!")
+
+if not street.nodes("[traffic_calming=bump]"):
+    print("No speed bumps on this street.")
+```
+
+## Obtaining a single `Feature`
+
+<h3 id="Features_first" class="api"><span class="prefix">Features.</span><span class="name">first</span></h3><div class="api" markdown="1">
+
+The first feature of the set (or any arbitrary feature if the set is unordered).
+
+`None` if the set is empty.
+
+</div><h3 id="Features_one" class="api"><span class="prefix">Features.</span><span class="name">one</span></h3><div class="api" markdown="1">
+
+The one and only feature of the set.
+
+A `QueryError` is raised if the set is empty or contains more than one feature.
+
+</div>
+
+<br>
+Alternatively, use `[0]` to get the first `Feature` of a non-empty set.
+
+A `QueryError` is raised if the set is empty.
+
+```python
+first_node = way.nodes[0]
+```
+
+## Properties
+
+These are read-only, and are calculated on each access.
+
+<h3 id="Features_count" class="api"><span class="prefix">Features.</span><span class="name">count</span></h3><div class="api" markdown="1">
+
+The total number of features in this set.
+
+</div><h3 id="Features_area" class="api"><span class="prefix">Features.</span><span class="name">area</span></h3><div class="api" markdown="1">
+
+The total area (in square meters) of all areas in this set.
+
+</div><h3 id="Features_length" class="api"><span class="prefix">Features.</span><span class="name">length</span></h3><div class="api" markdown="1">
+
+The total length (in meters) of all features in this set. For areas, their circumference
+is used.
+
+</div><h3 id="Features_shape" class="api"><span class="prefix">Features.</span><span class="name">shape</span></h3><div class="api" markdown="1">
+
+A `GeometryCollection` that contains the shapes of all features in this set.
+
+</div>
+## Subsets
+
+<h3 id="Features_nodes" class="api"><span class="prefix">Features.</span><span class="name">nodes</span></h3><div class="api" markdown="1">
+
+Only features that are nodes.
+
+</div><h3 id="Features_ways" class="api"><span class="prefix">Features.</span><span class="name">ways</span></h3><div class="api" markdown="1">
+
+Only features that are ways (including areas that are represented using a closed way).
+
+If you want to restrict the subset to linear ways, use <code><i>features</i>('w')</code>.
+
+</div><h3 id="Features_relations" class="api"><span class="prefix">Features.</span><span class="name">relations</span></h3><div class="api" markdown="1">
+
+Only features that are relations (including relations that represent areas).
+
+If you want to restrict the subset to non-area relations, use <code><i>features</i>('r')</code>.
 
 </div>
 ## Formatting
 
-To aid import into GIS applications, features can be converted into different representations. You can also visualize a feature on a map. See [Formats](formats) and [Maps](maps) to learn how output can be customized.
+<h3 id="Features_geojson" class="api"><span class="prefix">Features.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
 
-<h3 id="Feature_geojson" class="api"><span class="prefix">Feature.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
+The set's features represented as GeoJSON ([`Formatter`](/python\Formatter#Formatter))
 
-The [GeoJSON](https://geojson.org/) representation of this feature ([`Formatter`](/python\formatters#Formatter))
+</div><h3 id="Features_map" class="api"><span class="prefix">Features.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
-</div><h3 id="Feature_wkt" class="api"><span class="prefix">Feature.</span><span class="name">wkt</span></h3><div class="api" markdown="1">
-
-The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) ([`Formatter`](/python\formatters#Formatter))
-
-</div><h3 id="Feature_map" class="api"><span class="prefix">Feature.</span><span class="name">map</span></h3><div class="api" markdown="1">
-
-A [`Map`](/python\maps#Map) displaying this feature.
-
-You can [`add()`](/python\maps#Map_add) more features, [`save()`](/python\maps#Map_save) it or [`show()`](/python\maps#Map_show) it in a browser.
+A [`Map`](/python\Map#Map) that displays the features in this set. Use [`show()`](/python\Map#Map_show) to open it in a browser window, or [`save()`](/python\Map#Map_save) to write its HTML file.
 
 ```python
-# Mark a route on a map, highlight bike paths in green
-route_map = route.map
-route_map.add(route.members("w[highway=cycleway]", color="green")
-route_map.show()
+restaurants.map.show()
+hotels.map.save("hotel-map") # .html by default
+hydrants.map(color='red')    # map with fire hydrants marked in red
 ```
 
-</div>
-## Tag methods
+</div><h3 id="Features_wkt" class="api"><span class="prefix">Features.</span><span class="name">wkt</span></h3><div class="api" markdown="1">
 
-<h3 id="Feature_str" class="api"><span class="prefix">Feature.</span><span class="name">str</span><span class="paren">(</span><i>key</i><span class="paren">)</span></h3><div class="api" markdown="1">
-
-Returns the value of the given tag key as a string, or an empty string if this feature doesn't have the requested tag.
-
-</div><h3 id="Feature_num" class="api"><span class="prefix">Feature.</span><span class="name">num</span><span class="paren">(</span><i>key</i><span class="paren">)</span></h3><div class="api" markdown="1">
-
-Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
-
-</div><h3 id="Feature_split" class="api"><span class="prefix">Feature.</span><span class="name">split</span><span class="paren">(</span><i>key</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
-
-If a tag contains multiple values separated by `;`, returns a tuple with the individual values. For a single value, returns a single-item tuple. Numbers are always converted to strings. If the tag does not exist, returns an empty tuple.
-
-<a id="Tags"></a>
+The set's features represented as Well-Known Text ([`Formatter`](/python\Formatter#Formatter))
 
 </div>
-## `Tags` objects
+## Spatial filters
 
-Iterating a `Tags` object yields key-value tuples:
+These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\Feature#Feature), [`Geometry`](/python\Geometry#Geometry), [`Box`](/python\Box#Box) or [`Coordinate`](/python\Coordinate#Coordinate)).
+
+<h3 id="Features_within" class="api"><span class="prefix">Features.</span><span class="name">within</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features that lie entirely inside *geom*.
+
+
+
+</div><h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features that lie within the given distance from the centroid of *geom*.
+In lieu of a geometric object, you can also specify coordinates using
+`x` and `y` (for Mercator-projected coordinates) or `lon` and `lat` (in degrees).
+Use `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units` to specify the maximum distance.
+
+Example:
 
 ```python
->>> for key, value in street.tags:
-...     print (f'{key}={value}')
-('highway', 'residential')
-('name', 'Rue des Poulets')
-('maxspeed', 30)
+# All bus stops within 500 meters of the given restaurant
+features("n[highway=bus_stop]").around(restaurant, meters=500)
+
+# All features within 3 miles of the given point
+features.around(miles=3, lat=40.12, lon=-76.41)
+```
+
+</div><h3 id="Features_contains" class="api"><span class="prefix">Features.</span><span class="name">contains</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose geometry *contains* the given geometric object.
+
+**Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
+
+```python
+# In which park (if any) is this statue of Claude Monet?
+features("a[leisure=park]").contains(statue_of_monet).first
+
+# The county, state and country for this point -- should return
+# San Diego County, California, USA (in no particular order)
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(Coordinate(lon=-117.25, lat=32.99))
+```
+
+{% comment %}
+```
+# The county, state and country for this point -- should return
+# San Diego County, California, USA (in no particular order)
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99)
+```
+{% endcomment %}
+
+*As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
+objects are supported.*
+
+</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+Features whose geometry *crosses* the given geometric object.
+
+```python
+# All railway bridges across the Mississippi River
+features("w[railway][bridge]").crosses(mississippi)
+```
+
+</div><h3 id="Features_disjoint" class="api"><span class="prefix">Features.</span><span class="name">disjoint</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+Features whose geometry is *disjoint* from the given geometric object.
+
+</div><h3 id="Features_intersects" class="api"><span class="prefix">Features.</span><span class="name">intersects</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose geometry *intersects* the given geometric object.
+
+</div><h3 id="Features_overlaps" class="api"><span class="prefix">Features.</span><span class="name">overlaps</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+Features whose geometry *overlaps* the given geometric object.
+
+</div><h3 id="Features_touches" class="api"><span class="prefix">Features.</span><span class="name">touches</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+Features whose geometry *touches* the given geometric object.
+
+</div><h3 id="Features_nearest_to" class="api"><span class="prefix">Features.</span><span class="name">nearest_to</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+Features in ascending order of distance to the given geometric object.
+
+- To limit the search radius, specify a maximum distance in the units of your choice: `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`
+
+Example:
+
+```python
+features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
 
 
-## Anonymous nodes
 
-An **anonymous node** has no tags and does not belong to any relations --- it merely serves to define the geometry of a way. By default, feature libraries omit the IDs of such nodes to save space, in which case [`id`](/python\features#Feature_id) is `0`.
+</div>
+## Topological filters
 
-Anonymous nodes can only be obtained by [`nodes`](/python\features#Feature_nodes); they are not part of any other feature sets. The [`parents`](/python\features#Feature_parents) property of an anonymous node contains the ways to which this node belongs (always at least one).
+These methods return a subset of those features that have a specific topological relationship with another `Feature`.
 
-Every anonymous node in a GOL has a unique location. If two or more nodes share the exact latitude and longitude, the untagged ones are tagged `geodesk:duplicate=yes` and retain their ID.
+<h3 id="Features_nodes_of" class="api"><span class="prefix">Features.</span><span class="name">nodes_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+The nodes of the given way. Returns an empty set if *feature* is a node or relation.
+
+</div><h3 id="Features_members_of" class="api"><span class="prefix">Features.</span><span class="name">members_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features that are members of the given relation, or nodes of the given way. Returns an empty set if *feature* is a node.
+
+</div><h3 id="Features_parents_of" class="api"><span class="prefix">Features.</span><span class="name">parents_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Relations that have the given feature as a member, as well as ways to which the given node belongs.
+
+</div><h3 id="Features_descendants_of" class="api"><span class="prefix">Features.</span><span class="name">descendants_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+</div><h3 id="Features_ancestors_of" class="api"><span class="prefix">Features.</span><span class="name">ancestors_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+</div><h3 id="Features_connected_to" class="api"><span class="prefix">Features.</span><span class="name">connected_to</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+All features that share a common node with *feature*.
+
+
+</div>
+## Metadata
+
+<h3 id="Features_properties" class="api"><span class="prefix">Features.</span><span class="name">properties</span></h3><div class="api" markdown="1">
+
+</div><h3 id="Features_copyright" class="api"><span class="prefix">Features.</span><span class="name">copyright</span></h3><div class="api" markdown="1">
+
+</div><h3 id="Features_license" class="api"><span class="prefix">Features.</span><span class="name">license</span></h3><div class="api" markdown="1">
+
+The license under which this dataset is made available.
+
+</div><h3 id="Features_license_url" class="api"><span class="prefix">Features.</span><span class="name">license_url</span></h3><div class="api" markdown="1">
+
+The URL where the text of the license can be found.
+
+</div><h3 id="Features_indexed_keys" class="api"><span class="prefix">Features.</span><span class="name">indexed_keys</span></h3><div class="api" markdown="1">
+
+</div><h3 id="Features_tiles" class="api"><span class="prefix">Features.</span><span class="name">tiles</span></h3><div class="api" markdown="1">
+

@@ -2,8 +2,11 @@
 layout: default
 title:  Geometry Objects
 parent: GeoDesk for Python
-nav_order: 3
+nav_order: 4
 ---
+
+> .module shapely
+> .class Geometry
 
 # Geometry Objects
 
@@ -52,4 +55,4 @@ A Polygon is constructed from a LinearRing, and optionally one or more LinearRin
 
 
 Adapted from [Shapely Documentation](https://shapely.readthedocs.io/) --- &copy; 2011 -- 2023 Sean Gillies and Shapely contributors. Licensed under [BSD-3-Clause](https://github.com/shapely/shapely/blob/main/LICENSE.txt)
-
+{:.text-small}

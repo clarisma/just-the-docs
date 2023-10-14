@@ -2,7 +2,7 @@
 layout: default
 title:  Creating a Map
 parent: GeoDesk for Python
-nav_order: 7
+nav_order: 8
 ---
 
 > .module geodesk

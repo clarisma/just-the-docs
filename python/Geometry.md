@@ -2,8 +2,11 @@
 layout: default
 title:  Geometry Objects
 parent: GeoDesk for Python
-nav_order: 3
+nav_order: 4
 ---
+
+
+<a id="Geometry"></a>
 
 # Geometry Objects
 
@@ -26,7 +29,7 @@ Shapely is projection-agnostic --- it uses a unit-less plane. However, to work s
 
 ## Creating geometries
 
-Geometries can be created directly by specifying their coordinates. You can use simple `(x,y)` tuples, or GeoDesk's [`Coordinate`](/python\primitives#Coordinate) objects. Tuples must use Mercator projection, whereas `Coordinate` automatically converts from degrees longitude and latitude.
+Geometries can be created directly by specifying their coordinates. You can use simple `(x,y)` tuples, or GeoDesk's [`Coordinate`](/python\Coordinate#Coordinate) objects. Tuples must use Mercator projection, whereas `Coordinate` automatically converts from degrees longitude and latitude.
 
 ```python
 >>> Point(10, 20)>
@@ -52,4 +55,4 @@ A Polygon is constructed from a LinearRing, and optionally one or more LinearRin
 
 
 Adapted from [Shapely Documentation](https://shapely.readthedocs.io/) --- &copy; 2011 -- 2023 Sean Gillies and Shapely contributors. Licensed under [BSD-3-Clause](https://github.com/shapely/shapely/blob/main/LICENSE.txt)
-
+{:.text-small}

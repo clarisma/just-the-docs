@@ -2,7 +2,7 @@
 layout: default
 title:  Mercator Projection
 parent: GeoDesk for Python
-nav_order: 9
+nav_order: 10
 ---
 > .module geodesk
 

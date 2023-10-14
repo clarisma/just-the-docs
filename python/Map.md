@@ -2,7 +2,7 @@
 layout: default
 title:  Creating a Map
 parent: GeoDesk for Python
-nav_order: 7
+nav_order: 8
 ---
 
 
@@ -10,7 +10,7 @@ nav_order: 7
 
 # Creating a `Map`
 
-The easiest way to visualize features and other geometric objects is to place them on a `Map` (a [Leaflet](https://www.leafletjs.com)-based web map). Create one via the [`map`](/python\features#Feature_map) property of a feature or feature set, or directly:
+The easiest way to visualize features and other geometric objects is to place them on a `Map` (a [Leaflet](https://www.leafletjs.com)-based web map). Create one via the [`map`](/python\Feature#Feature_map) property of a feature or feature set, or directly:
 
 <h3 id="Map_Map" class="api"><span class="prefix">geodesk.</span><span class="name">Map</span><span class="paren">(</span><i>attributes</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
@@ -18,7 +18,7 @@ The optional *attributes* customize the look and behavior of the map and its ele
 
 </div>
 
-Using a `Map` is easy: [`add()`](/python\maps#Map_add) elements, then [`save()`](/python\maps#Map_save) it as an HTML file and/or [`show()`](/python\maps#Map_show) it in a browser window:
+Using a `Map` is easy: [`add()`](/python\Map#Map_add) elements, then [`save()`](/python\Map#Map_save) it as an HTML file and/or [`show()`](/python\Map#Map_show) it in a browser window:
 
 ```python
 features("na[tourism=hotel]").map.save("hotels")

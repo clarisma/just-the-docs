@@ -1,207 +1,335 @@
 ---
 layout: default
-title:  Feature Objects
+title:  Sets of Features
 parent: GeoDesk for Python
-nav_order: 4
+nav_order: 6
 ---
+
 > .module geodesk
-> .class Feature
+> .class Features
 
-# Feature Objects
+# Sets of Features
 
-A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or an abstract concept like a bus route.
+A **feature set** represents those [`Feature`](#Feature) objects that meet certain criteria.
 
-OpenStreetMap uses three types of features:
+> .method Features(*filename*, *url*=None)
 
-- *Node* -- a simple point feature
-
-- *Way* -- an ordered sequence of nodes, used to represent line strings and
-  simple polygons
-
-- *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members. 
- 
-Each feature has a geometric **shape** (`Point`, `LineString`, `Polygon` or a collection type), as well as one or more **tags** (key-value pairs) that describe its details. To access a feature's tags, use <code><i>feature</i>["<i>key</i>"]</code>. If the tag key is a valid attribute name (letters and digits only, must start with a letter) and doesn't collide with a property, you can simply use <code><i>feature</i>.<i>key</i></code>.
-
+Creates a feature set based on a Geographic Object Library.
 
 ```python
->>> city["name"]
-'Praha'
->>> city.name
-'Praha'
->>> city["name:en"]     # must use [] because key contains :
-'Prague'
+france = Features("france")   # All features in france.gol
 ```
 
-Tag values can be strings or numbers, or `None` if the feature doesn't have a tag with the given key. To coerce the value to string or numeric, use [`str()`](#feature.str) (returns an empty string if tag doesn't exist) or [`num()`](#Feature.num) (returns `0` if tag doesn't exist or is non-numeric).
+## Filtering features
+
+To select a subset of features, add the constraint in parentheses, or apply a filter method. This always creates a new feature set, leaving the original set unmodified.
+
+### By bounding box
+
+Select the features whose bounding boxes intersects the given [`Box`](#Box):  
+
+<img class="float" src="/img/bboxes.png" width=260>
 
 ```python
->>> city.population
-1275406
->>> city.str("population")
-'1275406'
->>> city.num("no_such_tag")
-0
+paris_bounds = Box(
+    west=2.2, south=48.8, 
+    east=2.5, north=48.9)
+features_in_paris = france(paris_bounds)
 ```
 
-Use [`tags`](#Feature.tags) to get all tags. A [`Tags`](#Tags) object offers additional options to convert and filter tags.
+### By type and tags
+
+Apply a query written in GOQL (the Geographic Object Query Language) to select features based on their type and tags:
+
+<img class="float" src="/img/query-type-tags.png" width=260>
 
 ```python
->>> street.tags
-'{"highway": "residential", "name": "Rue des Poulets", "maxspeed": 30}'
->>> street.tags.html
-'highway=residential<br>name=Rue des Poulets<br>maxpeed=30'
+restaurants = features(
+    "na[amenity=restaurant]")   
+    # nodes and areas
+    
+fire_hydrants = features(
+    "n[emergency=fire_hydrant]")
+    # only nodes
+    
+safe_for_cycling = features(
+   "w[highway=cycleway,path,living_street],"        
+   "w[highway][maxspeed < 30]")
+   # linear ways
 ```
 
-## OSM-specific properties
+### Using filter methods
 
-> .property osm_type
+Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters):
 
-`"node"`, `"way"` or `"relation"`
+```python
+states.within(usa)
+features("w[highway]").members_of(route66)
+```
 
-> .property id
+### Using set intersection
 
-The feature's numeric OSM identifier. IDs are unique only within the feature type (which means a node and a way may have the same ID). Always `0` if this feature is an [anonymous node](#anonymous-nodes), otherwise non-zero.
+Select only features that are in *both* sets:
 
-> .property tags
+```python
+museums  = features("na[tourism=museum]")
+in_paris = features.within(paris))
+paris_museums = museums(in_paris)
+```
 
-The feature's [`Tags`](#Tags) (key/value pairs that describe its properties). 
+Alternatively, you can use the `&` operator:
 
-> .property is_node
+```python
+paris_museums = museums & in_paris
+```
 
-`True` if this feature is a node, otherwise `False`.
+## Obtaining `Feature` objects
 
-> .property is_way
+Iterate through the feature set: 
 
-`True` if this feature is a way (linear or area), otherwise `False`.
+```python
+>>> for hotel in hotels:
+...     print(hotel.name)
+Hôtel du Louvre
+Ambassadeur
+Brit Hotel
+```
 
-> .property is_relation
+Turn it into a `list`:
 
-`True` if this feature is a relation (area or non-area), otherwise `False`.
+```python
+>>> list(hotels)
+[way/112112065, relation/1575507, node/3558592188]
+```
 
-> .property is_area
+Check if the set is empty:
 
-`True` if this feature is a way or relation that represents an area, otherwise `False`.
+```python
+if pubs(within_dublin):
+    print("Great, we can grab a beer in this town!")
+    
+if not street.nodes("[traffic_calming=bump]"):
+    print("No speed bumps on this street.")
+```
 
-> .property nodes
+## Obtaining a single `Feature`
 
-The nodes of a way, or an empty set if this feature is a node or relation.
+> .property first
 
-> .property members
+The first feature of the set (or any arbitrary feature if the set is unordered).
 
-The members of a relation, or an empty set if this feature is a node or way. Features returned from this set (or a subset) have a `role` property with a value other than `None`.
+`None` if the set is empty.
 
-> .property parents
+> .property one
 
-The relations that have this feature as a member, as well as the ways to which a node feature belongs (Use <code><i>node</i>.parents.relations</code> to obtain just the relations to which a node belongs).
+The one and only feature of the set. 
 
-> .property role
+A `QueryError` is raised if the set is empty or contains more than one feature.
 
-The role of this feature if it was returned via a member set (an empty string if this feature has no explicit role within its parent relation), or `None` for a `Feature` that was not returned via a member set.   
+> .end
 
-## Geometric properties
+<br> 
+Alternatively, use `[0]` to get the first `Feature` of a non-empty set.
 
-> .property bounds
+A `QueryError` is raised if the set is empty.
 
-The bounding [`Box`](#Box) of this feature.
+```python
+first_node = way.nodes[0]
+```
 
-> .property x
+## Result properties
 
-The x-coordinate of a node, or the horizontal midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
+These are read-only, and are calculated on each access.
 
-> .property y
+> .property count
 
-The y-coordinate of a node, or the vertical midpoint of the `bounds` of a way or relation (GeoDesk Mercator projection)
-
-> .property lon
-
-`x` in degrees longitude (WGS-84)
-
-> .property lat
-
-`y` in degrees latitude (WGS-84)
-
-> .property centroid
-
-The feature's calculated centroid ([`Coordinate`](#Coordinate))
-
-> .property shape
-
-The Shapely geometry of this feature: 
-
-- `Point` for a node
-- `LineString` or `Polygon` for a way
-- `Polygon`, `GeometryCollection`, `MultiPoint`, `MultiLineString` or `MultiPolygon` for a relation 
-
-Coordinates are in Mercator projection.
+The total number of features in this set.
 
 > .property area
 
-The calculated area (in square meters) if this feature is polygonal, otherwise `0`.
+The total area (in square meters) of all areas in this set.
 
 > .property length
 
-The calculated length (in meters) if this feature is lineal, or its circumference if it is polygonal, otherwise `0`.
+The total length (in meters) of all features in this set. For areas, their circumference
+is used.
 
-TODO: GeometryCollection?
+> .property shape
+
+A `GeometryCollection` that contains the shapes of all features in this set.
+
+## Subsets
+
+> .property nodes
+
+Only features that are nodes.
+
+> .property ways
+
+Only features that are ways (including areas that are represented using a closed way).
+
+If you want to restrict the subset to linear ways, use <code><i>features</i>('w')</code>.
+
+> .property relations
+
+Only features that are relations (including relations that represent areas).
+
+If you want to restrict the subset to non-area relations, use <code><i>features</i>('r')</code>.
 
 ## Formatting
 
-To aid import into GIS applications, features can be converted into different representations. You can also visualize a feature on a map. See [Formats](formats) and [Maps](maps) to learn how output can be customized. 
-
 > .property geojson
 
-The [GeoJSON](https://geojson.org/) representation of this feature ([`Formatter`](#Formatter))
-
-> .property wkt
-
-The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) ([`Formatter`](#Formatter))
+The set's features represented as GeoJSON ([`Formatter`](#Formatter))
 
 > .property map
 
-A [`Map`](#Map) displaying this feature.
-
-You can [`add()`](#Map.add) more features, [`save()`](#Map.save) it or [`show()`](#Map.show) it in a browser.
+A [`Map`](#Map) that displays the features in this set. Use [`show()`](#Map.show) to open it in a browser window, or [`save()`](#Map.save) to write its HTML file. 
 
 ```python
-# Mark a route on a map, highlight bike paths in green
-route_map = route.map   
-route_map.add(route.members("w[highway=cycleway]", color="green")
-route_map.show()
+restaurants.map.show()
+hotels.map.save("hotel-map") # .html by default
+hydrants.map(color='red')    # map with fire hydrants marked in red
 ```
 
-## Tag methods
+> .property wkt
 
-> .method str(*key*)
+The set's features represented as Well-Known Text ([`Formatter`](#Formatter))
 
-Returns the value of the given tag key as a string, or an empty string if this feature doesn't have the requested tag.
+## Spatial filters
 
-> .method num(*key*)
- 
-Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
+These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)). 
 
-> .method split(*key*) 0.2
- 
-If a tag contains multiple values separated by `;`, returns a tuple with the individual values. For a single value, returns a single-item tuple. Numbers are always converted to strings. If the tag does not exist, returns an empty tuple.
+> .method within(*geom*)
 
-> .class Tags
+Features that lie entirely inside *geom*.
 
-## `Tags` objects
 
-Iterating a `Tags` object yields key-value tuples:
+
+> .method around(*geom*, *units*=*distance*)
+
+Features that lie within the given distance from the centroid of *geom*. 
+In lieu of a geometric object, you can also specify coordinates using 
+`x` and `y` (for Mercator-projected coordinates) or `lon` and `lat` (in degrees).
+Use `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units` to specify the maximum distance.
+
+Example:
 
 ```python
->>> for key, value in street.tags:
-...     print (f'{key}={value}')  
-('highway', 'residential')
-('name', 'Rue des Poulets')
-('maxspeed', 30)
+# All bus stops within 500 meters of the given restaurant
+features("n[highway=bus_stop]").around(restaurant, meters=500)
+ 
+# All features within 3 miles of the given point 
+features.around(miles=3, lat=40.12, lon=-76.41) 
+```
+
+> .method contains(*geom*)
+
+Features whose geometry *contains* the given geometric object.
+
+**Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
+
+```python
+# In which park (if any) is this statue of Claude Monet?
+features("a[leisure=park]").contains(statue_of_monet).first
+
+# The county, state and country for this point -- should return 
+# San Diego County, California, USA (in no particular order)  
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(Coordinate(lon=-117.25, lat=32.99)) 
+```
+
+{% comment %}
+```
+# The county, state and country for this point -- should return 
+# San Diego County, California, USA (in no particular order)  
+features("a[boundary=administrative]"
+    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99) 
+```
+{% endcomment %}
+
+*As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
+objects are supported.*
+
+> .method crosses(*geom*) 0.2
+
+Features whose geometry *crosses* the given geometric object.
+
+```python
+# All railway bridges across the Mississippi River
+features("w[railway][bridge]").crosses(mississippi)
+```
+
+> .method disjoint(*geom*) 0.2
+
+Features whose geometry is *disjoint* from the given geometric object.
+
+> .method intersects(*geom*)
+
+Features whose geometry *intersects* the given geometric object.
+
+> .method overlaps(*geom*) 0.2
+
+Features whose geometry *overlaps* the given geometric object.
+
+> .method touches(*geom*) 0.2
+
+Features whose geometry *touches* the given geometric object.
+
+> .method nearest_to(*geom*, *units*=*distance*) 0.2
+
+Features in ascending order of distance to the given geometric object.
+
+- To limit the search radius, specify a maximum distance in the units of your choice: `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`   
+
+Example:
+
+```python
+features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
 
 
-## Anonymous nodes
 
-An **anonymous node** has no tags and does not belong to any relations --- it merely serves to define the geometry of a way. By default, feature libraries omit the IDs of such nodes to save space, in which case [`id`](#Feature.id) is `0`.
+## Topological filters
 
-Anonymous nodes can only be obtained by [`nodes`](#Feature.nodes); they are not part of any other feature sets. The [`parents`](#Feature.parents) property of an anonymous node contains the ways to which this node belongs (always at least one).  
+These methods return a subset of those features that have a specific topological relationship with another `Feature`.
 
-Every anonymous node in a GOL has a unique location. If two or more nodes share the exact latitude and longitude, the untagged ones are tagged `geodesk:duplicate=yes` and retain their ID.
+> .method nodes_of(*feature*)
+
+The nodes of the given way. Returns an empty set if *feature* is a node or relation.
+
+> .method members_of(*feature*)
+
+Features that are members of the given relation, or nodes of the given way. Returns an empty set if *feature* is a node.
+
+> .method parents_of(*feature*)
+
+Relations that have the given feature as a member, as well as ways to which the given node belongs.
+
+> .method descendants_of(*feature*) 0.2
+
+> .method ancestors_of(*feature*) 0.2
+
+> .method connected_to(*feature*) 
+
+All features that share a common node with *feature*. 
+
+
+## Metadata
+
+> .property properties
+
+> .property copyright
+
+> .property license
+
+The license under which this dataset is made available. 
+
+> .property license_url
+
+The URL where the text of the license can be found.
+
+> .property indexed_keys
+
+> .property tiles
+

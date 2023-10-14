@@ -32,6 +32,8 @@ my_map.show()
 
 ## Map Attributes
 
+These attributes apply to the map itself. They can be passed as keyword arguments or accessed as properties of the `Map` object.
+
 `basemap` | Tile server URL for the base map (Default: OpenStreetMap Carto)
 `attribution` | Attribution text to display at the bottom of the map (This is          required if you publicly display your map, and defaults to "&copy; OpenStreetMap")
 `leaflet_version` | Version of the [Leaflet](https://www.leafletjs.com) to use
@@ -41,6 +43,8 @@ my_map.show()
 `max_zoom` | Maximum zoom level: Default: 19
 
 ## Element Attributes
+
+These attributes apply to individual map elements. They can be passed as keyword arguments or accessed as properties of the `Map` object (in which case they act as default attributes).
 
 `tooltip` | Text (HTML) to display when the user places the mouse cursor over an element. Default: `None`
 `link` | URL to navigate when the user clicks on an element. Default: `None`
@@ -59,6 +63,9 @@ my_map.show()
 (Adapted from [Leaflet API Documentation](https://leafletjs.com/reference.html#path) --- &copy; 2010 -- 2013 Volodymyr Agafonkin. Licensed under [BSD-2-Clause](https://github.com/Leaflet/Leaflet/blob/main/LICENSE))
 {:.text-small}
 
+<h3 id="Map_link" class="api"><span class="prefix">Map.</span><span class="name">link</span></h3><div class="api" markdown="1">
+
+TODO
 
 To open the feature's website (if it has one):
 
@@ -78,6 +85,7 @@ To edit the feature in iD (the default OpenStreetMap editor):
 link="https://www.openstreetmap.org/edit?{osm_type}={id}"
 ```
 
+</div>
 ## Properties
 
 All are mutable.

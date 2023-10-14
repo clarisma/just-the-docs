@@ -2,13 +2,13 @@
 layout: default
 title:  Mercator Projection
 parent: GeoDesk for Python
-nav_order: 8
+nav_order: 9
 ---
 
 
 # Mercator Projection
 
-For most geometric operations, GeoDesk expects coordinates in [Mercator Pprojection](/core-concepts#coordinate-system). OpenStreetMap and many other geospatial datasets use WGS-84, with coordinates expressed as degrees longitude and latitude. GeoDesk's `Coordinate`, `Box` and `Feature` objects allow you to use both coordinate systems interchangeably, but if you work with Shapely geometries (which are unitless and hence projection-agnostic), you may need to explicitly convert between them.
+For most geometric operations, GeoDesk expects coordinates in [Mercator Projection](/core-concepts#coordinate-system). OpenStreetMap and many other geospatial datasets use WGS-84, with coordinates expressed as degrees longitude and latitude. GeoDesk's `Coordinate`, `Box` and `Feature` objects allow you to use both coordinate systems interchangeably, but if you work with Shapely geometries (which are unitless and hence projection-agnostic), you may need to explicitly convert between them.
 
 If you are reading a shapefile with the outlines of census districts, and you want to find all streets within each district using GeoDesk, you will first need to convert them [`to_mercator()`](#geodesk.to_mercator).
 

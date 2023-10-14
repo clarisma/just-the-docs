@@ -289,4 +289,11 @@ $code-background-color: $white;
 .highlight .gd { color: #f92672; } /* Generic.Deleted & Diff Deleted */
 .highlight .gi { color: #a6e22e; } /* Generic.Inserted & Diff Inserted */
 
+/* GOQL */
 
+.language-css .highlight .nc { color: #95E6CB; } /* type -- not used */
+.language-css .highlight .nt { color: #f8f8f2; } /* type/key/value */
+.language-css .highlight .s1 { color: desaturate(#DDF181, 30%); } /* Literal.String */
+.language-css .highlight .c1 { color: lighten(#75715e, 50%); } /* Comment */
+
+.language-json .highlight .err { color: #808080; background-color: inherit; }

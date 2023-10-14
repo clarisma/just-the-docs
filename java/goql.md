@@ -111,10 +111,10 @@ na[amenity=pub][name="The King's Head"]
 For **partial string matches**, use the wildcard `*`:
 
 ```css
-na[name=The*]       // "The Best", "Theater"
-na[name="The *"]    // "The Best"
-na[name=*land]      // "bland", "New Zealand"
-na[name=*eat*]      // "eatery", "Beat", "Theater"
+na[name=The*]       /* "The Best", "Theater"       */
+na[name="The *"]    /* "The Best"                  */
+na[name=*land]      /* "bland", "New Zealand"      */
+na[name=*eat*]      /* "eatery", "Beat", "Theater" */
 ```
 
 String matching is always **case-sensitive**.

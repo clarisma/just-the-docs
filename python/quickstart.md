@@ -15,7 +15,7 @@ $ python -V
 Python 3.11.5
 ```
 
-If you don't (or the version is lower than 3.9), [download and install Python](https://www.python.org/downloads/).
+If you don't (or the version is lower than 3.6), [download and install Python](https://www.python.org/downloads/).
 
 ## Install GeoDesk
 

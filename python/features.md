@@ -152,11 +152,11 @@ To aid import into GIS applications, features can be converted into different re
 
 <h3 id="Feature_geojson" class="api"><span class="prefix">Feature.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
 
-The [GeoJSON](https://geojson.org/) representation of this feature.
+The [GeoJSON](https://geojson.org/) representation of this feature ([`Formatter`](/python\formatters#Formatter))
 
 </div><h3 id="Feature_wkt" class="api"><span class="prefix">Feature.</span><span class="name">wkt</span></h3><div class="api" markdown="1">
 
-The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry).
+The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) ([`Formatter`](/python\formatters#Formatter))
 
 </div><h3 id="Feature_map" class="api"><span class="prefix">Feature.</span><span class="name">map</span></h3><div class="api" markdown="1">
 

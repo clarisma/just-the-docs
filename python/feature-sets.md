@@ -113,6 +113,8 @@ if not street.nodes("[traffic_calming=bump]"):
     print("No speed bumps on this street.")
 ```
 
+## Obtaining a single `Feature`
+
 <h3 id="Features_first" class="api"><span class="prefix">Features.</span><span class="name">first</span></h3><div class="api" markdown="1">
 
 The first feature of the set (or any arbitrary feature if the set is unordered).
@@ -126,6 +128,16 @@ The one and only feature of the set.
 A `QueryError` is raised if the set is empty or contains more than one feature.
 
 </div>
+
+<br>
+Alternatively, use `[0]` to get the first `Feature` of a non-empty set.
+
+A `QueryError` is raised if the set is empty.
+
+```python
+first_node = way.nodes[0]
+```
+
 ## Properties
 
 These are read-only, and are calculated on each access.
@@ -171,7 +183,7 @@ If you want to restrict the subset to non-area relations, use <code><i>features<
 
 <h3 id="Features_geojson" class="api"><span class="prefix">Features.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
 
-The set's features represented as GeoJSON.
+The set's features represented as GeoJSON ([`Formatter`](/python\formatters#Formatter))
 
 </div><h3 id="Features_map" class="api"><span class="prefix">Features.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
@@ -183,12 +195,22 @@ hotels.map.save("hotel-map") # .html by default
 hydrants.map(color='red')    # map with fire hydrants marked in red
 ```
 
+</div><h3 id="Features_wkt" class="api"><span class="prefix">Features.</span><span class="name">wkt</span></h3><div class="api" markdown="1">
+
+The set's features represented as Well-Known Text ([`Formatter`](/python\formatters#Formatter))
+
 </div>
 ## Spatial filters
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\features#Feature), [`Geometry`](#Geometry), [`Box`](/python\primitives#Box) or [`Coordinate`](/python\primitives#Coordinate)).
 
-<h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+<h3 id="Features_within" class="api"><span class="prefix">Features.</span><span class="name">within</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features that lie entirely inside *geom*.
+
+
+
+</div><h3 id="Features_around" class="api"><span class="prefix">Features.</span><span class="name">around</span><span class="paren">(</span><i>geom</i>, <i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features that lie within the given distance from the centroid of *geom*.
 In lieu of a geometric object, you can also specify coordinates using
@@ -269,6 +291,7 @@ Example:
 ```python
 features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
+
 
 
 </div>

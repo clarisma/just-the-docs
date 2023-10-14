@@ -112,6 +112,8 @@ if not street.nodes("[traffic_calming=bump]"):
     print("No speed bumps on this street.")
 ```
 
+## Obtaining a single `Feature`
+
 > .property first
 
 The first feature of the set (or any arbitrary feature if the set is unordered).
@@ -123,6 +125,17 @@ The first feature of the set (or any arbitrary feature if the set is unordered).
 The one and only feature of the set. 
 
 A `QueryError` is raised if the set is empty or contains more than one feature.
+
+> .end
+
+<br> 
+Alternatively, use `[0]` to get the first `Feature` of a non-empty set.
+
+A `QueryError` is raised if the set is empty.
+
+```python
+first_node = way.nodes[0]
+```
 
 ## Properties
 
@@ -167,7 +180,7 @@ If you want to restrict the subset to non-area relations, use <code><i>features<
 
 > .property geojson
 
-The set's features represented as GeoJSON.
+The set's features represented as GeoJSON ([`Formatter`](#Formatter))
 
 > .property map
 
@@ -179,6 +192,10 @@ hotels.map.save("hotel-map") # .html by default
 hydrants.map(color='red')    # map with fire hydrants marked in red
 ```
 
+> .property wkt
+
+The set's features represented as Well-Known Text ([`Formatter`](#Formatter))
+
 ## Spatial filters
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)). 
@@ -189,7 +206,7 @@ Features that lie entirely inside *geom*.
 
 
 
-> .method around(*geom*, *units*=*distance*) 0.2
+> .method around(*geom*, *units*=*distance*)
 
 Features that lie within the given distance from the centroid of *geom*. 
 In lieu of a geometric object, you can also specify coordinates using 

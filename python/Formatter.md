@@ -94,3 +94,7 @@ GEOMETRYCOLLECTION(
     LINESTRING(-117.280372 32.8393748, -117.2803909 32.8396239, ...),
     ...)
 ```
+
+{% comment %}
+You can generate WKT directly from a [`Geometry`](/python\Geometry#Geometry) object.
+{% endcomment %}

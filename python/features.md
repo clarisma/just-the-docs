@@ -8,11 +8,11 @@ nav_order: 6
 
 <a id="Features"></a>
 
-# Feature Sets
+# Sets of Features
 
 A **feature set** represents those [`Feature`](/python\Feature#Feature) objects that meet certain criteria.
 
-<h3 id="Features_Features" class="api"><span class="prefix">geodesk.</span><span class="name">Features</span><span class="paren">(</span><i>gol</i>, <i>url</i>=<span class="default">None</span><span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="Features_Features" class="api"><span class="prefix">geodesk.</span><span class="name">Features</span><span class="paren">(</span><i>filename</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Creates a feature set based on a Geographic Object Library.
 
@@ -138,7 +138,7 @@ A `QueryError` is raised if the set is empty.
 first_node = way.nodes[0]
 ```
 
-## Properties
+## Result properties
 
 These are read-only, and are calculated on each access.
 

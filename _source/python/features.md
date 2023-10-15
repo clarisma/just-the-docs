@@ -12,8 +12,12 @@ nav_order: 6
 
 A **feature set** represents those [`Feature`](#Feature) objects that meet certain criteria.
 
-> .method Features(*filename*, *url*=None)
+{% comment %}
+// > .method Features(*filename*, *url*=None)
+{% endcomment %}
 
+> .method Features(*filename*)
+ 
 Creates a feature set based on a Geographic Object Library.
 
 ```python

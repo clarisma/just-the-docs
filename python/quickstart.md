@@ -52,7 +52,13 @@ Start the interactive Python shell:
 $ python
 ```
 
-First, we'll open the GOL (the `.gol` file extension is optional):
+First, we'll import the GeoDesk module:
+
+```python
+>>> from geodesk import *
+```
+
+Then we open the GOL (the `.gol` file extension is optional):
 
 ```python
 >>> france = Features("france")

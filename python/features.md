@@ -2,6 +2,7 @@
 layout: default
 title:  Sets of Features
 parent: GeoDesk for Python
+has_children: true
 nav_order: 6
 ---
 
@@ -11,6 +12,10 @@ nav_order: 6
 # Sets of Features
 
 A **feature set** represents those [`Feature`](/python\Feature#Feature) objects that meet certain criteria.
+
+{% comment %}
+// > .method Features(*filename*, *url*=None)
+{% endcomment %}
 
 <h3 id="Features_Features" class="api"><span class="prefix">geodesk.</span><span class="name">Features</span><span class="paren">(</span><i>filename</i><span class="paren">)</span></h3><div class="api" markdown="1">
 

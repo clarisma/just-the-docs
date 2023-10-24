@@ -72,4 +72,4 @@ Expands this box in all directions by the given distance. Negative values shrink
 
 </div><h3 id="Box_buffered" class="api"><span class="prefix">Box.</span><span class="name">buffered</span><span class="paren">(</span><i>units</i>=<span class="default">*distance*</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
-Same as [`buffer()`](#Box.buffer), but returns a copy, leaving this box unmodified.
+Same as `buffer()`(#Box.buffer), but returns a copy, leaving this box unmodified.

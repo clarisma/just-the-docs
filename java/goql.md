@@ -3,6 +3,7 @@ layout: default
 title:  Query Language
 next:   features.md
 parent: GeoDesk for Java
+redirect_from: /goql
 nav_order: 4
 ---
 

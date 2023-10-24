@@ -5,7 +5,13 @@ next: intro-to-osm.md
 has_children: true
 nav_order: 4
 ---
+
+
+<img src="/img/doc-header-java.png" style="border-radius: 10px;">
+
+{% comment %}
 # GeoDesk <span class="smaller">for Java&trade;</span>
+{% endcomment %}
 
 **GeoDesk for Java** is an open-source library for creating geospatial applications on Java 16 or above.
 

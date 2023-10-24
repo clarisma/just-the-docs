@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Utility Classes
-parent: Developer's Guide
-nav_order: 9
+parent: GeoDesk for Java
+nav_order: 7
 ---
 
 # Utility Classes

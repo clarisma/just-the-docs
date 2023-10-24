@@ -21,7 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs.geodesk.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 permalink: /:title
-
+markdown: kramdown
 exclude:
  # from https://github.com/jekyll/jekyll/blob/master/lib/site_template/_config.yml:
    - .sass-cache/
@@ -160,6 +160,8 @@ kramdown:
   syntax_highlighter_opts:
     block:
       line_numbers: false
+    span:
+      disable: true     # don't highlight inline <code> e.g. `True`
 
 compress_html:
   clippings: all
@@ -172,5 +174,6 @@ compress_html:
   #   envs: all
 
 geodesk_version: 0.1.8
+geodesk_python_version: 0.1.0
 javadoc: https://apidocs.geodesk.com/0.1/com/geodesk/
 javadoc_jts: https://locationtech.github.io/jts/javadoc/org/locationtech/jts/

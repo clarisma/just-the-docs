@@ -2,6 +2,7 @@
 layout: default
 title: Tutorial
 parent: GeoDesk for Java
+redirect_from: /tutorial
 nav_order: 1
 ---
 # Five-Minute Tutorial

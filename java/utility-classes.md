@@ -3,6 +3,7 @@ layout: default
 title: Utility Classes
 parent: GeoDesk for Java
 nav_order: 7
+redirect_from: /utility-classes
 ---
 
 # Utility Classes

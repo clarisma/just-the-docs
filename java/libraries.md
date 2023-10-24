@@ -3,6 +3,7 @@ layout: default
 title: Feature Libraries
 next: feature-sets.md
 parent: GeoDesk for Java
+redirect_from: /libraries
 nav_order: 2
 ---
 # Feature Libraries

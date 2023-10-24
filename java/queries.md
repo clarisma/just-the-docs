@@ -3,6 +3,7 @@ layout: default
 title:  Queries & Collections
 next:   goql.md
 parent: GeoDesk for Java
+redirect_from: /queries
 nav_order: 3
 ---
 # Queries and Feature Collections

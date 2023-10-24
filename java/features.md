@@ -3,6 +3,7 @@ layout: default
 title:  Features
 next:   feature-subtypes.md
 parent: GeoDesk for Java
+redirect_from: /features
 nav_order: 5
 ---
 

@@ -68,5 +68,30 @@ The following are valid length units:
 </div>
 ## Converting from Mercator to WGS-84
 
-<h3 id="from_mercator" class="api"><span class="prefix">geodesk.</span><span class="name">from_mercator</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="from_mercator" class="api"><span class="prefix">geodesk.</span><span class="name">from_mercator</span><span class="paren">(</span><i>geom_or_length</i>, units=<span class="default">'meters'</span>, lat=<span class="default">None</span>, y=<span class="default">None</span><span class="paren">)</span></h3><div class="api" markdown="1">
 
+<h3>Geometry</h3>
+
+For a `Geometry` object in Mercator projection, returns a new `Geometry` with coordinates in WGS-84 (degrees longitude and latitude).
+
+<h3>Length</h3>
+
+To convert a distance in Mercator units to meters (or other units), its length value to its equivalent Mercator units, specify it using a length unit along with a latitude value that determines the scale (as `lat` for degrees or `y` as a Mercator-projected equivalent).
+
+The following are valid length units:
+
+- `meters` (`m`)
+- `feet` (`ft`)
+- `yards` (`yd`)
+- `kilometers` (`km`)
+- `miles` (`mi`)
+
+{%comment%}
+```python
+# 300 feet as Mercator units
+>>> to_mercator(feet=300, lat=38)  # at 38 degrees latitude
+12436
+>>> to_mercator(feet=300, lat=65)  # at 65 degrees latitude
+23189
+```
+{%endcomment%}

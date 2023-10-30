@@ -260,7 +260,7 @@ features("a[boundary=administrative]"
 *As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
 objects are supported.*
 
-</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *crosses* the given geometric object.
 
@@ -326,7 +326,7 @@ All features that share a common node with *feature*.
 
 
 </div>
-## Metadata
+## Metadata ~0.2~
 
 <h3 id="Features_properties" class="api"><span class="prefix">Features.</span><span class="name">properties</span></h3><div class="api" markdown="1">
 

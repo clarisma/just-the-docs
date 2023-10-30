@@ -256,7 +256,7 @@ features("a[boundary=administrative]"
 *As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
 objects are supported.*
 
-> .method crosses(*geom*) 0.2
+> .method crosses(*geom*)
 
 Features whose geometry *crosses* the given geometric object.
 
@@ -320,7 +320,7 @@ Relations that have the given feature as a member, as well as ways to which the 
 All features that share a common node with *feature*. 
 
 
-## Metadata
+## Metadata ~0.2~
 
 > .property properties
 

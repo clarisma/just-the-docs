@@ -9,7 +9,10 @@ nav_order: 5
 
 # Feature Objects
 
+<img class="float" src="/img/basic-features.png" width=320>
+
 A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or an abstract concept like a bus route.
+
 
 OpenStreetMap uses three types of features:
 

@@ -326,7 +326,7 @@ All features that share a common node with *feature*.
 
 
 </div>
-## Metadata ~0.2~
+## Metadata ~~0.2~~
 
 <h3 id="Features_properties" class="api"><span class="prefix">Features.</span><span class="name">properties</span></h3><div class="api" markdown="1">
 

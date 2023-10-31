@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import re
 
 operators = [
@@ -15,6 +16,9 @@ class Page:
 		self.lines = lines
 	
 	def save(self):
+		directory = os.path.dirname(self.filename)
+		if directory and not os.path.exists(directory):
+			os.makedirs(directory)
 		with open(self.filename, 'w') as file:
 			file.writelines(line + '\n' for line in self.lines)
 

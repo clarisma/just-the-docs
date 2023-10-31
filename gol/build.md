@@ -75,15 +75,17 @@ See build setting [updatabale](#updatable).
 
 ## Build Settings
 
-## `area-tags`  ~~0.2~~ {#area-tags}
+### `area-tags`  ~~0.2~~ {#area-tags}
 
 The tags that determine whether a closed OSM way is treated as an area or a linear ring. Rules can be specified for one or more keys. A closed way is treated as an area if it fulfills at least one of these rules (or is explicitly tagged `area=yes`), and is *not* tagged `area=no`.
 
 Key rules have the following format:
 
 <div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <pre class="highlight"><code><i>key</i> [ <b>(</b> <b>only</b>|<b>except</b> <i>value</i>+ <b>)</b> ]
 </code></pre>
+</div>
 </div>
 
 
@@ -99,7 +101,7 @@ area-tags:
                                       // or "man_made=no")     
 ```
 
-## `id-indexing` ~~0.3~~ {#id-indexing}
+### `id-indexing` ~~0.3~~ {#id-indexing}
 
 Value: `yes` / `no` (defaults to value of [`updatable`](#updatable))
 
@@ -108,7 +110,7 @@ If enabled, instructs the `build` command to retain the external ID indexes used
 In case this option is disabled, the [`update`](/gol/update) command can also re-create these indexes if needed.
 
 
-## `indexed-keys`
+### `indexed-keys`
 
 To enhance query performance, GOLs organize features into separate indexes based on their tags. The `index-keys` section specifies which keys should be considered for indexing. The ideal keys for indexing are those that create categories of features (similar to *layers* in a traditional GIS database), such as `highway`, `landuse` or `shop`. As the number of indexes is limited (see [`max-key-indexes`](#max-key-indexes)), multiple keys may be consolidated into one index (This is done automatically on a per-type, per-tile basis). Features whose tags have multiple indexed keys (e.g. `tourism` and `amenity` for a hotel that is also a restaurant) are consolidated with features with the same key, or placed into a separate mixed-key index.
 
@@ -129,19 +131,19 @@ indexed-keys:
 
 {% comment %}
 
-## `keep-empty-relations`
+### `keep-empty-relations`
 
 Value: `yes` (default) / `no` 
 
 [Empty relations](https://wiki.openstreetmap.org/wiki/Empty_relations) are relations that have no members.  
 
-## `keep-missing-members`
+### `keep-missing-members`
 
 Value: `yes` (default) / `no`
 
 {% endcomment %}
 
-## `key-index-min-features`
+### `key-index-min-features`
 
 Value: 0 -- 1,000,000 (default: 300)
 
@@ -150,7 +152,7 @@ If there are fewer features in a key index than this number, these features will
 Used with [`indexed-keys`](#indexed-keys) and [`max-key-indexes`](#max-key-indexes).
 
 
-## `max-key-indexes`
+### `max-key-indexes`
 
 Value: 0 -- 30 (default: 8)
 
@@ -161,7 +163,7 @@ If the number of key indexes is lower than the number of keys and key-pairs in [
 Specifying `0` disables key indexing.
 
 
-## `max-strings`
+### `max-strings`
 
 Value: 256 -- 65,535 (default: 16,384)
 
@@ -170,7 +172,7 @@ The maximum number of strings that will be stored in the GOL's Global String Tab
 The actual number of strings will be less if fewer strings meet the minimum usage threshold ([`min-string-usage`](#min-string-usage))
 
 
-## `max-tiles`
+### `max-tiles`
 
 Value: 1 -- 8,000,000 (default: 65,535)
 
@@ -181,7 +183,7 @@ A higher setting is also preferred if you intend to host a tile repository, as a
 If this number is set too low, a tile may exceed the maximum size of 1 GB (uncompressed). An unreasonably low setting may also cause the build process to fail with an `OutOfMemoryError`.
 
 
-## `min-string-usage`
+### `min-string-usage`
 
 Value: 1 -- 100,000,000 (default: 300)
 
@@ -190,14 +192,14 @@ Specifies the minimum number of times a string must be used by features (as a ta
 See [`max-strings`](#max-strings).
 
 
-## `min-tile-density`
+### `min-tile-density`
 
 Value: 1 -- 10,000,000 (default: 75,000)
 
 If there are fewer nodes in a tile area than this number, the tile will be omitted, and all features in the tile area will be placed into tiles at lower zoom levels. A lower threshold will result in more tiles, up to the maximum specified by [`max-tiles`](#max-tiles).
 
 
-## `properties`
+### `properties`
 
 A section with key-value pairs that are stored as GOL metadata, which are displayed by [`gol info`](/gol/info) and can be read by other applications.
 
@@ -222,20 +224,20 @@ Creative Commons License) -- but in general, you should not override the default
 
 To set properties from the command line, use <code>--property:<i>property</i>=<i>value</i></code> or <code>-p:<i>property</i>=<i>value</i></code>.
 
-## `rtree-bucket-size`
+### `rtree-bucket-size`
 
 Value: 1 -- 256 (default: 16)
 
 GOLs use R-tree indexes to accelerate spatial queries. This setting specifies the maximum number of features (or child buckets) in each bucket (A *bucket* is a node in the R-tree). A larger number reduces the size of the GOL, a smaller number increases query performance (but set too low, it may have the opposite effect). Square numbers (4, 9, 16, 25, etc.) tend to perform best.
 
 
-## `tag-duplicate-nodes`
+### `tag-duplicate-nodes`
 
 Value: `yes` / `no` (default)
 
 By default, untagged nodes are discarded (unless they are members or one or more relations) --- they simply exist as locations on ways. In certain cases, problems arise if two or more untagged nodes share the same location, because it becomes unclear whether features with coincident geometry are supposed to be connected. Enabling this option causes such duplicate nodes to be tagged with `geodesk:duplicate=true`, which turns them into feature nodes (with a distinct identity).
 
-## `tag-orphan-nodes`
+### `tag-orphan-nodes`
 
 Value: `yes` / `no` (defaults to value of [`updatable`](#updatable))
 
@@ -244,7 +246,7 @@ By default, any nodes that have no tags and aren't referenced by any ways or rel
 If a GOL is [`updatable`](#updatable), this option is enabled by default.
 
 
-## `tile-zoom-levels`
+### `tile-zoom-levels`
 
 The zoom levels at which tile-tree nodes should be created. Together with [`max-tiles`](#max-tiles) and [`min-tile-density`](#min-tile-density), this setting shapes the tile structure of a GOL.
 
@@ -254,7 +256,7 @@ The zoom levels at which tile-tree nodes should be created. Together with [`max-
 - Fewer zoom levels result in a flatter tree that may yield better query performance, but cause a higher variance in tile sizes.
 - Setting the top zoom level too low may cause the maximum tile size (1 GB uncompressed) to be exceeded. (Very large tiles may also cause the build process to run out of memory.)
 
-## `updatable` ~~0.3~~ {#updatable}
+### `updatable` ~~0.3~~ {#updatable}
 
 Value: `yes` / `no` (default)
 

@@ -4,13 +4,13 @@ nav_exclude: true
 title: GeoDesk Documentation
 ---
 
-# GeoDesk Documentation
+<img src="/img/social-card3.png" style="border-radius: 10px;">
 
-Impatient? Read our [Five-Minute Tutorial](tutorial).
+- [Java Developer's Guide](/java)
 
-[Developer's Guide](guide)
+- [Python Developer's Guide](/python)
 
-[GOL command-line utility](gol)
+- [GOL Command-Line Utility](/gol)
 
 {% comment %}
 [API Reference](api.md)

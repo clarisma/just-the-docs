@@ -24,7 +24,7 @@ For example:
 
     gol query geodata/france 
       na[amenity=fire_station], n[emergency=fire_hydrant]
-      -b=2.2,48.8,2.5,18.9 -f=geojson 
+      -b=2.2,48.8,2.5,48.9 -f=geojson 
       -u=https://www.mywebsite.com/myfeatures/france -n
 
 retrieves all fire stations (which can be nodes or areas) and hydrants
@@ -71,7 +71,7 @@ Formatting options to customize the output. These are primarily used by [`map`](
 
 ### <code>-f:id=<em>&lt;STYLE&gt;</em></code> ~~0.2~~ {#option-f-id}
 
-Defines the style of IDs used for `csv`, `geojson`/`geojsonl`, list` and `table`:
+Defines the style of IDs used for `csv`, `geojson`/`geojsonl`, `list` and `table`:
 
 `none` | Omit the ID of features
 `multi4` | OSM ID multiplied by 4 (+1 for ways, +2 for relations)

@@ -1,9 +1,9 @@
 ---
 layout: default
 title:  Query Language
-next:   features.md
-parent: Developer's Guide
-nav_order: 6
+parent: Sets of Features
+grand_parent: GeoDesk for Python
+nav_order: 1
 ---
 
 # Geo-Object Query Language (GOQL)
@@ -111,10 +111,10 @@ na[amenity=pub][name="The King's Head"]
 For **partial string matches**, use the wildcard `*`:
 
 ```css
-na[name=The*]       // "The Best", "Theater"
-na[name="The *"]    // "The Best"
-na[name=*land]      // "bland", "New Zealand"
-na[name=*eat*]      // "eatery", "Beat", "Theater"
+na[name=The*]       /* "The Best", "Theater"       */
+na[name="The *"]    /* "The Best"                  */
+na[name=*land]      /* "bland", "New Zealand"      */
+na[name=*eat*]      /* "eatery", "Beat", "Theater" */
 ```
 
 String matching is always **case-sensitive**.
@@ -122,7 +122,7 @@ String matching is always **case-sensitive**.
 For more sophisticated string matching, use **regular expressions** (using the operator `~` or `!~`):
 
 ```css
-na[name~".[Ee]at."]      
+na[name~".[Ee]at."]
 ```
 
 TODO: more RegEx examples

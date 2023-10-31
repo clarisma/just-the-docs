@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Intro to OSM 
+title: Intro to OpenStreetMap 
 next: why-geodesk.md
-parent: Developer's Guide
 nav_order: 1
 ---
 # Introduction to OpenStreetMap

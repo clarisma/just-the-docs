@@ -8,11 +8,16 @@ $light-beige: #F8F5EF;
 $dark-beige: lighten(#ECE4D8, 2%);
 $darker-beige: darken($dark-beige, 10%);
 $feedback-color: $darker-beige;
-$code-background-color: $white;
+$code-background-color: #272822; // $white;
+// $python-code-background-color: #272822; // #211C1A; // #313440; //
+$dark-red: #6B3939; // darken(#760D0D,5%);
+// #840B0B;
+$dark-blue:#213682 ; 
 
 body
 {
     color: #333333;
+    font-family: Roboto, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", "Helvetica Neue", arial, sans-serif;
 }
 
 nav a, .nav-list .nav-list-item a.nav-list-expander
@@ -28,29 +33,51 @@ nav a, .nav-list .nav-list-item a.nav-list-expander
 .main-content h1
 {
     margin-bottom: 0.75em;
-    font-family: "Roboto Slab";
-    font-weight: 300;
+    font-family: "Segoe UI", "Open Sans", Roboto, "Roboto Slab";
+    font-weight: 600;
+    color: $dark-red;
 }
 
-.main-content h2
+
+.main-content h2 
 {
     margin-bottom: 0.5em;
-    font-family: "Roboto Slab";
-    font-weight: 400;
+    font-family: "Segoe UI", "Open Sans", Roboto, "Roboto Slab";
+    font-weight: 550;
+    color: $dark-red;
+    padding-bottom: 4px;
+    border-bottom: 2px solid $dark-red;
 }
 
-.main-content h3
+.main-content h3 
 {
     margin-top: 1.5em;
     margin-bottom: 0.75em;
-    font-family: "Roboto Slab";
-    font-weight: 400;
+    font-family: "Segoe UI", "Open Sans",  Roboto, "Roboto Slab";
+    font-weight: 550;
+    color: $dark-red;
+    // padding-bottom: 4px;
+    // border-bottom: 2px solid $dark-red;
 }
 
+/*
+.main-content h4
+{
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    font-family: "Segoe UI", "Open Sans",  Roboto, "Roboto Slab";
+    font-weight: 550;
+    font-size: 16px;
+    color: $dark-red;
+}
+*/
+
+/*
 .main-content h3 code
 {
     font-size: 0.9em;
 }
+    */
 
 
 code
@@ -246,4 +273,61 @@ del
 h1 del
 {
     font-size: 0.9rem;
+}
+
+.main-content h3.api {
+    font-family: monospace;
+    color: #000000; // $dark-red;
+    font-weight: 400;
+    border: none;
+}
+
+h1 code, h2 code, h3 code, h4 code
+{
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    line-height: 1em;
+    padding: 0;
+    font-size: 1em;
+}
+
+h3.api .prefix
+{
+    font-size: 0.7em;
+    font-weight: 400;
+    color: #000000;
+}
+
+h3.api .name
+{
+    font-weight: 600;
+    color: $dark-red;
+}
+
+h3.api .paren 
+{
+    color: #909090;
+}
+
+div.api
+{
+    margin-left: 20px;
+}
+
+
+div.highlighter-rouge
+{
+    background-color: $code-background-color;
+    border-color: $code-background-color;
+}
+
+div.highlight code
+{
+    color: #f8f8f2;
+}
+
+.smaller
+{
+    font-size: .7em;
 }

@@ -320,7 +320,7 @@ Relations that have the given feature as a member, as well as ways to which the 
 All features that share a common node with *feature*. 
 
 
-## Metadata ~0.2~
+## Metadata ~~0.2~~
 
 > .property properties
 

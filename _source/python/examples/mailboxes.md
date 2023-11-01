@@ -8,9 +8,9 @@ nav_order: 4
 
 # Example: Mailbox Collection Times
 
-The OpenStreetMap database contains far more information than what is visible on the map.  
+The OpenStreetMap database contains far more information than what is visible on the map. Take public mailboxes, for instance: Aside from their locations, you can also discover when the letter you've dropped off will be picked up.   
 
-
+What are the most common mailbox collection times? Let's find out:
 
 ```python
 import geodesk
@@ -28,4 +28,4 @@ for collection_times, count in most_common:
 
 ### Notes
 
-- In the U.S., OpenStreetMap uses `admin_level=4` for states, and `admin_level=6` for counties.
+

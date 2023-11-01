@@ -7,8 +7,6 @@ nav_order: 5
 permalink: /python
 ---
 
-**Coming November 2023...**
-
 <img src="/img/doc-header-python.png" style="border-radius: 10px;">
 
 {% comment %}

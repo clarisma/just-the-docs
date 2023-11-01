@@ -14,7 +14,7 @@ nav_order: 5
 import geodesk
 import sys
 
-world = geodesk.Features('usa.gol')
+world = geodesk.Features("usa.gol")
 
 state_name = sys.argv[1] # first command-line argument (e.g. "California")
 file_name = state_name.lower().replace(' ', '-') + "-counties"

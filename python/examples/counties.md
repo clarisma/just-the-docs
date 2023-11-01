@@ -8,7 +8,15 @@ nav_order: 5
 
 # Example: U.S. Counties
 
+For many geospatial use cases, getting the boundaries of an administrative area is
+often the first step. Let's write a script that allows users to discover the counties
+of any U.S. state. We'll display a map like the one below, and we also export the boundaries
+as a GeoJSON file.
 
+<img class="figure" src="/img/example-counties-screenshot.png" width="480">
+
+Instead of hard-coding the state's name, we'll allow the user to supply it as a command-line
+argument, e.g. `python counties.py Oregon`.
 
 ```python
 import geodesk

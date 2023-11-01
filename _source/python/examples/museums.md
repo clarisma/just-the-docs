@@ -8,7 +8,8 @@ nav_order: 1
 
 # Example: Museums in Paris
 
-
+In this simple example, we'll list the names of all museums in Paris, as well as all
+subway stations within 500 meters:
 
 ```python
 import geodesk

@@ -10,6 +10,8 @@ nav_order: 8
 
 # Creating a `Map`
 
+<img class="float" src="/img/example-counties-screenshot.png" width="320">
+
 The easiest way to visualize features and other geometric objects is to place them on a `Map` (a [Leaflet](https://www.leafletjs.com)-based web map). Create one via the [`map`](/python\Feature#Feature_map) property of a feature or feature set, or directly:
 
 <h3 id="Map_Map" class="api"><span class="prefix">geodesk.</span><span class="name">Map</span><span class="paren">(</span><i>attributes</i><span class="paren">)</span></h3><div class="api" markdown="1">

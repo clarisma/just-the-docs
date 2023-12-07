@@ -35,7 +35,7 @@ By default, `MapMaker` uses standard-style OpenStreetMap tiles to display the ba
 <blockquote class="important" markdown="1">
 
 If you are publishing maps created by `MapMaker`, be sure to follow the usage policy of the
-tile provider ([Policy for OSM Tiles](https://operations.osmfoundation.org/policies/tiles/) and provide proper `attribution()`.
+tile provider ([Policy for OSM Tiles](https://operations.osmfoundation.org/policies/tiles/)) and provide proper `attribution()`.
 
 </blockquote>
 

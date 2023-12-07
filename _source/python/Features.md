@@ -3,6 +3,7 @@ layout: default
 title:  Sets of Features
 parent: GeoDesk for Python
 has_children: true
+has_toc: false
 nav_order: 6
 ---
 
@@ -142,6 +143,17 @@ A `QueryError` is raised if the set is empty.
 first_node = way.nodes[0]
 ```
 
+## Testing for membership
+
+To check if a feature belongs to a given set, use the `in` operator:
+
+```python
+sushi_restaurants = world("na[amenity=restaurant][cuisine=sushi]")
+
+if restaurant in sushi_restaurants:
+    print (f"{restaurant.name} serves sushi")
+```
+
 ## Result properties
 
 These are read-only, and are calculated on each access.
@@ -232,7 +244,7 @@ features.around(miles=3, lat=40.12, lon=-76.41)
 
 Features whose geometry *contains* the given geometric object.
 
-**Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code>.
+**Note:** If you want to test whether this set includes a particular feature, use <code><i>feature</i> in <i>set</i></code> ([See above](#testing-for-membership))
 
 ```python
 # In which park (if any) is this statue of Claude Monet?

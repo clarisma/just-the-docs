@@ -22,7 +22,7 @@ Formatting options:
 <blockquote class="important" markdown="1">
 
 If you are using map tiles provided by a third party, be sure to follow their
-tile usage policy and provide proper attribution.
+tile usage policy and provide proper attribution (For the OpenStreetMap default style, please see ([Policy for OSM Tiles](https://operations.osmfoundation.org/policies/tiles/)).
 
 </blockquote>
 

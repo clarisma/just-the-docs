@@ -301,6 +301,8 @@ class ApiDocProcessor:
 	
 	def process_end_command(self, page, cmd):
 		close_tag = ""
+		if cmd == "class":
+			self.current_class = None
 		if self.current_method or self.current_property:
 			self.current_method = None
 			self.current_property = None

@@ -12,13 +12,30 @@ nav_order: 2
 
 A `Coordinate` object is the most basic geometric element, describing a point on the surface of the Earth. Most GeoDesk functions accept coordinate values as simple `(x,y)` tuples, but using `Coordinate` objects has two advantages: They are more compact, and they convert seamlessly between Mercator projection and longitude/latitude (whereas tuples must use Mercator-projected coordinate values).
 
-Construct coordinates like this:
+<h3 id="Coordinate_Coordinate" class="api"><span class="prefix">geodesk.</span><span class="name">Coordinate</span><span class="paren">(</span><i>coords</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Use positional arguments (`x`/`y` in Mercator projection) or explicit keywords:
 
 ```python
 Coordinate(lon=12.42, lat=48.76)      # longitude & latitude (any order)
 Coordinate(x=148176372, y=668142957)  # Mercator-projected x/y position
 Coordinate(148176372, 668142957)      # (Mercator projection by default)
 ```
+
+</div>
+
+<h3 id="lonlat" class="api"><span class="prefix">geodesk.</span><span class="name">lonlat</span><span class="paren">(</span>lon, lat<span class="paren">)</span></h3><div class="api" markdown="1">
+
+Creates a `Coordinate` with the given longitude and latitude.
+
+</div><h3 id="latlon" class="api"><span class="prefix">geodesk.</span><span class="name">latlon</span><span class="paren">(</span>lat, lon<span class="paren">)</span></h3><div class="api" markdown="1">
+
+Creates a `Coordinate` with the given latitude and longitude.
+
+<a id="Coordinate"></a>
+
+</div>
+## Equality and hashing
 
 Coordinates are equal to a simple tuple that has the same Mercator-projected coordinates:
 

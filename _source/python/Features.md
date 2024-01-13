@@ -185,7 +185,11 @@ If you want to restrict the subset to non-area relations, use <code><i>features<
 
 > .property geojson
 
-The set's features represented as GeoJSON ([`Formatter`](#Formatter))
+The set's features as GeoJSON ([`Formatter`](Formatter#geojson))
+
+> .property geojsonl
+
+The set's features as GeoJSON, with each feature on a separate line ([`Formatter`](Formatter#geojsonl))
 
 > .property map
 
@@ -199,7 +203,7 @@ hydrants.map(color='red')    # map with fire hydrants marked in red
 
 > .property wkt
 
-The set's features represented as Well-Known Text ([`Formatter`](#Formatter))
+The set's features as Well-Known Text ([`Formatter`](Formatter#wkt))
 
 ## Spatial filters
 

@@ -188,7 +188,11 @@ If you want to restrict the subset to non-area relations, use <code><i>features<
 
 <h3 id="Features_geojson" class="api"><span class="prefix">Features.</span><span class="name">geojson</span></h3><div class="api" markdown="1">
 
-The set's features represented as GeoJSON ([`Formatter`](/python\Formatter#Formatter))
+The set's features as GeoJSON ([`Formatter`](Formatter#geojson))
+
+</div><h3 id="Features_geojsonl" class="api"><span class="prefix">Features.</span><span class="name">geojsonl</span></h3><div class="api" markdown="1">
+
+The set's features as GeoJSON, with each feature on a separate line ([`Formatter`](Formatter#geojsonl))
 
 </div><h3 id="Features_map" class="api"><span class="prefix">Features.</span><span class="name">map</span></h3><div class="api" markdown="1">
 
@@ -202,7 +206,7 @@ hydrants.map(color='red')    # map with fire hydrants marked in red
 
 </div><h3 id="Features_wkt" class="api"><span class="prefix">Features.</span><span class="name">wkt</span></h3><div class="api" markdown="1">
 
-The set's features represented as Well-Known Text ([`Formatter`](/python\Formatter#Formatter))
+The set's features as Well-Known Text ([`Formatter`](Formatter#wkt))
 
 </div>
 ## Spatial filters

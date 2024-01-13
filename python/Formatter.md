@@ -16,11 +16,38 @@ A **Formatter** converts features to a different format, such as [GeoJSON](#geoj
 
 These properties customize the Formatter's output.
 
-<h3 id="Formatter_mercator" class="api"><span class="prefix">Formatter.</span><span class="name">mercator</span></h3><div class="api" markdown="1">
+<h3 id="Formatter_id" class="api"><span class="prefix">Formatter.</span><span class="name">id</span></h3><div class="api" markdown="1">
+
+Default: `"{T}{id}"`
+
+A function or string template used to generate an ID for each feature (only for GeoJSON),
+or `None` to omit feature IDs.
+
+By default, the generated ID is a string that starts with `N`, `W` or `R` (for *node*, *way* or *relation*), followed by the feature's `id` property (e.g. `N54127`).
+
+A function must accept a single object (the `Feature`), and must return a number or string.
+
+~~0.2~~
+
+</div><h3 id="Formatter_limit" class="api"><span class="prefix">Formatter.</span><span class="name">limit</span></h3><div class="api" markdown="1">
+
+Default: `None`
+
+If a numeric limit is specified, the Formatter outputs at most *n* features.
+
+</div><h3 id="Formatter_linewise" class="api"><span class="prefix">Formatter.</span><span class="name">linewise</span></h3><div class="api" markdown="1">
+
+Default: `True` for `geojsonl`, otherwise `False`
+
+For GeoJSON, enables line-by-line output of features (Ignored by other Formatters).
+
+</div><h3 id="Formatter_mercator" class="api"><span class="prefix">Formatter.</span><span class="name">mercator</span></h3><div class="api" markdown="1">
 
 Default: `False`
 
 If set to `True`, outputs Mercator-projected coordinates instead of WGS-84 (degrees longitude/latitude).
+
+~~0.2~~
 
 </div><h3 id="Formatter_precision" class="api"><span class="prefix">Formatter.</span><span class="name">precision</span></h3><div class="api" markdown="1">
 
@@ -75,7 +102,8 @@ streets.geojson.save('london-streets')  # Creates london-streets.geojson
 }
 ```
 
-### Line-based variant ~~0.2~~
+### Line-based variant
+{: #geojsonl }
 
 As an alternative to classic GeoJSON, each `Feature` is written on a separate line:
 
@@ -86,6 +114,7 @@ As an alternative to classic GeoJSON, each `Feature` is written on a separate li
 
 
 ## Well-Known Text
+{: #wkt }
 
 **Well-Know Text (WKT)** represents the geometric shapes of features (without IDs or tags).
 

@@ -153,11 +153,11 @@ To aid import into GIS applications, features can be converted into different re
 
 > .property geojson
 
-The [GeoJSON](https://geojson.org/) representation of this feature ([`Formatter`](#Formatter))
+The [GeoJSON](https://geojson.org/) representation of this feature ([`Formatter`](Formatter#geojson))
 
 > .property wkt
 
-The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) ([`Formatter`](#Formatter))
+The feature's geometry as [Well-Known Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) ([`Formatter`](Formatter#wkt))
 
 > .property map
 

@@ -70,4 +70,4 @@ Expands this box in all directions by the given distance. Negative values shrink
 
 > .method buffered(*units*=*distance*)
 
-Same as `buffer()`(#Box.buffer), but returns a copy, leaving this box unmodified.
+Same as [`buffer()`](#Box.buffer), but returns a copy, leaving this box unmodified.

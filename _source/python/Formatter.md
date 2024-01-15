@@ -16,11 +16,48 @@ A **Formatter** converts features to a different format, such as [GeoJSON](#geoj
 
 These properties customize the Formatter's output.
 
+> .property id
+ 
+Default: `"{T}{id}"`
+
+A function or string template used to generate an ID for each feature (only for GeoJSON),
+or `None` to omit feature IDs. 
+
+- By default, the generated ID is a string that starts with `N`, `W` or `R` (for *node*, *way* or *relation*), followed by the feature's `id` property (e.g. `N54127`).
+
+- A function must accept a single object (the `Feature`), and must return a number or string
+(or an object whose `__str__()` method returns an ID).
+
+- As of Version {{ site.geodesk_python_version }}, only functions are accepted by `id`.
+Template support will be added in ~~0.2~~
+ 
+```python
+france("a[leisure=park]").geojson(
+    id = lambda f: f.id * 2 + (0 if f.is_way else 1))
+    # GeoJSON output with unique IDs, based on the feature's 
+    # (non-unique) ID, even for ways and odd for relations 
+    # (since areas can be either)
+```
+
+> .property limit
+
+Default: `None`
+
+If a numeric limit is specified, the Formatter outputs at most *n* features.   
+
+> .property linewise
+
+Default: `True` for `geojsonl`, otherwise `False`
+
+For GeoJSON, enables line-by-line output of features (Ignored by other Formatters). 
+
 > .property mercator
 
 Default: `False`
 
 If set to `True`, outputs Mercator-projected coordinates instead of WGS-84 (degrees longitude/latitude).  
+
+~~0.2~~
 
 > .property precision
 
@@ -73,7 +110,8 @@ streets.geojson.save('london-streets')  # Creates london-streets.geojson
 }
 ```
 
-### Line-based variant ~~0.2~~
+### Line-based variant 
+{: #geojsonl }
 
 As an alternative to classic GeoJSON, each `Feature` is written on a separate line:
 
@@ -83,7 +121,8 @@ As an alternative to classic GeoJSON, each `Feature` is written on a separate li
 ```
 
 
-## Well-Known Text
+## Well-Known Text 
+{: #wkt }
 
 **Well-Know Text (WKT)** represents the geometric shapes of features (without IDs or tags).
 

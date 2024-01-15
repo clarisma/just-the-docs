@@ -23,11 +23,21 @@ Default: `"{T}{id}"`
 A function or string template used to generate an ID for each feature (only for GeoJSON),
 or `None` to omit feature IDs.
 
-By default, the generated ID is a string that starts with `N`, `W` or `R` (for *node*, *way* or *relation*), followed by the feature's `id` property (e.g. `N54127`).
+- By default, the generated ID is a string that starts with `N`, `W` or `R` (for *node*, *way* or *relation*), followed by the feature's `id` property (e.g. `N54127`).
 
-A function must accept a single object (the `Feature`), and must return a number or string.
+- A function must accept a single object (the `Feature`), and must return a number or string
+(or an object whose `__str__()` method returns an ID).
 
-~~0.2~~
+- As of Version {{ site.geodesk_python_version }}, only functions are accepted by `id`.
+Template support will be added in ~~0.2~~
+
+```python
+france("a[leisure=park]").geojson(
+    id = lambda f: f.id * 2 + (0 if f.is_way else 1))
+    # GeoJSON output with unique IDs, based on the feature's
+    # (non-unique) ID, even for ways and odd for relations
+    # (since areas can be either)
+```
 
 </div><h3 id="Formatter_limit" class="api"><span class="prefix">Formatter.</span><span class="name">limit</span></h3><div class="api" markdown="1">
 

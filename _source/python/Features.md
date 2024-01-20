@@ -32,7 +32,7 @@ To select a subset of features, add the constraint in parentheses, or apply a fi
 
 ### By bounding box
 
-Select the features whose bounding boxes intersects the given [`Box`](#Box):  
+Select the features whose bounding boxes intersect the given [`Box`](#Box):  
 
 <img class="float" src="/img/bboxes.png" width=260>
 
@@ -353,4 +353,3 @@ The URL where the text of the license can be found.
 > .property indexed_keys
 
 > .property tiles
-

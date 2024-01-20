@@ -75,7 +75,7 @@ For a `Geometry` object in Mercator projection, returns a new `Geometry` with co
 
 <h3>Length</h3>
 
-To convert a distance in Mercator units to meters (or other units), its length value to its equivalent Mercator units, specify it using a length unit along with a latitude value that determines the scale (as `lat` for degrees or `y` as a Mercator-projected equivalent). 
+To convert a distance in Mercator units to meters (or other units), specify the desired `unit` (`meters` by default) as well as a latitude value that determines the scale (as `lat` for degrees or `y` as a Mercator-projected equivalent). 
 
 The following are valid length units:
 

@@ -5,6 +5,8 @@ has_children: true
 has_toc: false
 nav_order: 5
 permalink: /python
+twitter_card_type: summary_large_image
+image: /img/social-card3c.png
 ---
 
 <img src="/img/doc-header-python.png" style="border-radius: 10px;">

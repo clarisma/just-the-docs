@@ -2,6 +2,7 @@
 layout: default
 title:  Geometry Objects
 parent: GeoDesk for Python
+description: How to create geometric shapes (points, lines, polygons)
 nav_order: 4
 ---
 

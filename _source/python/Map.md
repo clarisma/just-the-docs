@@ -2,6 +2,7 @@
 layout: default
 title:  Creating a Map
 parent: GeoDesk for Python
+description: How to display OpenStreetMap features on a Leaflet map
 nav_order: 8
 ---
 

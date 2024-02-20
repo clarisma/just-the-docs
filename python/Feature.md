@@ -146,7 +146,9 @@ The calculated area (in square meters) if this feature is polygonal, otherwise `
 
 The calculated length (in meters) if this feature is lineal, or its circumference if it is polygonal, otherwise `0`.
 
+{% comment %}
 TODO: GeometryCollection?
+{% endcomment %}
 
 </div>
 ## Formatting

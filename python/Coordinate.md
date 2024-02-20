@@ -24,13 +24,36 @@ Coordinate(148176372, 668142957)      # (Mercator projection by default)
 
 </div>
 
-<h3 id="lonlat" class="api"><span class="prefix">geodesk.</span><span class="name">lonlat</span><span class="paren">(</span>lon, lat<span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="lonlat" class="api"><span class="prefix">geodesk.</span><span class="name">lonlat</span><span class="paren">(</span><i>coords</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
-Creates a `Coordinate` with the given longitude and latitude.
+Creates a single `Coordinate` or a list with multiple `Coordinate` objects.
+
+*coords* can be one of the following:
+
+- Two individual coordinate values
+
+- Multiple coordinate pairs (tuples or other sequence type)
+
+- A sequence of coordinate pairs
+
+- A sequence of individual coordinate values (interpreted as pairs)
+
+Longitude must be specified before latitude.
+
+```python
+lonlat(11.81, 51.23)     # Creates single Coordinate
+
+# The following are equivalent (list of 3 Coordinates)
+lonlat((11.81,51.23), (7.44,51.71), (9.25, 52.63))
+lonlat([11.81,51.23], [7.44,51.71], [9.25, 52.63])
+lonlat([ [11.81,51.23], [7.44,51.71], [9.25, 52.63] ])
+lonlat(11.81, 51.23, 7.44, 51.71, 9.25, 52.63)
+```
 
 </div><h3 id="latlon" class="api"><span class="prefix">geodesk.</span><span class="name">latlon</span><span class="paren">(</span>lat, lon<span class="paren">)</span></h3><div class="api" markdown="1">
 
-Creates a `Coordinate` with the given latitude and longitude.
+Same as [`lonlat()`](#lonlat), except latitude before longitude.
+
 
 <a id="Coordinate"></a>
 

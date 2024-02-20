@@ -38,4 +38,4 @@ rail_bridges(bavaria).crosses(danube).map(
   8  | City
   10 | Village or suburb
 
-- While most water courses are mapped as simple ways (which you can retrieve with `w[waterway]`, larger rivers are typically represented using relations (`r`)
+- While most water courses are mapped as simple ways (which you can retrieve with `w[waterway]`), larger rivers are typically represented using relations (`r`)

@@ -1,6 +1,8 @@
 ---
 layout: default
 title: GeoDesk for Java
+twitter_card_type: summary_large_image
+image: /img/social-card3c.png
 next: intro-to-osm.md
 has_children: true
 nav_order: 4

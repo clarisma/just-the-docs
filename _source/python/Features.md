@@ -79,7 +79,7 @@ Select only features that are in *both* sets:
 
 ```python
 museums  = features("na[tourism=museum]")
-in_paris = features.within(paris))
+in_paris = features.within(paris)
 paris_museums = museums(in_paris)
 ```
 

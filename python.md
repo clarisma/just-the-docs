@@ -5,6 +5,8 @@ has_children: true
 has_toc: false
 nav_order: 5
 permalink: /python
+twitter_card_type: summary_large_image
+image: /img/social-card3c.png
 ---
 
 <img src="/img/doc-header-python.png" style="border-radius: 10px;">
@@ -18,10 +20,10 @@ permalink: /python
 In this Guide:
 
 - [Quickstart](/python/quickstart): Set up Python, install GeoDesk, create your first GOL and dive straight in.
-- Basic geometric objects, from [`Coordinate`](/python/Coordinate), [`Box`](/python/Box) and the [`Geometry`](/python/Geometry) classes of the [Shapely](https://shapely.readthedocs.io/) library.
+- Basic geometric objects, from [`Coordinate`](/python/Coordinate) and [`Box`](/python/Box) to the [`Geometry`](/python/Geometry) classes of the [Shapely](https://shapely.readthedocs.io/) library.
 - Working with [features](/python/Feature) and [feature sets](/python/Features)
-- Visualizing features on a [`Map`](/python/Map) and coverting them to other [formats](/python/Formatter)
-- Advanced topics, such as explicitly converting coordinates from and to [Mercator projection](/python/mercator)
+- Visualizing features on a [`Map`](/python/Map) and converting them to other [formats](/python/Formatter)
+- Advanced topics, such as explicitly transforming coordinates to and from the [Mercator projection](/python/mercator)
 
 
 <blockquote class="note" markdown="1">

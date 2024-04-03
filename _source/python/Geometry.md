@@ -30,20 +30,26 @@ Shapely is projection-agnostic --- it uses a unit-less plane. However, to work s
 
 ## Creating geometries
 
-Geometries can be created directly by specifying their coordinates. You can use simple `(x,y)` tuples, or GeoDesk's [`Coordinate`](#Coordinate) objects. Tuples must use Mercator projection, whereas `Coordinate` automatically converts from degrees longitude and latitude.   
+Geometries can be created directly by specifying their coordinates. You can use simple `(x,y)` tuples, or GeoDesk's [`Coordinate`](#Coordinate) objects. Tuples must use Mercator projection, whereas `Coordinate` automatically converts from degrees longitude and latitude.  
+
+GeoDesk's [`lonlat()`](#geodesk.lonlat) and [`latlon()`](#geodesk.latlon) functions provide a convenient way to specify coordinates.
 
 ```python
 >>> Point(10, 20)>
 <POINT (10 20)>
 >>> Point(Coordinate(lat=40.7, lon=73.9))
 <POINT (881661342 532456967)>
+>>> Point(latlon(40.7, 73.9))
+<POINT (881661342 532456967)>
 ```
 
 LineStrings and LinearRings use a sequence of coordinates. For a LinearRing, the first and last coordinate must be the same.
 
 ```python
->>> LinearRing([c1, c2, c3, c1])>
-<LINEARRING (881661342 532456967, 881661498 532456834, 881662912 532457214, ...>
+>>> LinearRing([c1, c2, c3, c1])
+<LINEARRING (485569914 1337015677, 502272564 1474259260, 541643098 1271302994, ...>
+>>> LinearRing(lonlat(40.7, 73.9, 42.1, 76.8, 45.4, 72.3, 40.7, 73.9))
+<LINEARRING (485569914 1337015677, 502272564 1474259260, 541643098 1271302994, ...>
 ```
 
 A Polygon is constructed from a LinearRing, and optionally one or more LinearRings that represent its holes.

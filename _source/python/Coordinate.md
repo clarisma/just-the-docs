@@ -24,13 +24,36 @@ Coordinate(148176372, 668142957)      # (Mercator projection by default)
 
 > .end class
 
-> .method lonlat(lon, lat)
+> .method lonlat(*coords*)
  
-Creates a `Coordinate` with the given longitude and latitude.
+Creates a single `Coordinate` or a list with multiple `Coordinate` objects. 
+
+*coords* can be one of the following:
+
+- Two individual coordinate values
+
+- Multiple coordinate pairs (tuples or other sequence type)
+
+- A sequence of coordinate pairs
+
+- A sequence of individual coordinate values (interpreted as pairs)
+
+Longitude must be specified before latitude.
+
+```python
+lonlat(11.81, 51.23)     # Creates single Coordinate
+
+# The following are equivalent (list of 3 Coordinates) 
+lonlat((11.81,51.23), (7.44,51.71), (9.25, 52.63))
+lonlat([11.81,51.23], [7.44,51.71], [9.25, 52.63])
+lonlat([ [11.81,51.23], [7.44,51.71], [9.25, 52.63] ])
+lonlat(11.81, 51.23, 7.44, 51.71, 9.25, 52.63)
+```
 
 > .method latlon(lat, lon)
  
-Creates a `Coordinate` with the given latitude and longitude.
+Same as [`lonlat()`](#lonlat), except latitude before longitude.
+
 
 > .class Coordinate
 

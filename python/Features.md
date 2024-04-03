@@ -67,7 +67,7 @@ safe_for_cycling = features(
 
 ### Using filter methods
 
-Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters):
+Apply a [spatial filter](#spatial-filters), [geometric filter](#geometric-filters) or [topological filter](#topological-filters):
 
 ```python
 states.within(usa)
@@ -238,8 +238,6 @@ In lieu of a geometric object, you can also specify coordinates using
 `x` and `y` (for Mercator-projected coordinates) or `lon` and `lat` (in degrees).
 Use `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units` to specify the maximum distance.
 
-Example:
-
 ```python
 # All bus stops within 500 meters of the given restaurant
 features("n[highway=bus_stop]").around(restaurant, meters=500)
@@ -307,10 +305,56 @@ Features in ascending order of distance to the given geometric object.
 
 - To limit the search radius, specify a maximum distance in the units of your choice: `meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`
 
-Example:
-
 ```python
 features("na[amenity=hospital]").nearest_to(my_location, miles=5)
+```
+
+
+</div>
+## Geometric filters
+
+These methods return a subset of those features that have specific geometric properties.
+
+<h3 id="Features_min_area" class="api"><span class="prefix">Features.</span><span class="name">min_area</span><span class="paren">(</span><i>n</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose area is at least *n*, where *n* can be square meters or a specific unit (`meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`).
+
+```python
+buildings.min_area(1000)
+# Buildings with a footprint of at least a thousand square meters
+
+world("a[place=island]").min_area(miles=500)
+# Islands that are at least 500 square miles
+```
+
+</div><h3 id="Features_max_area" class="api"><span class="prefix">Features.</span><span class="name">max_area</span><span class="paren">(</span><i>n</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose area is at most *n* (see `min_area` above).
+
+```python
+features("a[leisure=pitch][sport=tennis]").max_area(ft=2000)
+# Tennis courts that are no more than 2000 quare feet
+```
+
+</div><h3 id="Features_min_length" class="api"><span class="prefix">Features.</span><span class="name">min_length</span><span class="paren">(</span><i>n</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose length is at least *n*, where *n* can be meters or a specific unit (`meters`, `feet`, `yards`, `km`, `miles` or `mercator_units`).
+
+```python
+features("w[barrier=hedge]").min_length(300)
+# Hedges that are at least 300 meters long
+
+rivers.min_length(km=30)
+# Rivers whose length is at least 30 kilometers
+```
+
+</div><h3 id="Features_max_length" class="api"><span class="prefix">Features.</span><span class="name">max_length</span><span class="paren">(</span><i>n</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose length is at most *n* (see `min_length` above).
+
+```python
+streets.max_length(2.5)
+# Street segments that are 2.5 meters or less
 ```
 
 

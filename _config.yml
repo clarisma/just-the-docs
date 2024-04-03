@@ -177,6 +177,6 @@ compress_html:
 
 
 geodesk_version: 0.1.10
-geodesk_python_version: 0.1.9
+geodesk_python_version: 0.1.10
 javadoc: https://apidocs.geodesk.com/0.1/com/geodesk/
 javadoc_jts: https://locationtech.github.io/jts/javadoc/org/locationtech/jts/

@@ -4,7 +4,7 @@ title:  Queries & Collections
 next:   goql.md
 parent: GeoDesk for Java
 redirect_from: /queries
-nav_order: 3
+nav_order: 4
 ---
 # Queries and Feature Collections
 
@@ -39,8 +39,6 @@ This type of query returns all features whose bounding box intersects with the b
 - A bounding box may straddle the Antimeridian (+/- 180 degrees longitude). Features that
   cross the Antimeridian are returned as multiple `Feature` objects representing separate parts to the east and to the west.
 
-
-
 A bounding box is represented by the [`Box`]({{site.javadoc}}core/Box.html) class, which offers multiple static factory methods. To create a `Box` from coordinates (longitude and latitude), use [`ofWSEN()`]({{site.javadoc}}core/Box.html#ofWSEN(double,double,double,double)):
 
 ```java
@@ -50,26 +48,35 @@ Box bbox = Box.ofWSEN(8.42, 53.75, 9.07, 53.98);   // West, South, East, North
 To obtain the features in a given bbox, use [`in()`]({{site.javadoc}}feature/Features.html#in(com.geodesk.core.Bounds)): 
 
 ```java
-Features<?> subset = features.in(bbox);   
+Features subset = features.in(bbox);   
 ```
+
+Instead of explicitly creating a bounding box, you can also use the [`bounds()`]({{site.javadoc}}feature/Feature.html#bounds()) of a `Feature`:
+
+```java
+// All features that may be within 100 meters of the river
+return features.in(river.bounds().bufferMeters(100));   
+```
+
+**Note**: If you need to determine which features *definitely* lie within 100 meters, use [`maxMetersFrom()`](#maxmetersfrom).
 
 ## Filtering by type and tags
 
 Features in a collection can be filtered by type:
 
 ```java
-Features<Node>     nodes();
-Features<Way>      ways();
-Features<Relation> relations();   
+Features nodes()
+Features ways()
+Features relations()   
 ```
 
 There are also four methods that take a query string:
 
 ```java
-Features<?>        select(String query);
-Features<Node>     nodes(String query);
-Features<Way>      ways(String query);
-Features<Relation> relations(String query);
+Features select(String query)
+Features nodes(String query)
+Features ways(String query)
+Features relations(String query)
 ```
 
 For example:
@@ -86,60 +93,122 @@ The [next chapter](goql) covers the GeoDesk query language in detail.
   empty: areas can be of type `Way` or `Relation`, but never `Node`.
 
 
-## Predicates
+## Retrieving features
 
-More sophisticated predicates are represented as `Filter` objects, which can be applied to a collection using `select()`:
-
-```java
-library.ways().select(filter)
-```
-
-`Filters` provides static factory method for common spatial predicates (see below). To make your code more concise, use:
+To process all features in a set, simple iterate:
 
 ```java
-import static com.geodesk.feature.Filters.*;
-...
-library.ways().select(intersect(someFeature)) // = Filters.intersect(...)
+for(Feature street : streets) ...
 ```
 
-## Built-in spatial predicates
+To obtain a `List`:
 
-`Filters` provides the following factory methods to test features for spatial relationships with a `Geometry` or `PreparedGeometry` object, or another `Feature`.
+```java
+List<Feature> list = streets.toList();
+```
 
-### <code>connectedTo(<i>A</i>)</code>
+To obtain the **first** feature in a set:
 
-Selects all features that have at least one node (vertex) in common with *A*.
+```java
+Feature city = france("n[place=city][name=Paris]").first();
+```
 
-### <code>contains(<i>A</i>)</code> ~~0.2~~
+Note that only the nodes of ways and members of relations are ordered collections;
+all others are unordered sets, which means you'll receive a random feature if there
+are more than one. If the collection is empty, `first()` returns `null`.
+
+## Spatial filters
+
+Features can be filtered by their spatial relationship to other geometric objects (typically a `Geometry`, `PreparedGeometry` or another `Feature`). 
+
+### containing
 
 Selects features whose geometry **contains** *A*:
 
 - Every point of *A* is a point of the candidate feature, and the interiors of the two geometries have at least one point in common.
 
-### <code>coveredBy(<i>A</i>)</code> ~~0.2~~
+```java
+Features containing(Feature)
+Features containing(Geometry)
+Features containing(PreparedGeometry)
+Features containingXY(int, int)
+Features containingLonLat(double, double)
+```
+
+For example:
+
+```java
+// In which park (if any) is this statue of Claude Monet?
+return features.select("a[leisure=park]")
+    .containing(statueOfMonet).first();
+
+// The county, state and country for this point -- should return 
+// San Diego County, California, USA (in no particular order)  
+return features.select("a[boundary=administrative][admin_level <= 6]")
+    .containingLonLat(-117.25, lat=32.99); 
+```
+
+### coveredBy 
 
 Selects features whose geometry is **covered by** *A*:
 
 - No point of the candidate feature's geometry lies outside of *A*.
 
-### <code>crosses(<i>A</i>)</code>
+```java
+Features coveredBy(Feature)
+Features coveredBy(Geometry)
+Features coveredBy(PreparedGeometry)
+```
+
+### crossing
 
 Selects features whose geometry **crosses** *A*:
 
 - The geometries of *A* and the candidate feature have some (but not all) interior points in common
 - The dimension of the intersection must be less than the maximum dimension of the candidate and *A*.
 
-### <code>disjoint(<i>A</i>)</code> ~~0.2~~
+```java
+Features crossing(Feature)
+Features crossing(Geometry)
+Features crossing(PreparedGeometry)
+```
+
+For example:
+
+```java
+// All railway bridges across the Mississippi River
+Features railwayBridges =
+    features.select("w[railway][bridge]");    
+return railwayBridges.crossing(mississippi);
+```
+
+### disjointFrom 
 
 Selects features whose geometry is **disjoint** from *A*:
 
 - The geometries of the candidate feature and *A* have no common points at all.
 
-### <code>intersects(<i>A</i>)</code>
+```java
+Features disjointFrom(Feature)
+Features disjointFrom(Geometry)
+Features disjointFrom(PreparedGeometry)
+```
+
+### intersecting
 
 Selects features whose geometry **intersects** *A*:
 
 - The geometries of *A* and the candidate feature have at least one point in common.
+
+```java
+Features intersecting(Feature)
+Features intersecting(Geometry)
+Features intersecting(PreparedGeometry)
+```
+
+{% comment %}
+
+(Move these to section "Geometric filters|)
 
 ### <code>minArea(<i>m</i>)</code> ~~0.2~~
 
@@ -155,12 +224,32 @@ Selects features whose area is no more than *m* square meters.
 - Because of projection-dependent distortion, this test may not be accurate for large features,
   especially those far from the Equator that extend north-south.
 
+{% endcomment %}
 
-### <code>maxMetersFrom(<i>m</i>, <i>A</i>)</code>
+### maxMetersFrom
 
 Selects features whose distance to *A* is less or equal to *m* meters (measured between the closest points of the candidate feature and *A*).
 
-### <code>overlaps(<i>A</i>)</code>
+```java
+Features maxMetersFrom(double, Feature)
+Features maxMetersFrom(double, Geometry)
+Features maxMetersFrom(double, PreparedGeometry)
+Features maxMetersFromXY(double, int, int)
+Features maxMetersFromLonLat(double, double, double)
+```
+
+For example:
+
+```java
+// All bus stops within 500 meters of the given restaurant
+Features nearbyBusStops = features.select("n[highway=bus_stop]")
+    .maxMetersFrom(500, restaurant);
+ 
+// All features within 3 km of the given point 
+return features.maxMetersFromLonLat(3000, 76.41, 40.12); 
+```
+
+### overlapping
 
 Selects features whose geometry **overlaps** *A*:
 
@@ -170,16 +259,86 @@ Selects features whose geometry **overlaps** *A*:
  
 - The intersection of their interiors has the same dimension.
 
-### <code>touches(<i>A</i>)</code> ~~0.2~~
+```java
+Features overlapping(Feature)
+Features overlapping(Geometry)
+Features overlapping(PreparedGeometry)
+```
+
+### touching
 
 Selects features that **touch** *A*:
 
 - The geometries of *A* and the candidate feature have at least one point in common, but their interiors do not intersect.
 
+```java
+Features touching(Feature)
+Features touching(Geometry)
+Features touching(PreparedGeometry)
+```
 
-### <code>within(<i>A</i>)</code>
+For example:
+
+```java
+Features counties = features.select(
+    "a[boundary=administrative][admin_level=6]");
+for (Feature county: counties)
+{
+    System.out.printf("%s has %d neighbors\n",
+        county.stringValue("name"), 
+        counties.touching(county).count());
+}
+```
+
+
+### within
 
 Selects features that lie entirely **within** *A*:
 
 - Every point of the candidate feature is a point in *A*, and their interiors have at least one point in common.
+
+```java
+Features within(Feature)
+Features within(Geometry)
+Features within(PreparedGeometry)
+```
+
+
+## Topological filters
+
+These methods return a subset of those features that have a specific topological relationship with another `Feature`.
+
+### connectedTo
+
+Selects all features that have at least one node (vertex) in common with the given `Feature` or `Geometry`.
+
+```java
+Features connectedTo(Feature)
+Features connectedTo(Geometry)
+```
+
+### nodesOf
+
+The nodes of the given way. Returns an empty set if the feature is a node or relation.
+
+```java
+Features nodesOf(Feature)
+```
+
+### membersOf
+
+Features that are members of the given relation, or nodes of the given way. Returns an empty set if the feature is a node.
+
+```java
+Features membersOf(Feature)
+```
+
+### parentsOf
+
+Relations that have the given feature as a member, as well as ways to which the given node belongs.
+
+```java
+Features parentsOf(Feature)
+```
+
 

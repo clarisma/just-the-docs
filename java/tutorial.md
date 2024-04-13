@@ -50,20 +50,20 @@ Add this **Maven dependency** to your project:
 Import the **GeoDesk packages**:
 
 ```java
-import com.geodesk.core.*;
 import com.geodesk.feature.*;
+import com.geodesk.geom.*;
 ```
   
 **Open** the library:
 
 ```java
-FeatureLibrary library = new FeatureLibrary("germany.gol");   
+FeatureLibrary germany = new FeatureLibrary("germany.gol");   
 ```
 
 Create a **query**:
 
 ```java
-var lighthouses = library.select("na[man_made=lighthouse][name][height]");   
+Features lighthouses = germany.select("na[man_made=lighthouse][name][height]");   
 ```
   
 This returns a collection of `Feature` objects representing lighthouses that
@@ -96,12 +96,12 @@ Other **filters** include:
 
 - Filter by **type**: `.nodes()`, `.ways()`, `.relations()`
  
-- **Spatial predicates**: `.select(...)`: `intersects(...)`, `contains(...)`, `overlaps(...)`
+- **Spatial predicates**: `.containing(...)`, `intersecting(...)`, `crossing(...)`
 
 Filters can be combined:
 
 ```java
-roads.ways("[bridge]").in(bbox).select(crosses(rhineRiver))
+roads.ways("[bridge]").in(bbox).crossing(rhineRiver)
 ```
 
 
@@ -204,45 +204,42 @@ for any other kind of `Relation`
 
 ## Ways
 
-`Way` is a subtype of `Feature`. 
-
-```java
-for(Way way: library.ways("[highway=residential]")) ...
-```
-
 Retrieve the **nodes** that make up a way:
 
 ```java
-way.nodes()
-```
-
-Get a collection of specific kinds of nodes:
-
-```java
-way.nodes("[traffic_calming]")  // speed bumps etc.
+way.nodes()             // all nodes    
+way.nodes("[barrier]")  // only barriers
 ```
 
 Or simply iterate the way:
 
 ```java
-for(Node node: way) 
+for(var node: way) ... 
 ```
 
 (Iteration only retrieves nodes that have tags or are part of a relation;
  `nodes()` returns *all* nodes).
 
-## Relations
-
-Get the relations to which a feature belongs:
+Retrieve the ways to which a node belongs:
 
 ```java
-for(Relation rel: feature.parentRelations()) 
+node.parents().ways()
+node.parents("w[highway]")
 ```
+
+
+## Relations
 
 Retrieve a relation's **members**:
 
 ```java
 for(Feature member: rel.members())
+```
+
+Or simply iterate:
+
+```java
+for(Feature member: rel) ...
 ```
 
 Discover a member's **role**:
@@ -251,17 +248,14 @@ Discover a member's **role**:
 member.role()   // "stop", "main_stream", etc.
 ```
 
-Find members with a **specific role**: ~~0.2~~
+Get the relations to which a feature belongs:
 
 ```java
-Node capital = rel.memberNodes("[role=admin_centre]").first();
+feature.parents().relations()    
+feature.parents("r[route]")
 ```
 
-Or simply iterate:
 
-```java
-for(Feature member: rel)
-```
 
 ## Wrapping up
 

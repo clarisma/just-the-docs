@@ -1,29 +1,38 @@
 ---
 layout: default
 title:  Features
-next:   feature-subtypes.md
+next:   queries.md
 parent: GeoDesk for Java
 redirect_from: /features
-nav_order: 5
+nav_order: 3
 ---
 
-# Accessing Individual Features
+# Features
+
+<img class="float" src="/img/basic-features.png" width=320>
 
 A [`Feature`]({{site.javadoc}}feature/Feature.html) represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or a more abstract concept like a bus route.
 
-`Feature` is the supertype of [`Node`]({{site.javadoc}}feature/Node.html), [`Way`]({{site.javadoc}}feature/Way.html) and [`Relation`]({{site.javadoc}}feature/Relation.html). An object returned by a query is always one of these three subtypes. We'll discuss their additional methods and characteristics [in the next chapter](feature-subtypes).
+OpenStreetMap uses three types of features:
 
-For now, let's focus on what you can do with features of any type.
+- *Node* -- a simple point feature
+
+- *Way* -- an ordered sequence of nodes, used to represent line strings and
+  simple polygons
+
+- *Relation* -- an object composed of multiple features, such as a polygon with holes, a route or a river system. A relation may contain nodes, ways or other relations as members. 
+ 
+Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collection type), as well as one or more **tags** (key-value pairs) that describe its details.
 
 ## Type, identity and equality
 
-[`type()`]({{site.javadoc}}feature/Feature.html#type()) returns a [`FeatureType`]({{site.javadoc}}feature/FeatureType.html) enum (`NODE`, `WAY` or `RELATION`).
+[`type()`]({{site.javadoc}}feature/Feature.html#type()) returns a [`FeatureType`]({{site.javadoc}}feature/FeatureType.html) enum (`NODE`, `WAY` or `RELATION`). To explicitly check if a `Feature` has a certain type, use [`isNode()`]({{site.javadoc}}feature/Feature.html#isNode()), [`isWay()`]({{site.javadoc}}feature/Feature.html#isWay()) or [`isRelation()`]({{site.javadoc}}feature/Feature.html#isRelation()).  
 
 [`id()`]({{site.javadoc}}feature/Feature.html#id()) returns the **OSM identifier** (a `long`). IDs are unique only within the feature type (which means a node and a way may have the same ID).
 
 - You can obtain a unique identifier that incorporates the type by using the [`FeatureId`]({{site.javadoc}}feature/FeatureId.html) utility class.
 
-- `id()` may return `0` for [anonymous nodes](feature-subtypes#anonymous-nodes).
+- `id()` may return `0` for [anonymous nodes](features#anonymous-nodes).
 
 [`role()`]({{site.javadoc}}feature/Feature.html#role()) returns the **role** of the feature within a relation, if it was returned by a [member query](feature-subtypes#member-queries). This method returns `null` for features obtained via any other query (an empty string means the feature is a relation member, but has no assigned role in that particular relation).
 
@@ -99,28 +108,66 @@ Map<String,Object> tagMap = tags.toMap();
 - [`Polygon`]({{site.javadoc_jts}}geom/Polygon.html) or [`MultiPolygon`]({{site.javadoc_jts}}geom/MultiPolygon.html) for an area `Relation`
 - [`GeometryCollection`]({{site.javadoc_jts}}geom/GeometryCollection.html) for any other `Relation`
 
+[`toXY()`]({{site.javadoc}}feature/Feature.html#toXY()) returns the coordinates of a way as a compact array of Mercator-projected coordinates. X-values are stored at even indexes, Y-values at odd.
+
 Use [`isArea()`]({{site.javadoc}}feature/Feature.html#isArea()) to check if the feature represents an area (always `false` for `Node`). 
 
-## Parent relations
+## Related features
 
-Any feature may belong to one or more relations.
+Use [`nodes()`]({{site.javadoc}}feature/Feature.html#nodes()), [`members()`]({{site.javadoc}}feature/Feature.html#members()) and [`parents()`]({{site.javadoc}}feature/Feature.html#parents()) to retrieve related features.  
 
-[`parentRelations()`]({{site.javadoc}}feature/Feature.html#parentRelations()) returns the relations to which this feature belongs (or an empty collection if it is not part of any relations). An optional query string can be passed:
+### Nodes of a way
 
-```java
-feature.parentRelations("r[route=bicycle]")  // only returns cycling routes 
-```
-
-Sometimes it is more convenient to inverse a query using [`with()`]({{site.javadoc}}feature/Features.html#with(com.geodesk.feature.Feature)): ~~0.2~~
+[`nodes()`]({{site.javadoc}}feature/Way.html#nodes()) returns an ordered collection of a way's nodes. An optional query string can be passed:
 
 ```java
-library.relations("r[route=bicycle]").with(feature)  // same as above  
+return way.nodes("[traffic_calming]")  // only speed bumps etc.
+```
+
+You can also invert the query by calling [`nodesOf()`]({{site.javadoc}}feature/Features.html#nodesOf()) on a set of features. This is especially useful if the filter condition is complex, as it makes your code easier to read, and may improve performance in tight loops.
+
+```java
+// Obtain a set of all crosswalks
+Features crosswalks = world.select("n[highway=crossing]");
+// Return the crosswalks of the given street  
+return crosswalks.nodesOf(street);
+```
+
+### Members of a relation
+
+[`members()`]({{site.javadoc}}feature/Relation.html#members()) returns an ordered collection of a relation's members. An optional query string can be passed:
+
+```java
+route.members("w[highway=primary]") 
+    // only members that are primary roads 
+```
+
+Member queries can be inverted, as well. The following is equivalent to the above example:
+
+```java
+Features primaryRoads = features.select("w[highway=primary]");
+return primaryRoads.membersOf(route);
+```
+
+### Parents
+
+[`parents()`]({{site.javadoc}}feature/Feature.html#parents()) returns the relations to which this feature belongs (or an empty collection if it is not part of any relation), as well as the ways (if any) to which a node belongs. An optional query string can be passed:
+
+```java
+street.parents("r[route=bus]")  
+    // Bus routes which traverse this street 
+```
+
+This query can also be inverted using [`Features.parentsOf()`]({{site.javadoc}}feature/Features.html#parents()):
+
+```java
+world.relations("r[route=bus]").parentsOf(street)  // same as above  
 ```
 
 
-[`belongsTo(Feature parent)`]({{site.javadoc}}feature/Feature.html#belongsTo(com.geodesk.feature.Feature)) checks whether this feature belongs to a specific relation (the argument itself is of type `Feature` instead of `Relation`, because this method can also test if a `Node` is part of a `Way`; if `parent` is a `Node`, the result is always `false`).
+[`belongsTo(Feature parent)`]({{site.javadoc}}feature/Feature.html#belongsTo(com.geodesk.feature.Feature)) checks whether this `Feature` is part of a specific relation, or whether a node belongs to a given way. If `parent` is a node, the result is always `false`.
 
-[`belongsToRelation()`]({{site.javadoc}}feature/Feature.html#belongsToRelation()) checks whether a `Feature` is a member of *any* relation (without the need for querying).
+[`belongsToRelation()`]({{site.javadoc}}feature/Feature.html#belongsToRelation()) checks whether a `Feature` is a member of *any* relation.
 
 ## Placeholder features
 

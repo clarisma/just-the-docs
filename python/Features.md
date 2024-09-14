@@ -225,7 +225,11 @@ The set's features as Well-Known Text ([`Formatter`](Formatter#wkt))
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\Feature#Feature), [`Geometry`](/python\Geometry#Geometry), [`Box`](/python\Box#Box) or [`Coordinate`](/python\Coordinate#Coordinate)).
 
-<h3 id="Features_within" class="api"><span class="prefix">Features.</span><span class="name">within</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="Features_intersects" class="api"><span class="prefix">Features.</span><span class="name">intersects</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+
+Features whose geometry *intersects* the given geometric object.
+
+</div><h3 id="Features_within" class="api"><span class="prefix">Features.</span><span class="name">within</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features that lie entirely inside *geom*.
 
@@ -283,13 +287,11 @@ Features whose geometry *crosses* the given geometric object.
 features("w[railway][bridge]").crosses(mississippi)
 ```
 
+{%comment%}
+
 </div><h3 id="Features_disjoint" class="api"><span class="prefix">Features.</span><span class="name">disjoint</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry is *disjoint* from the given geometric object.
-
-</div><h3 id="Features_intersects" class="api"><span class="prefix">Features.</span><span class="name">intersects</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
-
-Features whose geometry *intersects* the given geometric object.
 
 </div><h3 id="Features_overlaps" class="api"><span class="prefix">Features.</span><span class="name">overlaps</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
@@ -308,6 +310,8 @@ Features in ascending order of distance to the given geometric object.
 ```python
 features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
+
+{%endcomment%}
 
 
 </div>
@@ -376,14 +380,19 @@ Features that are members of the given relation, or nodes of the given way. Retu
 
 Relations that have the given feature as a member, as well as ways to which the given node belongs.
 
+{%comment%}
+
 </div><h3 id="Features_descendants_of" class="api"><span class="prefix">Features.</span><span class="name">descendants_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 </div><h3 id="Features_ancestors_of" class="api"><span class="prefix">Features.</span><span class="name">ancestors_of</span><span class="paren">(</span><i>feature</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+
+{%endcomment%}
 
 </div><h3 id="Features_connected_to" class="api"><span class="prefix">Features.</span><span class="name">connected_to</span><span class="paren">(</span><i>feature</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 All features that share a common node with *feature*.
 
+{%comment%}
 
 </div>
 ## Metadata ~~0.2~~
@@ -403,3 +412,5 @@ The URL where the text of the license can be found.
 </div><h3 id="Features_indexed_keys" class="api"><span class="prefix">Features.</span><span class="name">indexed_keys</span></h3><div class="api" markdown="1">
 
 </div><h3 id="Features_tiles" class="api"><span class="prefix">Features.</span><span class="name">tiles</span></h3><div class="api" markdown="1">
+
+{%endcomment%}

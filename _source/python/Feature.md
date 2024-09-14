@@ -184,9 +184,13 @@ Returns the value of the given tag key as a string, or an empty string if this f
  
 Returns the value of the given tag as an `int` or `float`, or `0` if this feature doesn't have the requested tag.
 
+{%comment%}
+
 > .method split(*key*) 0.2
  
 If a tag contains multiple values separated by `;`, returns a tuple with the individual values. For a single value, returns a single-item tuple. Numbers are always converted to strings. If the tag does not exist, returns an empty tuple.
+
+{%endcomment%}
 
 > .class Tags
 

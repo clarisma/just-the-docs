@@ -221,6 +221,10 @@ The set's features as Well-Known Text ([`Formatter`](Formatter#wkt))
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)). 
 
+> .method intersects(*geom*)
+
+Features whose geometry *intersects* the given geometric object.
+
 > .method within(*geom*)
 
 Features that lie entirely inside *geom*.
@@ -279,13 +283,11 @@ Features whose geometry *crosses* the given geometric object.
 features("w[railway][bridge]").crosses(mississippi)
 ```
 
+{%comment%}
+
 > .method disjoint(*geom*) 0.2
 
 Features whose geometry is *disjoint* from the given geometric object.
-
-> .method intersects(*geom*)
-
-Features whose geometry *intersects* the given geometric object.
 
 > .method overlaps(*geom*) 0.2
 
@@ -304,6 +306,8 @@ Features in ascending order of distance to the given geometric object.
 ```python
 features("na[amenity=hospital]").nearest_to(my_location, miles=5)
 ```
+
+{%endcomment%}
 
 
 ## Geometric filters
@@ -370,14 +374,19 @@ Features that are members of the given relation, or nodes of the given way. Retu
 
 Relations that have the given feature as a member, as well as ways to which the given node belongs.
 
+{%comment%}
+
 > .method descendants_of(*feature*) 0.2
 
 > .method ancestors_of(*feature*) 0.2
+
+{%endcomment%}
 
 > .method connected_to(*feature*) 
 
 All features that share a common node with *feature*. 
 
+{%comment%}
 
 ## Metadata ~~0.2~~
 
@@ -396,3 +405,5 @@ The URL where the text of the license can be found.
 > .property indexed_keys
 
 > .property tiles
+
+{%endcomment%}

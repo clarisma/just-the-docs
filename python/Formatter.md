@@ -28,8 +28,7 @@ or `None` to omit feature IDs.
 - A function must accept a single object (the `Feature`), and must return a number or string
 (or an object whose `__str__()` method returns an ID).
 
-- As of Version {{ site.geodesk_python_version }}, only functions are accepted by `id`.
-Template support will be added in ~~0.2~~
+- *As of Version {{ site.geodesk_python_version }}, only functions are accepted by `id`. (see [Issue #37](https://github.com/clarisma/geodesk-py/issues/37))*
 
 ```python
 france("a[leisure=park]").geojson(
@@ -51,6 +50,8 @@ Default: `True` for `geojsonl`, otherwise `False`
 
 For GeoJSON, enables line-by-line output of features (Ignored by other Formatters).
 
+{%comment%}
+
 </div><h3 id="Formatter_mercator" class="api"><span class="prefix">Formatter.</span><span class="name">mercator</span></h3><div class="api" markdown="1">
 
 Default: `False`
@@ -58,6 +59,8 @@ Default: `False`
 If set to `True`, outputs Mercator-projected coordinates instead of WGS-84 (degrees longitude/latitude).
 
 ~~0.2~~
+
+{%endcomment%}
 
 </div><h3 id="Formatter_precision" class="api"><span class="prefix">Formatter.</span><span class="name">precision</span></h3><div class="api" markdown="1">
 

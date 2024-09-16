@@ -221,7 +221,7 @@ The set's features as Well-Known Text ([`Formatter`](Formatter#wkt))
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](#Feature), [`Geometry`](#Geometry), [`Box`](#Box) or [`Coordinate`](#Coordinate)). 
 
-> .method intersects(*geom*)
+> .method intersecting(*geom*)
 
 Features whose geometry *intersects* the given geometric object.
 
@@ -246,7 +246,7 @@ features("n[highway=bus_stop]").around(restaurant, meters=500)
 features.around(miles=3, lat=40.12, lon=-76.41) 
 ```
 
-> .method contains(*geom*)
+> .method containing(*geom*)
 
 Features whose geometry *contains* the given geometric object.
 
@@ -274,7 +274,7 @@ features("a[boundary=administrative]"
 *As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
 objects are supported.*
 
-> .method crosses(*geom*)
+> .method crossing(*geom*)
 
 Features whose geometry *crosses* the given geometric object.
 
@@ -285,15 +285,15 @@ features("w[railway][bridge]").crosses(mississippi)
 
 {%comment%}
 
-> .method disjoint(*geom*) 0.2
+> .method disjoint_from(*geom*) 0.2
 
 Features whose geometry is *disjoint* from the given geometric object.
 
-> .method overlaps(*geom*) 0.2
+> .method overlapping(*geom*) 0.2
 
 Features whose geometry *overlaps* the given geometric object.
 
-> .method touches(*geom*) 0.2
+> .method touching(*geom*) 0.2
 
 Features whose geometry *touches* the given geometric object.
 

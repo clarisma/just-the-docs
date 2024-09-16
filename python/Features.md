@@ -225,7 +225,7 @@ The set's features as Well-Known Text ([`Formatter`](Formatter#wkt))
 
 These methods return a subset of only those features that fulfill a specific spatial relationship with another geometric object ([`Feature`](/python\Feature#Feature), [`Geometry`](/python\Geometry#Geometry), [`Box`](/python\Box#Box) or [`Coordinate`](/python\Coordinate#Coordinate)).
 
-<h3 id="Features_intersects" class="api"><span class="prefix">Features.</span><span class="name">intersects</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+<h3 id="Features_intersecting" class="api"><span class="prefix">Features.</span><span class="name">intersecting</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *intersects* the given geometric object.
 
@@ -250,7 +250,7 @@ features("n[highway=bus_stop]").around(restaurant, meters=500)
 features.around(miles=3, lat=40.12, lon=-76.41)
 ```
 
-</div><h3 id="Features_contains" class="api"><span class="prefix">Features.</span><span class="name">contains</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+</div><h3 id="Features_containing" class="api"><span class="prefix">Features.</span><span class="name">containing</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *contains* the given geometric object.
 
@@ -278,7 +278,7 @@ features("a[boundary=administrative]"
 *As of Version {{ site.geodesk_python_version}}, only nodes and `Coordinate`
 objects are supported.*
 
-</div><h3 id="Features_crosses" class="api"><span class="prefix">Features.</span><span class="name">crosses</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
+</div><h3 id="Features_crossing" class="api"><span class="prefix">Features.</span><span class="name">crossing</span><span class="paren">(</span><i>geom</i><span class="paren">)</span></h3><div class="api" markdown="1">
 
 Features whose geometry *crosses* the given geometric object.
 
@@ -289,15 +289,15 @@ features("w[railway][bridge]").crosses(mississippi)
 
 {%comment%}
 
-</div><h3 id="Features_disjoint" class="api"><span class="prefix">Features.</span><span class="name">disjoint</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+</div><h3 id="Features_disjoint_from" class="api"><span class="prefix">Features.</span><span class="name">disjoint_from</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry is *disjoint* from the given geometric object.
 
-</div><h3 id="Features_overlaps" class="api"><span class="prefix">Features.</span><span class="name">overlaps</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+</div><h3 id="Features_overlapping" class="api"><span class="prefix">Features.</span><span class="name">overlapping</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry *overlaps* the given geometric object.
 
-</div><h3 id="Features_touches" class="api"><span class="prefix">Features.</span><span class="name">touches</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
+</div><h3 id="Features_touching" class="api"><span class="prefix">Features.</span><span class="name">touching</span><span class="paren">(</span><i>geom</i><span class="paren">)</span><del>0.2</del></h3><div class="api" markdown="1">
 
 Features whose geometry *touches* the given geometric object.
 

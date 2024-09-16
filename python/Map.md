@@ -50,7 +50,7 @@ These attributes apply to the map itself. They can be passed as keyword argument
 These attributes apply to individual map elements. They can be passed as keyword arguments or accessed as properties of the `Map` object (in which case they act as default attributes).
 
 `tooltip` | Text (HTML) to display when the user places the mouse cursor over an element. Default: `None`
-`link` | URL to navigate when the user clicks on an element. Default: `None`
+`link` | URL to navigate when the user clicks on an element (*see details below*). Default: `None`
 `stroke` | Whether to draw the element's stoke. Default: `True`. Use `False` if you don't want borders around polygons or circles.
 `color` | The stroke color. Default: `"blue"`
 `weight` | Stroke width in pixels. Default: 3
@@ -68,7 +68,8 @@ These attributes apply to individual map elements. They can be passed as keyword
 
 <h3 id="Map_link" class="api"><span class="prefix">Map.</span><span class="name">link</span></h3><div class="api" markdown="1">
 
-TODO
+You can use template arguments in the `link` property to customize the link for
+each individual `Feature`. Any attribute of `Feature` is accepted (including tags).
 
 To open the feature's website (if it has one):
 
@@ -87,6 +88,7 @@ To edit the feature in iD (the default OpenStreetMap editor):
 ```python
 link="https://www.openstreetmap.org/edit?{osm_type}={id}"
 ```
+{%comment%}
 
 </div>
 ## Properties
@@ -106,6 +108,8 @@ All are mutable.
 </div><h3 id="Map_min_zoom" class="api"><span class="prefix">Map.</span><span class="name">min_zoom</span></h3><div class="api" markdown="1">
 
 </div><h3 id="Map_max_zoom" class="api"><span class="prefix">Map.</span><span class="name">max_zoom</span></h3><div class="api" markdown="1">
+
+{%endcomment%}
 
 </div>
 ## Methods

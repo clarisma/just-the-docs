@@ -31,7 +31,7 @@ bavaria = features(
 danube = features("r[waterway=river][name:en=Danube]").one
 
 rail_bridges = features("w[railway][bridge]")
-rail_bridges(bavaria).crosses(danube).map(
+rail_bridges(bavaria).crossing(danube).map(
     "rail-crossings", color="red", weight=8, opacity=0.5).show()
 ```
 

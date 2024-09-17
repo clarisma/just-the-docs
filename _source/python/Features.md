@@ -254,12 +254,12 @@ Features whose geometry *contains* the given geometric object.
 
 ```python
 # In which park (if any) is this statue of Claude Monet?
-features("a[leisure=park]").contains(statue_of_monet).first
+features("a[leisure=park]").containing(statue_of_monet).first
 
 # The county, state and country for this point -- should return 
 # San Diego County, California, USA (in no particular order)  
 features("a[boundary=administrative]"
-    "[admin_level <= 6]").contains(Coordinate(lon=-117.25, lat=32.99)) 
+    "[admin_level <= 6]").containing(Coordinate(lon=-117.25, lat=32.99)) 
 ```
 
 {% comment %}
@@ -267,7 +267,7 @@ features("a[boundary=administrative]"
 # The county, state and country for this point -- should return 
 # San Diego County, California, USA (in no particular order)  
 features("a[boundary=administrative]"
-    "[admin_level <= 6]").contains(lon=-117.25, lat=32.99) 
+    "[admin_level <= 6]").containing(lon=-117.25, lat=32.99) 
 ```
 {% endcomment %}
 
@@ -280,7 +280,7 @@ Features whose geometry *crosses* the given geometric object.
 
 ```python
 # All railway bridges across the Mississippi River
-features("w[railway][bridge]").crosses(mississippi)
+features("w[railway][bridge]").crossing(mississippi)
 ```
 
 {%comment%}

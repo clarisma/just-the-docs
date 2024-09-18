@@ -20,7 +20,7 @@ All feature collections implement the [`Features`]({{site.javadoc}}feature/Featu
   [underlying library has been closed](libraries#caution-closed), you **must not** call any of their methods (or iterate 
   over them).
 
-- Feature collections can be **ordered** or **unordered**. Only the [nodes of a way](feature-subtypes#way) and the [members of a relation](feature-subtypes#relation) are ordered; all other query results are returned in arbitrary order.
+- Feature collections can be **ordered** or **unordered**. Only the [nodes of a way](features#nodes-of-a-way) and the [members of a relation](features#members-of-a-relation) are ordered; all other query results are returned in arbitrary order.
 
 Feature collections behave like Java `Collection` classes, and hence implement `size()`, `isEmpty()`, `contains()` and `toArray()`, as well as the ability to iterate. `Features` also offers these methods:  
 

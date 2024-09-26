@@ -32,9 +32,9 @@ Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collectio
 
 - You can obtain a unique identifier that incorporates the type by using the [`FeatureId`]({{site.javadoc}}feature/FeatureId.html) utility class.
 
-- `id()` may return `0` for [anonymous nodes](features#anonymous-nodes).
+- `id()` may return `0` for [anonymous nodes](#anonymous-nodes).
 
-[`role()`]({{site.javadoc}}feature/Feature.html#role()) returns the **role** of the feature within a relation, if it was returned by a [member query](feature-subtypes#member-queries). This method returns `null` for features obtained via any other query (an empty string means the feature is a relation member, but has no assigned role in that particular relation).
+[`role()`]({{site.javadoc}}feature/Feature.html#role()) returns the **role** of the feature within a relation, if it was returned by a [member query](#members-of-a-relation). This method returns `null` for features obtained via any other query (an empty string means the feature is a relation member, but has no assigned role in that particular relation).
 
 `equals()`: Two features are equal if they have the same type and ID. 
 
@@ -44,6 +44,10 @@ Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collectio
 
 - Never rely on `==` for equality. Queries *may* return identical objects for the same
   feature, but are by no means guaranteed to do so (even for the same node in a closed way). 
+
+### Anonymous nodes {#anonymous-nodes}
+
+An **anonymous node** has no tags and does not belong to any relations --- it merely serves to define the geometry of a `Way`. By default, feature libraries omit the IDs of such nodes to save space, in which case [`id()`]({{site.javadoc}}feature/Feature.html#id()) returns `0`. 
 
 ## Tags
 

@@ -2,25 +2,18 @@
 layout: default
 title:  Queries & Collections
 next:   utility-classes.md
-parent: GeoDesk for Java
-redirect_from: /queries
+parent: GeoDesk for C++
 nav_order: 4
 ---
 # Queries and Feature Collections
 
 Geospatial applications typically work with subsets of features in a library, such as buildings in a town, or waterways in a particular region. These subsets are represented as **feature collections**, which are the result of **queries**.
 
-All feature collections implement the [`Features`]({{site.javadoc}}feature/Features.html) interface, which provides methods to iterate the member features or constrain them further.
-
-- [`FeatureLibrary`]({{site.javadoc}}feature/FeatureLibrary.html) itself is a feature collection, representing all features in the library.
-
-- Feature collections are lightweight objects that merely described what should be returned; they don't actually contain any objects and take up minimal space. In other words, query execution is lazy: Features are fetched only once they are needed, in response to iteration or a call to `toList()`.
-
-  You can assign queries to variables and pass them around, but be aware that once the 
-  [underlying library has been closed](libraries#caution-closed), you **must not** call any of their methods (or iterate 
-  over them).
+- Feature collections are lightweight objects that merely described what should be returned; they don't actually contain any objects and take up minimal space. In other words, query execution is lazy: Features are fetched only once they are needed, in response to iteration or a call to `count()`.
 
 - Feature collections can be **ordered** or **unordered**. Only the [nodes of a way](features#nodes-of-a-way) and the [members of a relation](features#members-of-a-relation) are ordered; all other query results are returned in arbitrary order.
+
+**TODO**
 
 Feature collections behave like Java `Collection` classes, and hence implement `size()`, `isEmpty()`, `contains()` and `toArray()`, as well as the ability to iterate. `Features` also offers these methods:  
 
@@ -36,26 +29,26 @@ A **bounding box** (or **bbox**) describes an axis-aligned rectangle. Bounding-b
 
 This type of query returns all features whose bounding box intersects with the bounding box of the query. Note that the result set may include features whose geometry itself does not fall inside the query bbox. Bounding-box queries are designed as a fast primary filter, intended to narrow down candidates from millions to a few hundred. To eliminate the false positives, you can then apply a second, stricter (but more computationally expensive) filter.   
 
-- A bounding box may straddle the Antimeridian (+/- 180 degrees longitude). Features that
-  cross the Antimeridian are returned as multiple `Feature` objects representing separate parts to the east and to the west.
+- A bounding box may straddle the Antimeridian (+/- 180 degrees longitude). Features that cross the Antimeridian are returned as multiple `Feature` objects representing separate parts to the east and to the west.
 
-A bounding box is represented by the [`Box`]({{site.javadoc}}core/Box.html) class, which offers multiple static factory methods. To create a `Box` from coordinates (longitude and latitude), use [`ofWSEN()`]({{site.javadoc}}core/Box.html#ofWSEN(double,double,double,double)):
+A bounding box is represented by the `Box` class, which offers multiple static factory methods. To create a `Box` from coordinates (longitude and latitude), use `ofWSEN()`:
 
-```java
-Box bbox = Box.ofWSEN(8.42, 53.75, 9.07, 53.98);   // West, South, East, North
+```cpp
+Box bbox = Box::ofWSEN(8.42, 53.75, 9.07, 53.98);   // West, South, East, North
 ```
 
-To obtain the features in a given bbox, use [`in()`]({{site.javadoc}}feature/Features.html#in(com.geodesk.core.Bounds)): 
+To obtain the features in a given bbox: 
 
-```java
-Features subset = features.in(bbox);   
+```cpp
+Box bbox = ... 
+Features subset = features(bbox);   
 ```
 
-Instead of explicitly creating a bounding box, you can also use the [`bounds()`]({{site.javadoc}}feature/Feature.html#bounds()) method of a `Feature`:
+Instead of explicitly creating a bounding box, you can also use the `bounds()` method of a `Feature`:
 
-```java
+```cpp
 // All features that may be within 100 meters of the river
-return features.in(river.bounds().bufferMeters(100));   
+return features(river.bounds().bufferMeters(100));   
 ```
 
 **Note**: If you need to determine which features *definitely* lie within 100 meters, use [`maxMetersFrom()`](#maxmetersfrom).
@@ -64,26 +57,23 @@ return features.in(river.bounds().bufferMeters(100));
 
 Features in a collection can be filtered by type:
 
-```java
-Features nodes()
-Features ways()
-Features relations()   
+```cpp
+Nodes nodes()
+Ways ways()
+Relations relations()   
 ```
 
-There are also four methods that take a query string:
+If you assign a collection to a subtype of `Features`, thye are automatically filtered:
 
-```java
-Features select(String query)
-Features nodes(String query)
-Features ways(String query)
-Features relations(String query)
+```cpp
+Features world = ...
+Nodes onlyNodes = world;   // same as world.nodes()
 ```
 
-For example:
+You can also specify a query string:
 
-```java
+```cpp
 nodes("[emergency=fire_hydrant]") // nodes that represent fire hydrants
-select("na[amenity=pub,cafe]")    // pubs and cafes (nodes and areas)
 relations("[route=bicycle]")      // cycling routes  
 ```
 
@@ -97,29 +87,34 @@ relations("[route=bicycle]")      // cycling routes
 
 To process all features in a set, simple iterate:
 
-```java
+```cpp
 for(Feature street : streets) ...
 ```
 
-To obtain a `List`:
+To obtain a `std::vector`:
 
-```java
-List<Feature> list = streets.toList();
+```cpp
+std::vector<Feature> list = streets;
 ```
 
+Or populate an existing `std::vector`:
+
+```cpp
+streets.addTo(myVector);
+```
 To obtain the **first** feature in a set:
 
-```java
-Feature city = france("n[place=city][name=Paris]").first();
+```cpp
+std::optional<Feature> city = france("n[place=city][name=Paris]").first();
 ```
 
 Note that only the nodes of ways and members of relations are ordered collections;
 all others are unordered sets, which means you'll receive a random feature if there
-are more than one. If the collection is empty, `first()` returns `null`.
+are more than one. If the collection is empty, `first()` returns `nullopt`.
 
 ## Spatial filters
 
-Features can be filtered by their spatial relationship to other geometric objects (typically a `Geometry`, `PreparedGeometry` or another `Feature`). 
+Features can be filtered by their spatial relationship to other geometric objects (typically a `GEOSGeometry` or another `Feature`). 
 
 ### containing
 
@@ -127,24 +122,23 @@ Selects features whose geometry **contains** *A*:
 
 - Every point of *A* is a point of the candidate feature, and the interiors of the two geometries have at least one point in common.
 
-```java
-Features containing(Feature)
-Features containing(Geometry)
-Features containing(PreparedGeometry)
-Features containingXY(int, int)
-Features containingLonLat(double, double)
+```cpp
+Features containing(Feature);
+Features containing(GEOSGeometry);
+Features containingXY(int, int);
+Features containingLonLat(double, double);
 ```
 
 For example:
 
-```java
+```cpp
 // In which park (if any) is this statue of Claude Monet?
-return features.select("a[leisure=park]")
+return features("a[leisure=park]")
     .containing(statueOfMonet).first();
 
 // The county, state and country for this point -- should return 
 // San Diego County, California, USA (in no particular order)  
-return features.select("a[boundary=administrative][admin_level <= 6]")
+return features("a[boundary=administrative][admin_level <= 6]")
     .containingLonLat(-117.25, lat=32.99); 
 ```
 
@@ -154,10 +148,9 @@ Selects features whose geometry is **covered by** *A*:
 
 - No point of the candidate feature's geometry lies outside of *A*.
 
-```java
-Features coveredBy(Feature)
-Features coveredBy(Geometry)
-Features coveredBy(PreparedGeometry)
+```cpp
+Features coveredBy(Feature);
+Features coveredBy(GEOSGeometry);
 ```
 
 ### crossing
@@ -167,32 +160,34 @@ Selects features whose geometry **crosses** *A*:
 - The geometries of *A* and the candidate feature have some (but not all) interior points in common
 - The dimension of the intersection must be less than the maximum dimension of the candidate and *A*.
 
-```java
-Features crossing(Feature)
-Features crossing(Geometry)
-Features crossing(PreparedGeometry)
+```cpp
+Features crossing(Feature);
+Features crossing(GEOSGeometry);
 ```
 
 For example:
 
-```java
+```cpp
 // All railway bridges across the Mississippi River
-Features railwayBridges =
-    features.select("w[railway][bridge]");    
+Features railwayBridges = features("w[railway][bridge]");    
 return railwayBridges.crossing(mississippi);
 ```
 
+{%comment%}
 ### disjointFrom 
 
 Selects features whose geometry is **disjoint** from *A*:
 
 - The geometries of the candidate feature and *A* have no common points at all.
 
-```java
+```cpp
 Features disjointFrom(Feature)
 Features disjointFrom(Geometry)
 Features disjointFrom(PreparedGeometry)
 ```
+
+{%endcomment%}
+
 
 ### intersecting
 
@@ -200,10 +195,9 @@ Selects features whose geometry **intersects** *A*:
 
 - The geometries of *A* and the candidate feature have at least one point in common.
 
-```java
-Features intersecting(Feature)
-Features intersecting(Geometry)
-Features intersecting(PreparedGeometry)
+```cpp
+Features intersecting(Feature);
+Features intersecting(GEOSGeometry);
 ```
 
 {% comment %}
@@ -230,25 +224,24 @@ Selects features whose area is no more than *m* square meters.
 
 Selects features whose distance to *A* is less or equal to *m* meters (measured between the closest points of the candidate feature and *A*).
 
-```java
-Features maxMetersFrom(double, Feature)
-Features maxMetersFrom(double, Geometry)
-Features maxMetersFrom(double, PreparedGeometry)
-Features maxMetersFromXY(double, int, int)
-Features maxMetersFromLonLat(double, double, double)
+```cpp
+Features maxMetersFrom(double, Feature);
+Features maxMetersFrom(double, GEOSGeometry);
+Features maxMetersFromXY(double, int, int);
+Features maxMetersFromLonLat(double, double, double);
 ```
 
 For example:
 
-```java
+```cpp
 // All bus stops within 500 meters of the given restaurant
-Features nearbyBusStops = features.select("n[highway=bus_stop]")
+Features nearbyBusStops = features("n[highway=bus_stop]")
     .maxMetersFrom(500, restaurant);
  
 // All features within 3 km of the given point 
 return features.maxMetersFromLonLat(3000, 76.41, 40.12); 
 ```
-
+{%comment%}
 ### overlapping
 
 Selects features whose geometry **overlaps** *A*:
@@ -272,9 +265,9 @@ Selects features that **touch** *A*:
 - The geometries of *A* and the candidate feature have at least one point in common, but their interiors do not intersect.
 
 ```java
-Features touching(Feature)
-Features touching(Geometry)
-Features touching(PreparedGeometry)
+Features touching(Feature);
+Features touching(Geometry);
+Features touching(PreparedGeometry);
 ```
 
 For example:
@@ -290,6 +283,7 @@ for (Feature county: counties)
 }
 ```
 
+{%endcomment%}
 
 ### within
 
@@ -297,10 +291,9 @@ Selects features that lie entirely **within** *A*:
 
 - Every point of the candidate feature is a point in *A*, and their interiors have at least one point in common.
 
-```java
-Features within(Feature)
-Features within(Geometry)
-Features within(PreparedGeometry)
+```cpp
+Features within(Feature);
+Features within(GEOSGeometry);
 ```
 
 
@@ -312,33 +305,33 @@ These methods return a subset of those features that have a specific topological
 
 Selects all features that have at least one node (vertex) in common with the given `Feature` or `Geometry`.
 
-```java
-Features connectedTo(Feature)
-Features connectedTo(Geometry)
+```cpp
+Features connectedTo(Feature);
+Features connectedTo(GEOSGeometry);
 ```
 
 ### nodesOf
 
-The nodes of the given way. Returns an empty set if the feature is a node or relation.
+The nodes of the given way. Returns an empty set if the feature is a `Node` or `Relation`.
 
-```java
-Features nodesOf(Feature)
+```cpp
+Nodes nodesOf(Feature);
 ```
 
 ### membersOf
 
-Features that are members of the given relation, or nodes of the given way. Returns an empty set if the feature is a node.
+Features that are members of the given relation, or nodes of the given way. Returns an empty set if the feature is a `Node`.
 
-```java
-Features membersOf(Feature)
+```cpp
+Features membersOf(Feature);
 ```
 
 ### parentsOf
 
 Relations that have the given feature as a member, as well as ways to which the given node belongs.
 
-```java
-Features parentsOf(Feature)
+```cpp
+Features parentsOf(Feature);
 ```
 
 

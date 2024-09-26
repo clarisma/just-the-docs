@@ -2,7 +2,6 @@
 layout: default
 title:  Sets of Features
 parent: GeoDesk for Python
-has_children: true
 has_toc: false
 nav_order: 6
 ---
@@ -45,7 +44,7 @@ features_in_paris = france(paris_bounds)
 
 ### By type and tags
 
-Apply a query written in [GOQL (Geographic Object Query Language)](goql) to select features based on their type and tags:
+Apply a query written in [GOQL (Geographic Object Query Language)](../goql) to select features based on their type and tags:
 
 <img class="float" src="/img/query-type-tags.png" width=260>
 

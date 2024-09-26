@@ -3,7 +3,7 @@ layout: default
 title: GeoDesk for Python
 has_children: true
 has_toc: false
-nav_order: 5
+nav_order: 6
 permalink: /python
 twitter_card_type: summary_large_image
 image: /img/social-card3c.png
@@ -26,10 +26,3 @@ In this Guide:
 - Advanced topics, such as explicitly transforming coordinates to and from the [Mercator projection](/python/mercator)
 
 
-<blockquote class="note" markdown="1">
-GeoDesk for Python is in **Early Access**. Some capabilities may be unavailable in Version {{ site.geodesk_python_version}}.
-
-API and implementation subject to change.
-
-~~This~~ marks the targeted version for specific features.
-</blockquote>

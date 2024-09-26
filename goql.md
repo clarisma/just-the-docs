@@ -2,9 +2,10 @@
 layout: default
 title:  Query Language
 next:   utility-classes.md
-parent: GeoDesk for Java
-redirect_from: /goql
-nav_order: 5
+redirect_from: 
+  - /java/goql
+  - /python/goql
+nav_order: 4
 ---
 
 # Geo-Object Query Language (GOQL)

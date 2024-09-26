@@ -3,7 +3,7 @@ layout: default
 title: GOL Utility
 has_children: true
 has_toc: false
-nav_order: 6
+nav_order: 8
 permalink: /gol
 ---
 

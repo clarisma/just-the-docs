@@ -1,7 +1,7 @@
 ---
 layout: default
 title:  Queries & Collections
-next:   goql.md
+next:   utility-classes.md
 parent: GeoDesk for Java
 redirect_from: /queries
 nav_order: 4
@@ -87,7 +87,7 @@ select("na[amenity=pub,cafe]")    // pubs and cafes (nodes and areas)
 relations("[route=bicycle]")      // cycling routes  
 ```
 
-The [next chapter](goql) covers the GeoDesk query language in detail.
+(See [Query Language](/goql) for details)
 
 - Some queries always produce an empty collection. For example, `nodes("a")` is always
   empty: areas can be of type `Way` or `Relation`, but never `Node`.

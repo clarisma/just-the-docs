@@ -5,7 +5,7 @@ twitter_card_type: summary_large_image
 image: /img/social-card3c.png
 next: intro-to-osm.md
 has_children: true
-nav_order: 4
+nav_order: 5
 ---
 
 
@@ -17,16 +17,7 @@ nav_order: 4
 
 **GeoDesk for Java** is an open-source library for creating geospatial applications on Java 16 or above.
 
-
 Impatient? Read the [Five-minute tutorial](tutorial).
-
-<blockquote class="note" markdown="1">
-GeoDesk for Java is in **Early Access**. Some capabilities may be unavailable in Version {{ site.geodesk_version}}.
-
-API and implementation subject to change.
-
-~~This~~ marks the targeted version for specific features.
-</blockquote>
 
 ## Java API
 

@@ -68,7 +68,7 @@ Features lighthouses = germany.select("na[man_made=lighthouse][name][height]");
   
 This returns a collection of `Feature` objects representing lighthouses that
 have names and whose height has been recorded (`na` indicates that we want 
-features that are mapped as **n**odes or **a**reas --- see [Geo-Object Query Language](goql)).
+features that are mapped as **n**odes or **a**reas --- see [Geo-Object Query Language](../goql.md)).
 
 Iterate through the features:
 
@@ -262,7 +262,7 @@ feature.parents("r[route]")
 GeoDesk enables you to:
 
 - Create compact spatial databases ("Feature libraries") based on OpenStreetMap data
-- Select features using a powerful [query language](goql) and access their properties
+- Select features using a powerful [query language](../goql.md) and access their properties
   ("tags") and geometries
 - Traverse the relationships between nodes, ways and relations 
 - Leverage the [Java Topology Suite](https://github.com/locationtech/jts) for advanced geometric operations

@@ -95,7 +95,7 @@ relations("[route=bicycle]")      // cycling routes
 
 ## Retrieving features
 
-To process all features in a set, simple iterate:
+To process all features in a set, simply iterate:
 
 ```java
 for(Feature street : streets) ...

@@ -21,88 +21,104 @@ Feature collections behave like Java `Collection` classes, and hence implement `
 
 - [`first()`]({{site.javadoc}}feature/Features.html#toList()) returns the first feature in the collection, or `null` if it is empty.
 
-## Bounding-box queries
+## Filtering features
 
-<img class="float" src="/img/bboxes.png" width=360>
+To select a subset of `Features`, add the constraint in parentheses, or apply a filter method. This always creates a new collection, leaving the original `Features` object unmodified.
 
-A **bounding box** (or **bbox**) describes an axis-aligned rectangle. Bounding-box queries are the most common type of spatial queries.
+### By bounding box
 
-This type of query returns all features whose bounding box intersects with the bounding box of the query. Note that the result set may include features whose geometry itself does not fall inside the query bbox. Bounding-box queries are designed as a fast primary filter, intended to narrow down candidates from millions to a few hundred. To eliminate the false positives, you can then apply a second, stricter (but more computationally expensive) filter.   
+Select the features whose bounding boxes intersect the given `Box`:  
 
-- A bounding box may straddle the Antimeridian (+/- 180 degrees longitude). Features that cross the Antimeridian are returned as multiple `Feature` objects representing separate parts to the east and to the west.
-
-A bounding box is represented by the `Box` class, which offers multiple static factory methods. To create a `Box` from coordinates (longitude and latitude), use `ofWSEN()`:
+<img class="float" src="/img/bboxes.png" width=260>
 
 ```cpp
-Box bbox = Box::ofWSEN(8.42, 53.75, 9.07, 53.98);   // West, South, East, North
+Features france("france.gol");
+Box parisBounds = Box::ofWSEN(
+    2.2, 48.8, 2.5, 48.9);
+Features thingsInParis = france(parisBounds);
 ```
 
-To obtain the features in a given bbox: 
+### By type and tags
+
+Apply a query written in [GOQL (Geographic Object Query Language)](/goql) to select features based on their type and tags:
+
+<img class="float" src="/img/query-type-tags.png" width=260>
 
 ```cpp
-Box bbox = ... 
-Features subset = features(bbox);   
+Features restaurants = world(
+    "na[amenity=restaurant]");   
+    // nodes and areas
+    
+Nodes fireHydrants = world(
+    "n[emergency=fire_hydrant]");
+    // only nodes
+    
+Ways safeForCycling = world(
+    "w[highway=cycleway,path,living_street],"        
+    "w[highway][maxspeed < 30]");
+    // linear ways
 ```
 
-Instead of explicitly creating a bounding box, you can also use the `bounds()` method of a `Feature`:
+### Using filter methods
+
+Apply a [spatial filter](#spatial-filters) or [topological filter](#topological-filters), or a [custom filter](#custom-filters):
 
 ```cpp
-// All features that may be within 100 meters of the river
-return features(river.bounds().bufferMeters(100));   
+states.within(usa)
+features("w[highway]").membersOf(route66)
+parks.filter(MyFilters::containsWaterFountains);
 ```
 
-**Note**: If you need to determine which features *definitely* lie within 100 meters, use [`maxMetersFrom()`](#maxmetersfrom).
+### Using set intersection
 
-## Filtering by type and tags
-
-Features in a collection can be filtered by type:
+Select only features that are in *both* sets:
 
 ```cpp
-Nodes nodes()
-Ways ways()
-Relations relations()   
+Features museums = world("na[tourism=museum]");
+Features inParis = world.within(paris);
+Features parisMuseums = museums(inParis);
 ```
 
-If you assign a collection to a subtype of `Features`, thye are automatically filtered:
+Alternatively, you can use the `&` operator:
 
 ```cpp
-Features world = ...
-Nodes onlyNodes = world;   // same as world.nodes()
+Features parisMuseums = museums & inParis;
 ```
 
-You can also specify a query string:
+
+## Obtaining `Feature` objects
+
+Simply iterate:
 
 ```cpp
-nodes("[emergency=fire_hydrant]") // nodes that represent fire hydrants
-relations("[route=bicycle]")      // cycling routes  
+for(Feature hotel : hotels)
+{
+    std::cout << hotel["name"] << std::endl;
+}
 ```
 
-(See [Query Language](/goql) for details)
-
-- Some queries always produce an empty collection. For example, `nodes("a")` is always
-  empty: areas can be of type `Way` or `Relation`, but never `Node`.
-
-
-## Retrieving features
-
-To process all features in a set, simple iterate:
-
-```cpp
-for(Feature street : streets) ...
-```
-
-To obtain a `std::vector`:
+Create a `std::vector`, or populate an existing one:
 
 ```cpp
 std::vector<Feature> list = streets;
-```
-
-Or populate an existing `std::vector`:
-
-```cpp
 streets.addTo(myVector);
 ```
-To obtain the **first** feature in a set:
+
+Check if the set is empty:
+
+```cpp
+if (pubs.within(dublin))
+    printf("Great, we can grab a beer in this town!");
+
+if (!street.nodes("[traffic_calming=bump]"))
+    printf("No speed bumps on this street.");
+```
+
+## Obtaining a single `Feature`
+
+### first
+
+Returns the first feature in a collection:
 
 ```cpp
 std::optional<Feature> city = france("n[place=city][name=Paris]").first();
@@ -111,6 +127,56 @@ std::optional<Feature> city = france("n[place=city][name=Paris]").first();
 Note that only the nodes of ways and members of relations are ordered collections;
 all others are unordered sets, which means you'll receive a random feature if there
 are more than one. If the collection is empty, `first()` returns `nullopt`.
+
+### one
+
+Returns the one and only feature of the collection. Throws a `QueryException` if the collection is empty or contains more than one feature.
+
+```cpp
+Feature paris = world("n[place=city][name=Paris]").one();
+    // will likely throw a QueryException, 
+    // because there's also Paris, Texas
+```
+
+## Testing for membership
+
+To check if a feature belongs to a given set, use `contains()`:
+
+```cpp
+Features sushiRestaurants = 
+    world("na[amenity=restaurant][cuisine=sushi]");
+
+if (sushiRestaurants.contains(restaurant))
+    std::cout << restaurant["name"] << " serves sushi";
+```
+
+## Scalar queries
+
+### count
+
+The total number of features in the collection:
+
+```cpp
+printf("%d restaurants found.", restaurants.count());
+```
+
+### area
+
+The total area (square meters as `double`) of all areas in this set.
+
+```cpp
+printf("London has %f square meters of parks.", 
+    parks.within(london).area());
+```
+
+### length
+
+The total length (meters as `double`) of all features in this set. For areas, their circumference is used.
+
+```cpp
+printf("The French motorway network is %f km long.", 
+    france("w[highway=motorway]").length() / 1000);
+```
 
 ## Spatial filters
 
@@ -139,7 +205,7 @@ return features("a[leisure=park]")
 // The county, state and country for this point -- should return 
 // San Diego County, California, USA (in no particular order)  
 return features("a[boundary=administrative][admin_level <= 6]")
-    .containingLonLat(-117.25, lat=32.99); 
+    .containingLonLat(-117.25, 32.99); 
 ```
 
 ### coveredBy 
@@ -333,5 +399,20 @@ Relations that have the given feature as a member, as well as ways to which the 
 ```cpp
 Features parentsOf(Feature);
 ```
+
+## Custom filters
+
+Use `filter()` with your own filter predicate:
+
+```cpp
+// Find all parks whose area is at least 1 km²
+// (one million square meters)
+ 
+Features parks = world("a[leisure=park]");
+Features largeParks = parks.filter([](Feature park)
+    { return park.area() > 1'000'000; });
+```
+
+**Important**: The predicate must be *threadsafe*, as the query may be executed in parallel.
 
 

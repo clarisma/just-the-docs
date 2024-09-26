@@ -25,9 +25,11 @@ Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collectio
 
 ## Type, identity and equality
 
-### type
+### type &nbsp;•&nbsp; typeName
 
 `type()` returns a `FeatureType` enum (`NODE`, `WAY` or `RELATION`). 
+
+`typeName()` returns a `const char*` (`"node"`, `"way"` or `"relation"`).
 
 ### isNode &nbsp;•&nbsp; isWay &nbsp;•&nbsp; isRelation  
 
@@ -126,13 +128,15 @@ std::vector<Tag> tagVector = feature.tags();
 
 ### lon &nbsp;•&nbsp; lat  
 
-`lon()` and `lat()` return the longitude and latitude of a `Feature` (WGS-84 degrees)
+`lon()` and `lat()` return the longitude and latitude of this feature (WGS-84 degrees)
 
-### x &nbsp;•&nbsp; y
+### x &nbsp;•&nbsp; y &nbsp;•&nbsp; xy
 
-`x()` and `y()` return its [Mercator-projected](/core-concepts#coordinate-system) coordinates.  For ways and relations, this is the center point of the feature's bounding box (*not* the feature's [centroid](#centroid)).
+`x()` and `y()` return its [Mercator-projected](/core-concepts#coordinate-system) coordinates (as `int32_t`).  For ways and relations, this is the center point of the feature's bounding box (*not* the feature's [centroid](#centroid)).
 
-#   ## centroid
+`xy()` returns both as a `Coordinate`.
+
+### centroid
 
 `centroid()` calculates the feature's centroid (a `Coordinate`). 
 
@@ -148,7 +152,15 @@ std::vector<Tag> tagVector = feature.tags();
 
 [`toXY()`]({{site.javadoc}}feature/Feature.html#toXY()) returns the coordinates of a way as a compact array of Mercator-projected coordinates. X-values are stored at even indexes, Y-values at odd.
 
-Use [`isArea()`]({{site.javadoc}}feature/Feature.html#isArea()) to check if the feature represents an area (always `false` for `Node`). 
+### isArea
+
+`isArea()` returns `true` if the feature represents an area (always `false` for `Node`). 
+
+### area &nbsp;•&nbsp; length
+
+`area()` measures the area of the feature (square meters as `double`). 
+
+`length()` measures the length of the feature (meters as `double`). 
 
 ## Related features
 
@@ -202,6 +214,7 @@ This query can also be inverted using `Features.parentsOf()`:
 world("r[route=bus]").parentsOf(street)  // same as above  
 ```
 
+### belongsTo &nbsp;•&nbsp; belongsToRelation
 
 `belongsTo(Feature parent)` checks whether this `Feature` is part of a specific relation, or whether a `Node` belongs to a given `Way`. If `parent` is a `Node`, the result is always `false`.
 

@@ -12,7 +12,7 @@ nav_order: 3
 
 A `Feature` represents a geographic element. This can be a point of interest like a mailbox or a restaurant, a park, a lake, a segment of a road, or a more abstract concept like a bus route.
 
-OpenStreetMap uses three types of features:
+`Feature` has three subtypes that match the types used by OpenStreetMap:
 
 - `Node` -- a simple point feature
 
@@ -25,15 +25,21 @@ Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collectio
 
 ## Type, identity and equality
 
-`type()` returns a `FeatureType` enum (`NODE`, `WAY` or `RELATION`). To check if a `Feature` has a certain type, use `isNode()`, `isWay()` or `isRelation()`. 
+### type
 
-- You can implicitly cast `Feature` to its sub-type; however, a runtime_error will be thrown in case of a type mismatch. An attempt to assign a `Node`, `Way` or `Relation` to the wrong type will result in a compile-time error. 
+`type()` returns a `FeatureType` enum (`NODE`, `WAY` or `RELATION`). 
+
+### isNode &nbsp;•&nbsp; isWay &nbsp;•&nbsp; isRelation  
+
+To check if a `Feature` has a certain type, use `isNode()`, `isWay()` or `isRelation()`. 
+
+- You can implicitly cast `Feature` to its sub-type; however, a `std::runtime_error` will be thrown in case of a type mismatch. An attempt to assign a `Node`, `Way` or `Relation` to the wrong type will result in a compile-time error. 
 
     ```cpp
     if(feature.isNode())
     {
         Node node = feature;      // <-- This is fine
-        Way way = node;           // <-- This line won't compile     
+        Way noWay = node;         // <-- This line won't compile     
     }
     else
     {
@@ -41,7 +47,9 @@ Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collectio
     }
     ```
 
-`id()` returns the **OSM identifier** (an `int64_t`). IDs are unique only within the feature type (which means a node and a way may have the same ID).
+### id
+
+`id()` returns the **OSM identifier**. IDs are unique only within the feature type (which means a node and a way may have the same ID).
 
 {%comment%}
 - You can obtain a unique identifier that incorporates the type by using the [`FeatureId`]({{site.javadoc}}feature/FeatureId.html) utility class.
@@ -49,9 +57,13 @@ Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collectio
 
 - `id()` may return `0` for [anonymous nodes](features#anonymous-nodes).
 
+### role
+
 `role()` returns the **role** of the feature within a relation, if it was returned by a [member query](#members-of-a-relation). This method returns an empty `StringValue` for features obtained via any other query.
 
-Quality (`==`): Two features are equal if they have the same type and ID. 
+### Equality (`==`)
+
+Two features are equal if they have the same type and ID. 
 
 - If two `Feature` objects are returned from different member queries, with different roles, they are considered equal as long as the above holds true.
 
@@ -108,11 +120,23 @@ std::vector<Tag> tagVector = feature.tags();
 
 ## Location and geometry
 
-[`bounds()`]({{site.javadoc}}feature/Feature.html#bounds()) returns a feature's [bounding box]({{site.javadoc}}core/Box.html). This is the smallest axis-aligned rectangle that encloses the feature's geometry.
+### bounds
 
-[`lon()`]({{site.javadoc}}feature/Feature.html#lon()) and [`lat()`]({{site.javadoc}}feature/Feature.html#lat()) return the longitude and latitude of a `Feature`; [`x()`]({{site.javadoc}}feature/Feature.html#x()) and [`y()`]({{site.javadoc}}feature/Feature.html#y()) return its Mercator-projected coordinates.
+`bounds()` returns a feature's bounding box (a `Box`). This is the smallest axis-aligned rectangle that encloses the feature's geometry.
 
-- For ways and relations, this is the center point of the feature's bounding box (*not* the feature's centroid).
+### lon &nbsp;•&nbsp; lat  
+
+`lon()` and `lat()` return the longitude and latitude of a `Feature` (WGS-84 degrees)
+
+### x &nbsp;•&nbsp; y
+
+`x()` and `y()` return its [Mercator-projected](/core-concepts#coordinate-system) coordinates.  For ways and relations, this is the center point of the feature's bounding box (*not* the feature's [centroid](#centroid)).
+
+#   ## centroid
+
+`centroid()` calculates the feature's centroid (a `Coordinate`). 
+
+### toGeometry
 
 [`toGeometry()`]({{site.javadoc}}feature/Feature.html#toGeometry()) creates a JTS [`Geometry`]({{site.javadoc_jts}}geom/Geometry.html) for this feature:
 

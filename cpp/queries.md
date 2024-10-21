@@ -13,13 +13,22 @@ Geospatial applications typically work with subsets of features in a library, su
 
 - Feature collections can be **ordered** or **unordered**. Only the [nodes of a way](features#nodes-of-a-way) and the [members of a relation](features#members-of-a-relation) are ordered; all other query results are returned in arbitrary order.
 
-**TODO**
+Start working with collections by creating a *root collection*, which contains all features in a given Geographic Object Library:
 
-Feature collections behave like Java `Collection` classes, and hence implement `size()`, `isEmpty()`, `contains()` and `toArray()`, as well as the ability to iterate. `Features` also offers these methods:  
+```cpp
+Features(const char* golFileName);
+```
 
-- [`toList()`]({{site.javadoc}}feature/Features.html#toList()) creates an `ArrayList` containing all features in the collection.
+From this collection, you can create others:
 
-- [`first()`]({{site.javadoc}}feature/Features.html#toList()) returns the first feature in the collection, or `null` if it is empty.
+```cpp
+Features france("path/to/france.gol");
+...
+Features shops = france("na[shop]");
+Features thingsInParis = france(paris);  // Feature or geometry 
+Features shopsInParis = shops & thingsInParis;
+```
+
 
 ## Filtering features
 
@@ -191,7 +200,7 @@ Selects features whose geometry **contains** *A*:
 ```cpp
 Features containing(Feature);
 Features containing(GEOSGeometry);
-Features containingXY(int, int);
+Features containingXY(Coordinate);
 Features containingLonLat(double, double);
 ```
 
@@ -293,7 +302,7 @@ Selects features whose distance to *A* is less or equal to *m* meters (measured 
 ```cpp
 Features maxMetersFrom(double, Feature);
 Features maxMetersFrom(double, GEOSGeometry);
-Features maxMetersFromXY(double, int, int);
+Features maxMetersFrom(double, Coordinate);
 Features maxMetersFromLonLat(double, double, double);
 ```
 

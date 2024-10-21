@@ -229,3 +229,32 @@ Cities whose population is at least one million
 </tr>
 
 </table>
+
+## How to Use GOQL Queries
+
+On the command line (using the [GOL Tool](/gol/query)):
+
+```bash
+$ gol query france na[tourism=hotel] 
+```
+
+In [Java](/java/queries#filtering-by-type-and-tags):
+
+```java
+for(Feature hotel : france.select("na[tourism=hotel]"))
+    ...
+```
+
+In [Python](/python/Features#by-type-and-tags):
+
+```python
+for hotel in france("na[tourism=hotel]"):
+    ...
+```
+
+In [C++](cpp/queries#by-type-and-tags):
+
+```java
+for(Feature hotel : france("na[tourism=hotel]"))
+    ...
+```

@@ -23,6 +23,20 @@ A `Feature` represents a geographic element. This can be a point of interest lik
  
 Each feature has a **geometry** (`Point`, `LineString`, `Polygon` or a collection type), as well as one or more **tags** (key-value pairs) that describe its details.
 
+`Feature` objects are obtained via [queries](queries). They are lightweight and immutable, suitable for passing by value.
+
+```cpp
+void checkMuseums(Feature city)
+{
+    for (Feature museum : museums.within(city))
+    {
+        FeatureType type = museum.type();
+        int64_t id = museum.id();
+        std::string name = museum["name"];
+        ...
+```
+
+
 ## Type, identity and equality
 
 ### type &nbsp;•&nbsp; typeName
@@ -45,13 +59,14 @@ To check if a `Feature` has a certain type, use `isNode()`, `isWay()` or `isRela
     }
     else
     {
+        // feature is not a Node
         Node willFail = feature;  // <-- throws a runtime_error
     }
     ```
 
 ### id
 
-`id()` returns the **OSM identifier**. IDs are unique only within the feature type (which means a node and a way may have the same ID).
+`id()` returns the numeric **OSM identifier**. IDs are unique only within the feature type (which means a node and a way may have the same ID).
 
 {%comment%}
 - You can obtain a unique identifier that incorporates the type by using the [`FeatureId`]({{site.javadoc}}feature/FeatureId.html) utility class.
@@ -61,7 +76,7 @@ To check if a `Feature` has a certain type, use `isNode()`, `isWay()` or `isRela
 
 ### role
 
-`role()` returns the **role** of the feature within a relation, if it was returned by a [member query](#members-of-a-relation). This method returns an empty `StringValue` for features obtained via any other query.
+`role()` returns the **role** of the feature within a relation, if it was retrieved via a [member query](#members-of-a-relation). This method returns an empty `StringValue` for features obtained via any other query.
 
 ### Equality (`==`)
 
@@ -156,6 +171,8 @@ std::vector<Tag> tagVector = feature.tags();
 
 `isArea()` returns `true` if the feature represents an area (always `false` for `Node`). 
 
+<a id="area"/>
+<a id="length"/>
 ### area &nbsp;•&nbsp; length
 
 `area()` measures the area of the feature (square meters as `double`). 

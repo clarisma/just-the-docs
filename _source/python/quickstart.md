@@ -114,9 +114,10 @@ Let's show the opening hours in an overlay (a *tool tip*), and open the museum's
 Go ahead and add restaurants. Or parks. Or metro stops. 
 
 ```python
->>> map.add("na[amenity=restaurant]", color="orange")
->>> map.add("a[leisure=park]", color="green")
->>> map.add("n[railway=station][station=subway]", color="red")
+>>> in_paris = france(paris)
+>>> map.add(in_paris("na[amenity=restaurant]"), color="orange")
+>>> map.add(in_paris("a[leisure=park]"), color="green")
+>>> map.add(in_paris("n[railway=station][station=subway]"), color="red")
 ```
 
 Of course, this is merely an *amuse-bouche* to whet your appetite. With a few lines of Python code, you can quickly dig through this vast and ever-growing goldmine of geospatial data. 

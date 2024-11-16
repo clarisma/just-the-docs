@@ -17,7 +17,7 @@ Create a GOL using the [`gol build`](/gol/build) command:
 $ gol build france france-latest.osm.pbf
 ```
 
-For a country-sized extract, this should take a few minutes on a reasonably modern machine.  
+This creates `france.gol`, which takes a few minutes on a reasonably modern machine.  
 
 The [`gol query`](/gol/query) command supports basic [GOQL queries](/goql). The GeoDesk Toolkit brings the full range of geospatial capabilities to your applications.
 
@@ -38,12 +38,16 @@ FetchContent_Declare(geodesk GIT_REPOSITORY
 FetchContent_MakeAvailable(geodesk)
 ```
 
+### Shared vs. Static
+
 Use CMake option `BUILD_SHARED_LIBS` to build GeoDesk as a DLL/SO or a statically-linked library:
 
 ```cmake
 set(BUILD_SHARED_LIBS ON)   # Use a GeoDesk as a DLL/SO
 set(BUILD_SHARED_LIBS OFF)  # Link statically
 ```
+
+### Support for GEOS
 
 GeoDesk provides optional **support for GEOS** (for advanced geometric operations, such as buffering, simplification and convex/concave hulls). Enable it with option `GEODESK_WITH_GEOS`. In this case, you'll also need to specify where GeoDesk can find the headers for the GEOS library (using `GEOS_INCLUDE_PATHS`).  
 
@@ -56,31 +60,18 @@ set(GEODESK_WITH_GEOS ON)
 set(GEOS_INCLUDE_PATHS "${geos_SOURCE_DIR}/include" "${geos_BINARY_DIR}/capi")
 ```
 
-Add the GeoDesk **include path** and **link** to its library:
+### Linking
+
+Link to the GeoDesk library (also includes its headers):
 
 ```cmake
-target_include_directories(my_program ${geodesk_SOURCE_DIR}/include
 target_link_libraries(my_program geodesk)
 ```
 
-If you've enabled GEOS support, you'll need to link to GEOS as well (You'll need the GEOS C API as well as the main GEOS library):
+If you've enabled GEOS support, you'll need to link to GEOS as well (You'll need the GEOS C API and the main GEOS library):
 
 ```cmake
 target_link_libraries(my_program geos_c geos)
-```
-
-## Header & Namespace
-
-The entire GeoDesk library is available via a single **header**:
-
-```cpp
-#include <geodesk/geodesk.h>
-```
-
-All classes live in a single **namespace**:
-
-```cpp
-using namespace geodesk;
 ```
 
 ## Querying a GOL
@@ -116,7 +107,9 @@ Iterate over the filtered collection:
 
 There's no need to close the GOL file explicitly. It will be automatically closed once all `Features` objects that contain the GOL's features (or a subset) have gone out of scope.
 
-**Important**: The objects retrieved from a GOL (such as `Feature`, `Tags` and `TagValue`) are lightweight handles that become invalid once their underlying GOL file is closed.
+<blockquote class="important" markdown="1">
+The objects retrieved from a GOL (such as `Feature`, `Tags` and `TagValue`) are lightweight handles that become invalid once their underlying GOL file is closed.
+</blockquote>
 
 The following pages cover [features](features) and [queries](queries) in detail. You can also consult the [API Documentation](http://cppdoc.geodesk.com).
 
@@ -129,7 +122,7 @@ Coordinates are stored in [Mercator projection](/core-concepts#coordinate-system
 ```cpp
 Coordinate myLocation = Coordinate::ofLonLat(2.294, 48.858);    
 Coordinate center = feature.centroid();
-std::count << feature << " is located at " 
+std::cout << feature << " is located at " 
     << center.lat() " << degrees latitude." << std::endl;
     
 Box bounds = Box::ofWSEN(2.2, 48.8, 2.5, 48.9);

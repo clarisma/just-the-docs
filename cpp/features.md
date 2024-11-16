@@ -157,15 +157,35 @@ std::vector<Tag> tagVector = feature.tags();
 
 ### toGeometry
 
-[`toGeometry()`]({{site.javadoc}}feature/Feature.html#toGeometry()) creates a JTS [`Geometry`]({{site.javadoc_jts}}geom/Geometry.html) for this feature:
+`toGeometry(GEOSContextHandle_t)` creates a `GEOSGeometry` for this feature:
 
-- [`Point`]({{site.javadoc_jts}}geom/Point.html) for a `Node`
-- [`LineString`]({{site.javadoc_jts}}geom/LineString.html) or [`LinearRing`]({{site.javadoc_jts}}geom/LinearRing.html) for a non-area `Way`
-- [`Polygon`]({{site.javadoc_jts}}geom/Polygon.html) for a `Way` that represents an area
-- [`Polygon`]({{site.javadoc_jts}}geom/Polygon.html) or [`MultiPolygon`]({{site.javadoc_jts}}geom/MultiPolygon.html) for an area `Relation`
-- [`GeometryCollection`]({{site.javadoc_jts}}geom/GeometryCollection.html) for any other `Relation`
+- `Point` for a Node
+- `LineString` or `LinearRing` for a non-area Way
+- `Polygon` for a Way that represents an area
+- `Polygon` or `MultiPolygon` for an area `Relation`
+- `GeometryCollection` for any other `Relation`
 
-[`toXY()`]({{site.javadoc}}feature/Feature.html#toXY()) returns the coordinates of a way as a compact array of Mercator-projected coordinates. X-values are stored at even indexes, Y-values at odd.
+<blockquote class="note" markdown="1">
+
+In order to use this method, you will need to enable option `GEODESK_WITH_GEOS` in your CMake project:
+
+```cmake
+set(GEODESK_WITH_GEOS ON)
+set(GEOS_INCLUDE_PATHS 
+    "${geos_SOURCE_DIR}/include" 
+    "${geos_BINARY_DIR}/capi")
+```
+</blockquote>
+
+Example:
+
+```cpp
+GEOSContextHandle_t geosContext = initGEOS_r(nullptr, nullptr);
+GEOSGeometry* geom = feature.toGeometry(geosContext);
+std::cout << "GEOS geometry created successfully." << std::endl;
+GEOSGeom_destroy_r(geosContext, geom);
+finishGEOS_r(geosContext);
+```
 
 ### isArea
 
@@ -173,6 +193,7 @@ std::vector<Tag> tagVector = feature.tags();
 
 <a id="area"/>
 <a id="length"/>
+
 ### area &nbsp;•&nbsp; length
 
 `area()` measures the area of the feature (square meters as `double`). 

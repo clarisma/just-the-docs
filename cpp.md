@@ -16,13 +16,13 @@ OpenStreetMap is a trademark of the OpenStreetMap Foundation, and is used with t
 GeoDesk is not endorsed by or affiliated with the OpenStreetMap Foundation.
 </p>
 
-C++ bears a reputation as a difficult language, with ugly syntax and traps for the unwary. Times have changed. Modern C++ is elegant and concise, 
+C++ bears a reputation as a difficult language, with ugly syntax and traps for the unwary. Times have changed. Modern C++ is elegant and concise, offering a powerful combination of performance, expressiveness and safety. 
 
-**GeoDesk for C++** allows you to query, analyze, display and transform OpenStreetMap features etc.
+**GeoDesk for C++** builds on these strengths, providing a lightweight, efficient, and intuitive toolkit for working with OpenStreetMap data.
 
-In this Guide:
+In this guide:
 
-- [Quickstart](/python/quickstart): Install GeoDesk, create your first GOL and dive straight in.
+- [The Basics](/cpp/basics): Install GeoDesk, create your first GOL and dive straight in.
 - Working with [features](/cpp/features) and [feature collections](/cpp/queries)
 
 

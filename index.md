@@ -17,6 +17,8 @@ GeoDesk is not endorsed by or affiliated with the OpenStreetMap Foundation.
 
 - [Python Developer's Guide](/python)
 
+- [C++ Developer's Guide](/cpp)
+
 - [GOL Command-Line Utility](/gol)
 
 {% comment %}

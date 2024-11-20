@@ -9,9 +9,9 @@ nav_order: 2
 
 <img class="float" src="/img/tiles4.png" width=280>
 
-The GeoDesk Toolkit allows applications to query Geographic Object Libraries. A GOL is a compact single-file database that supports fast queries of OpenStreetMap features. To build a GOL from OSM data (`.osm.pbf` files such as the [planet file](https://planet.openstreetmap.org/) or [regional extracts](https://download.geofabrik.de/)), you'll need the [GOL command-line utility](/gol) ([download here](https://www.geodesk.com/download)). 
+The GeoDesk Toolkit allows applications to query Geographic Object Libraries. A GOL is a compact single-file database that supports fast queries of OpenStreetMap features. 
 
-Create a GOL using the [`gol build`](/gol/build) command:
+Build a GOL from OSM data (`.osm.pbf` files such as the [planet file](https://planet.openstreetmap.org/) or [regional extracts](https://download.geofabrik.de/)) with the [GOL command-line utility](/gol) ([download here](https://www.geodesk.com/download)):
 
 ```bash
 $ gol build france france-latest.osm.pbf

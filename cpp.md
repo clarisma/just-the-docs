@@ -24,5 +24,6 @@ In this guide:
 
 - [The Basics](/cpp/basics): Install GeoDesk, create your first GOL and dive straight in.
 - Working with [features](/cpp/features) and [feature collections](/cpp/queries)
+- [API Reference](https://cppdoc.geodesk.com)
 
 

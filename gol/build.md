@@ -28,7 +28,7 @@ If you are looking for regional or country-sized subsets, [GeoFabrik](https://do
 
 ## Hardware Requirements
 
-Building a library is a resource-intense operation. To build a GOL that contains the worldwide OpenStreetMap dataset, you should have a machine with at least 8 physical cores and 24 MB of RAM, or the build process may take multiple hours. 
+Building a library is a resource-intense operation. To build a GOL that contains the worldwide OpenStreetMap dataset, you should have a machine with at least 8 physical cores and 24 GB of RAM, or the build process may take multiple hours. 
 
 For smaller datasets, any reasonably modern machine will do fine (a 10-year-old dual-core laptop with 8 GB RAM will build country-size datasets such as Germany, France or Japan in about 20 minutes each). A fast solid-state drive is recommended in any case. 
 

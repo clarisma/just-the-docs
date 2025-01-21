@@ -260,9 +260,9 @@ The zoom levels at which tile-tree nodes should be created. Together with [`max-
 
 Value: `yes` / `no` (default)
 
-Enables incremental updates to the GOL file (using the [`update`](update) command). If enabled, additional storage is required for the way-node indexes (an extra 20% above the size of the GOL). The `build` command will also take slightly longer.
+Enables incremental updates to the GOL file (using the [`update`](../_drafts/update.md) command). If enabled, additional storage is required for the way-node indexes (an extra 20% above the size of the GOL). The `build` command will also take slightly longer.
 
 For GOLs built from a planet-wide dataset, it is highly recommended to also enable [`id-indexing`](#id-indexing), which speeds up the processing of updates. The `id-indexing` option does not create extra work for the `build` command, as it has to create these indexes anyway. If kept, these indexes do however consume significant extra storage (25% above the size of the GOL, with a higher ratio for extracts).
 
-If you no longer need to update a GOL, you can delete its external indexes and recover the storage. If you delete the ID indexes (or disable `id-indexing` during the initial build), you can later re-create them with the [`--index`](update#option-index) option of the [`update`](update) command. However, deleting the way-node indexes permanently disables updating of the GOL, as these indexes cannot be re-created (You would then need to run the `build` command again to build a new updatable GOL).
+If you no longer need to update a GOL, you can delete its external indexes and recover the storage. If you delete the ID indexes (or disable `id-indexing` during the initial build), you can later re-create them with the [`--index`](../_drafts/update.md#option-index) option of the [`update`](../_drafts/update.md) command. However, deleting the way-node indexes permanently disables updating of the GOL, as these indexes cannot be re-created (You would then need to run the `build` command again to build a new updatable GOL).
 

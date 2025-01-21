@@ -39,14 +39,16 @@ Verifies the library's integrity.
 </td>
 </tr>
 
+<!--
 <tr>
 <td markdown="1">
-[`copy`](/gol/copy) ~~0.2~~
+[`copy`](/gol/copy)
 </td>
 <td markdown="1">
 Copies tiles between libraries.
 </td>
 </tr>
+-->
 
 <tr>
 <td markdown="1">
@@ -84,6 +86,7 @@ Extracts features.
 </td>
 </tr>
 
+<!--
 <tr>
 <td markdown="1">
 [`remove`](/gol/remove) ~~0.2~~
@@ -101,6 +104,7 @@ Removes tiles in a specific area.
 Removes tiles *outside* a specific area.
 </td>
 </tr>
+-->
 
 <tr>
 <td markdown="1">
@@ -111,6 +115,7 @@ Exports tiles.
 </td>
 </tr>
 
+<!--
 <tr>
 <td markdown="1">
 [`update`](/gol/update) ~~0.3~~
@@ -119,21 +124,15 @@ Exports tiles.
 Updates the library.
 </td>
 </tr>
-
-<tr>
-<td markdown="1">
-[`vacuum`](/gol/vacuum) ~~0.2~~
-</td>
-<td markdown="1">
-Compacts the library.
-</td>
-</tr>
+-->
 
 </table>
 
+<!--
 <blockquote class="note" markdown="1">
 GeoDesk is in **Early Access**. Some commands and options are not yet available in Version {{ site.geodesk_version }}. ~~This~~ marks the targeted version.
 </blockquote>
+-->
 
 
 ## Common Options

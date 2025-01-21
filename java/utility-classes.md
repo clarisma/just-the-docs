@@ -49,7 +49,5 @@ Please be aware that these methods base their calculations on the Euclidean plan
 
 ## `Mercator`
 
-Various methods to convert coordinates between longitude/latitude and the Mercator projection used internally by GeoDesk. 
-
-## `RouteBuilder` ~~0.2~~
+Various methods to convert coordinates between longitude/latitude and the Mercator projection used internally by GeoDesk.
 

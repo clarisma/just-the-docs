@@ -155,7 +155,7 @@ if restaurant in sushi_restaurants:
 
 ## Result properties
 
-These are read-only, and are calculated on each access.
+These are read-only, and are computed on each access.
 
 > .property count
 
